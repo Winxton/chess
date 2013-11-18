@@ -1,0 +1,106 @@
+/*
+  contains information for ONE GAME
+  contains the gamestate, pointer to players
+*/
+
+int main {
+    Player *white = Player::getInstance('white');
+    Player *black = Player::getInstance('black');
+    //get input for starting a game
+
+    Game g = Game(...);
+    
+};
+
+
+class Game {
+    GameState state;
+    
+    Game() {
+	//create empty state
+	
+    }
+
+    void doTurn();
+    
+    void start() {
+	
+    }
+};
+
+
+class Gamestate {
+    Board *board;
+    bool gameStarted;
+    bool isSetup; //whether setup has been run, false
+    bool gameEnded;
+    bool whiteCastled;
+    bool blackCastled;
+
+    Gamestate() {
+	
+    }
+
+    //actions here for now
+    void setup() {
+	if (!gameStarted) {
+	    //do setup instructions ...
+	    isSetup = true;
+	} else {
+	    //error
+	}
+    }
+    
+    // accounts for all special cases?
+    // pawn moves to end, change into another piece ..?
+    // castle?
+    bool move(char xOrig, int yOrig, char xDest, int yDest) {
+	if (isLegalMove(xOrig, yOrig, xDest, yDest)) {
+		board[xOrig][yOrig] = new Square();
+		board[][];
+	} else {
+	    //print error message
+	}
+    }
+
+    void initializeDefault() {
+	/*
+	  create all the pieces in normal chess-defined locations
+	  */
+    }
+
+    bool isLegalMove(char xOrig, int yOrig, char xDest, int yDest) {
+	//filters for out of board
+	
+    }
+    
+};
+
+class Board {
+    squares[8][8];
+};
+
+class Square {
+    char xCoord;
+    int yCoord;
+};
+
+class Piece : public Square {
+    
+};
+
+class Rook : public Square {
+    bool canMove(dest) {
+	//check only vertically
+	//or only horizontally
+    }
+};
+
+class Pawn : Piece {
+    string color;
+    bool hasAdvanced;
+    bool canmove(dest) {
+	//1 square up, 
+    }
+    bool canAdvance();
+}
