@@ -1,18 +1,69 @@
 /*
-  contains information for ONE GAME
-  contains the gamestate, pointer to players
+Players are implemented using the singleton design pattern
+to ensure that there are only two players - white and black.
+
+Players are responsible for given their moves, which are from 
+
+The GameState class contains all the necessary information
+for one game, including the Board, which is also a singleton.
+
+Each piece on the board has a getPossibleMoves method,
+which gets all the possible moves (of type ChessMove : Action)
+for that piece.
+
+Action class contains an action which alters the game state.
+Only actions should be able to modify the game state.
+i.e. game state should not have public mutators methods 
+- should actions be friends of the gamestate?
+ - action.apply(gamestate); //action's apply has access to gamestate
+ - gamestate::accept(action); //
+
+
+why?
+- allows for a move - list, containing all the actions taken beforehand
+- allows for reverse operation (e.g. undoing a chess move)
+
+problems:
+how to implement levels for Computer players?
+ - get the player's action from Player::getAction()
+ - for player, only action list for the selected piece is required
+ - for Computer player, getAction() selects a move
+ from the possible moves list depending on the level
+
+How to prevent moving INTO a check?
+ idea1
+ - go to next state
+ - check if player making move is under check in that state
+ - if doing a check, undo the move
+
+Other ideas
+ 
 */
 
 int main {
     Player *white = Player::getInstance('white');
     Player *black = Player::getInstance('black');
-    //get input for starting a game
-
-    Game g = Game(...);
+    //create scoreboard
     
+    string s;
+    while (cin >> s) {
+	/* get input for starting a game ""
+	cin >> cmd, ...
+
+	computer human
+	*/
+	Game g = Game(...);
+    }
 };
 
+/*
+  Contains information for ONE GAME
+  Container for the gamestate,
+  has pointer to players
 
+  This is responsible for getting moves from the player,
+  and applying them to the gamestate
+*/
 class Game {
     GameState state;
     
@@ -21,26 +72,41 @@ class Game {
 	
     }
 
-    void doTurn();
-    
+    void doTurn() {
+	//get current turn player's action
+	Action *action;
+	if (gamestate->whiteTurn) {
+	    //perform and getaction??
+	    action = Player::getInstance('white').getAction();
+	} else { //black guy's turn, get his/her action
+	    action = Player::getInstance('black').getAction();
+	}
+	action.apply();
+	update();
+    }
     void start() {
 	
     }
 };
 
-
+/*
+  representation of the state of the game
+*/
 class Gamestate {
-    Board *board;
+    Square board[][];
     bool gameStarted;
     bool isSetup; //whether setup has been run, false
     bool gameEnded;
     bool whiteCastled;
     bool blackCastled;
-
+    bool whiteTurn; // which player's turn
+    
     Gamestate() {
 	
     }
+    void underCheck(Player *p) {
 
+    }
     //actions here for now
     void setup() {
 	if (!gameStarted) {
@@ -50,11 +116,9 @@ class Gamestate {
 	    //error
 	}
     }
-    
-    // accounts for all special cases?
-    // pawn moves to end, change into another piece ..?
-    // castle?
-    bool move(char xOrig, int yOrig, char xDest, int yDest) {
+
+    // applies a move to the chess board ; state changes
+    void applyMove(char xOrig, int yOrig, char xDest, int yDest) {
 	if (isLegalMove(xOrig, yOrig, xDest, yDest)) {
 		board[xOrig][yOrig] = new Square();
 		board[][];
@@ -69,6 +133,15 @@ class Gamestate {
 	  */
     }
 
+    //without checking for checking the king
+    vector<GameMove> getPseudoPossibleMovesForPlayer(Player *p) {
+	/*
+	  gets all possible moves for the player
+	  loop through player's pieces, and generate a list of
+	  <GameMoves>
+	  */
+    }
+    
     bool isLegalMove(char xOrig, int yOrig, char xDest, int yDest) {
 	//filters for out of board
 	
@@ -76,31 +149,98 @@ class Gamestate {
     
 };
 
-class Board {
-    squares[8][8];
-};
-
 class Square {
+protected:
     char xCoord;
     int yCoord;
 };
 
 class Piece : public Square {
-    
+public:
+    //returns a list of all possible moves
+    //for that piece
+    vector<Square> PossibleMoves(); 
 };
 
+//has a different implementation for each piece
+
 class Rook : public Square {
-    bool canMove(dest) {
+    vector<Move> getMoves(GameState *state) {
 	//check only vertically
 	//or only horizontally
     }
 };
 
 class Pawn : Piece {
+    const char representation; //representation of the piece on textdisplay
     string color;
     bool hasAdvanced;
-    bool canmove(dest) {
-	//1 square up, 
+
+    vector<ChessMove> getMoves(GameState *state) {
+	vector v;
+	//1 square up,
+	if (state.at(xCord, yCord+1) is not a piece) {
+	    ChessMove a(xCord, yCord, Xcord, Ycord);
+	    v.push_back(a);
+	}
+	//do same for if enemy on top right, top left , ...
+	return v;
     }
     bool canAdvance();
-}
+};
+
+class Player {
+    Action *getAction() {
+	
+    }
+};
+
+class HumanPlayer : public Player {
+    iostream &in;
+    Action *getAction() {
+	//get action based on input stream
+	//performs error checking --->
+	//move __ __
+	Action playerMove = new ChessMove(^^);
+	//a1 not a piece?
+	for (each v in getpossiblemoves) {
+	    if (PlayerMove == v) {
+	        
+	    }
+	}
+	//and 
+	//
+	//----
+	//check if mov
+    }
+};
+
+class ComputerPlayer: public Player {
+    Action *getAction() {
+
+    }
+}    
+
+class Action {
+    void apply(GameState *state) {
+	// do stuff with the state
+    }
+};
+
+//an action that deals with moving a chess piece
+/*
+  Idea: use the visitor pattern in gamestate?
+  inside gamestate:
+  - AccepAction(Action *)
+  but there is only one gamestate 
+  Action visits the state
+*/
+class ChessMove {
+    void apply(GameState *state) {
+	// do stuff with state
+    }
+};
+
+class Castle : public ChessMove {
+
+};
