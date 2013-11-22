@@ -8,7 +8,7 @@ class Knight : public Piece
 public:
 	Knight (int xCord,
 	        int yCord);
-	std::vector<ChessMove*> getPossibleMoves (Gamestate* state);
+	std::vector<ChessMove*> getPossibleMoves (GameState* state);
 };
 
 #endif
