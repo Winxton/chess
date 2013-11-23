@@ -1,8 +1,9 @@
 CXX = g++
 CXXFLAGS = -Wall -g -MMD
+
 #everything
 EXEC = chess
-OBJECTS = main.o
+OBJECTS = main.o gamestate.o square.o
 DEPENDS = ${OBJECTS:.o=.d}
 
 #for testing

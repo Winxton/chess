@@ -5,13 +5,15 @@ class Piece;
 
 class Square 
 {
-	Piece *p;
+    Piece *p;
 public:
-    Square ();
-    void addPiece (Piece* p);
-    void removePiece ();
-    bool hasPiece ();
-    Piece* getPiece ();
+    Square();
+    Square(Piece *p);
+    void addPiece(Piece *p);
+    void removePiece();
+    bool hasPiece();
+    Piece *getPiece();
+    ~Square();
 };
 
 #endif
