@@ -6,6 +6,11 @@ Square::Square(): p(0) {}
 
 Square::Square(Piece *p): p(p) {}
 
+void Square::setCoords(int xCord, int yCord) {
+    this->xCord = xCord;
+    this->yCord = yCord;
+}
+
 void Square::addPiece(Piece *p) {
     this->p = p;
 }

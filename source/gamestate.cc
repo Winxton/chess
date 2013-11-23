@@ -6,9 +6,20 @@
 using namespace std;
 
 GameState::GameState(): whiteChecked(false), blackChecked(false) {
+    setSquareNumberings();
 }
 
-GameState::GameState(const GameState &state) {}
+GameState::GameState(const GameState &state) {
+    setSquareNumberings();
+}
+
+void GameState::setSquareNumberings() {
+    for (int i =0; i< 8; i++) {
+        for (int j=0; j< 8; j++) {
+            chessboard[i][j].setCoords(i,j);
+        }
+    }
+}
 
 bool GameState::isUnderCheck (Player *p) {
     return false;

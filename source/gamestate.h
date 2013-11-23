@@ -13,6 +13,7 @@ class GameState
     Square chessboard[8][8];
     bool whiteChecked;
     bool blackChecked;
+    void setSquareNumberings();
 public:
     GameState();
     GameState(const GameState &state);

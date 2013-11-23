@@ -2,14 +2,19 @@
 #define __PIECE_H__
 
 #include <vector>
+#include <string>
 class ChessMove;
 class GameState;
 
 class Piece{
+    std::string color;
+    int xCord, yCord;
 public:
+    Piece(std::string color);
     virtual std::vector<ChessMove*> getPossibleMoves(GameState* state) = 0;
     virtual void setCoords (int xCord,
-		    int yCord) = 0;
+                            int yCord);
+    virtual ~Piece();
 };
 
 #endif
