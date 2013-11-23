@@ -10,7 +10,14 @@ class Piece;
 
 class GameState 
 {
+    // All Actions are friends of GameState
+    // since modifying the state should not be available
+    // to the public
     friend class ChessMove;
+    friend class Castle;
+    friend class EnPassent;
+    friend class Promotion;
+    friend class Resign;
 
     Square chessboard[8][8];
     bool whiteChecked;

@@ -7,6 +7,7 @@ class ChessMove;
 class GameState;
 
 class Piece{
+protected:
     std::string color;
     int xCord, yCord;
 public:
