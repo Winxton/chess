@@ -7,7 +7,7 @@
 #include <vector>
 using namespace std;
 
-Knight::Knight(string color):Piece(color) {
+Knight::Knight(std::string color):Piece(color) {
     cout << "cons" << endl;
 }
 

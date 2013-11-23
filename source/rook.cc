@@ -7,7 +7,7 @@
 #include <vector>
 using namespace std;
 
-Rook::Rook(string color):Piece(color) {
+Rook::Rook(std::string color):Piece(color) {
     cout << "cons" << endl;
 }
 

@@ -8,7 +8,7 @@
 #include <vector>
 using namespace std;
 
-Queen::Queen(string color):Piece(color) {
+Queen::Queen(std::string color):Piece(color) {
     cout << "cons" << endl;
 }
 

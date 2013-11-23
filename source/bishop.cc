@@ -8,7 +8,7 @@
 #include <vector>
 using namespace std;
 
-Bishop::Bishop(string color):Piece(color) {
+Bishop::Bishop(std::string color):Piece(color) {
     cout << "cons" << endl;
 }
 

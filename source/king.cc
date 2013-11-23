@@ -7,7 +7,7 @@
 #include <vector>
 using namespace std;
 
-King::King(string color):Piece(color) {
+King::King(std::string color):Piece(color) {
 	moved = false;
     cout << "cons" << endl;
 }

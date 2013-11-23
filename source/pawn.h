@@ -11,7 +11,7 @@ class Pawn : public Piece
 {
 bool canAdvance;
 public:
-    Pawn (string color);
+    Pawn (std::string color);
     std::vector<ChessMove*> getPossibleMoves(GameState* state);
 	bool ableToAdvance();
 };

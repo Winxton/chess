@@ -10,7 +10,7 @@
 class Bishop : public Piece 
 {
 public:
-	Bishop (string color);
+	Bishop (std::string color);
 	std::vector<ChessMove*> getPossibleMoves (GameState* state);
 };
 

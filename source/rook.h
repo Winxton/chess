@@ -11,7 +11,7 @@ class Rook : public Piece
 {
 bool moved;
 public:
-    Rook (string color);
+    Rook (std::string color);
     std::vector<ChessMove*> getPossibleMoves (GameState* state);
     bool hasMoved ();
 };

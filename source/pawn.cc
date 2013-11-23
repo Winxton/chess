@@ -7,7 +7,7 @@
 #include <iostream>
 using namespace std;
 
-Pawn::Pawn(string color):Piece(color) {
+Pawn::Pawn(std::string color):Piece(color) {
 	if (yCord == 2)
 		canAdvance=true;
     cout << "cons" << endl;
