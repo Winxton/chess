@@ -5,7 +5,8 @@ class Action;
 
 class Player 
 {
- public:
+std::istream *source;
+public:
     Action *getAction () = 0;
 };
 

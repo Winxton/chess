@@ -1,6 +1,6 @@
 #include <vector>
 #include "gamestate.h"
-//#include "square.h"
+#include "square.h"
 #include "piece.h"
 #include "chessmove.h"
 using namespace std;
@@ -21,12 +21,19 @@ void GameState::setSquareNumberings() {
     }
 }
 
+void GameState::movePiece(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest) {
+    //get the piece pointer from the square
+    Piece *p = chessboard[xCordSrc][yCordSrc].getAndUnsetPiece();
+    //sets the piece to the new square on the board
+    chessboard[xCordDest][yCordDest].setPiece(p);
+}
+
 bool GameState::isUnderCheck (Player *p) {
     return false;
 }
 
 void GameState::initializeDefault() {
-    
+    //initialize the original configuration of the board.
 }
 
 vector<ChessMove*> GameState::getPossibleMovesForPlayer (Player *p) {

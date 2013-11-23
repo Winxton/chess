@@ -3,17 +3,23 @@
 
 #include <vector>
 #include "square.h"
-class Action;
+
 class Player;
 class ChessMove;
 class Piece;
 
 class GameState 
 {
+    friend class ChessMove;
+
     Square chessboard[8][8];
     bool whiteChecked;
     bool blackChecked;
     void setSquareNumberings();
+
+    //moves a piece from a source to a destination
+    void movePiece(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest);
+
 public:
     GameState();
     GameState(const GameState &state);

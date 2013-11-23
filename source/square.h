@@ -13,11 +13,13 @@ public:
 
     void setCoords(int xCord, int yCord);
 
-    // add a piece to the square and updates
+    // sets a piece to the square and updates
     // the piece's location to the location of the square
-    void addPiece(Piece *p);
+    void setPiece(Piece *p);
     
-    void removePiece();
+    //retrieves the piece sets the pointer to null
+    Piece *getAndUnsetPiece();
+
     bool hasPiece();
     Piece *getPiece();
     ~Square();

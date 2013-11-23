@@ -4,6 +4,8 @@
 #include "action.h"
 
 class ChessMove: public Action {
+protected:
+	int xCordSrc, yCordSrc, xCordDest, yCordDest;
 public:
 	virtual void apply (GameState *state);
 };

@@ -11,13 +11,15 @@ void Square::setCoords(int xCord, int yCord) {
     this->yCord = yCord;
 }
 
-void Square::addPiece(Piece *p) {
+void Square::setPiece(Piece *p) {
+	delete p;
     this->p = p;
 }
 
-void Square::removePiece () {
-    delete p;
+Piece *Square::getAndUnsetPiece () {
+	Piece *piece = p;
     p = 0;
+    return piece;
 }
 
 bool Square::hasPiece() {
