@@ -28,7 +28,7 @@ void GameState::movePiece(int xCordSrc, int yCordSrc, int xCordDest, int yCordDe
     chessboard[xCordDest][yCordDest].setPiece(p);
 }
 
-bool GameState::isUnderCheck (Player *p) {
+bool GameState::isUnderCheck (Player *p) const {
     return false;
 }
 
@@ -36,22 +36,22 @@ void GameState::initializeDefault() {
     //initialize the original configuration of the board.
 }
 
-vector<ChessMove*> GameState::getPossibleMovesForPlayer (Player *p) {
+vector<ChessMove*> GameState::getPossibleMovesForPlayer (const Player *p) const {
     vector<ChessMove*> v;
     return v;
 }
 
-vector<ChessMove*> GameState::getLegalMovesForPlayer (Player *p) {
+vector<ChessMove*> GameState::getLegalMovesForPlayer (const Player *p) const {
     vector<ChessMove*> possibleMoves = getPossibleMovesForPlayer(p);
     return possibleMoves;
 }
 
-bool GameState::isInsideBoard(int xCord, int yCord) {
+bool GameState::isInsideBoard(int xCord, int yCord) const {
     return (xCord >= 0 && xCord <= 7
             && yCord >= 0 && yCord <= 7);
 }
 
-Piece *GameState::getPieceAt(int xCord, int yCord) {
+const Piece *GameState::getPieceAt(int xCord, int yCord) const {
     if (!isInsideBoard(xCord, yCord)) {
         return 0; // out of bounds
     } else {
@@ -59,6 +59,6 @@ Piece *GameState::getPieceAt(int xCord, int yCord) {
     }
 }
 
-void GameState::printBoard () {
+void GameState::printBoard () const {
     
 }

@@ -4,7 +4,7 @@ using namespace std;
 
 Piece::Piece(string color): color(color), xCord(-1), yCord(-1) {};
 
-string Piece::getColor() {
+string Piece::getColor() const {
 	return color;
 }
 

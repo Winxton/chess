@@ -6,13 +6,33 @@ Square::Square(): p(0) {}
 
 Square::Square(Piece *p): p(p) {}
 
+Square::Square (const Square &other) {
+    if (other.hasPiece()) {
+        Piece *temp = &(*other.p);
+        p = temp;
+    } else {
+        p = 0;
+    }
+}
+
+Square& Square::operator=(const Square &other) {
+    delete p;
+    if (other.hasPiece()) {
+        Piece *temp = &(*other.p);
+        p = temp;
+    } else {
+        p = 0;
+    }
+    return *this;
+}
+
 void Square::setCoords(int xCord, int yCord) {
     this->xCord = xCord;
     this->yCord = yCord;
 }
 
 void Square::setPiece(Piece *p) {
-	delete p;
+	delete this->p;
     this->p = p;
 }
 
@@ -22,11 +42,11 @@ Piece *Square::getAndUnsetPiece () {
     return piece;
 }
 
-bool Square::hasPiece() {
+bool Square::hasPiece() const {
     return (! p==0);
 }
 
-Piece *Square::getPiece() {
+const Piece *Square::getPiece() const {
     return p;
 }
 

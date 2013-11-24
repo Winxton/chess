@@ -32,24 +32,24 @@ public:
     GameState(const GameState &state);
 
     // checks whether a player's king is in check
-    bool isUnderCheck (Player *p);
+    bool isUnderCheck (Player *p) const;
     
     // initializes a default board
     void initializeDefault ();
     
     // returns list of possible moves without checking if the king is in check after making the move
-    std::vector<ChessMove*> getPossibleMovesForPlayer (Player *p);
+    std::vector<ChessMove*> getPossibleMovesForPlayer (const Player *p) const;
     
     // returns vector of legal moves
-    std::vector<ChessMove*> getLegalMovesForPlayer (Player *p);
+    std::vector<ChessMove*> getLegalMovesForPlayer (const Player *p) const;
 
     //whether a coordinate is within the bounds of the chess board
-    bool isInsideBoard(int xCord, int yCord);
+    bool isInsideBoard(int xCord, int yCord) const;
 
-    Piece *getPieceAt(int xCord, int yCord);
+    const Piece *getPieceAt(int xCord, int yCord) const;
     
     // print the chess board
-    void printBoard ();
+    void printBoard () const;
 };
 
 #endif

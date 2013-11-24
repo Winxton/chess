@@ -11,6 +11,11 @@ public:
     Square();
     Square(Piece *p);
 
+    Square (const Square &other); //copy constructor
+
+    Square& operator=(const Square &other); //assignment operator
+
+    //set the coordinates for the square
     void setCoords(int xCord, int yCord);
 
     // sets a piece to the square and updates
@@ -20,8 +25,11 @@ public:
     //retrieves the piece sets the pointer to null
     Piece *getAndUnsetPiece();
 
-    bool hasPiece();
-    Piece *getPiece();
+    //whether or not a chess piece is on the square
+    bool hasPiece() const;
+
+    const Piece *getPiece() const;
+
     ~Square();
 };
 
