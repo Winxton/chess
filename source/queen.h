@@ -11,7 +11,7 @@ class Queen : public Piece
 {
 public:
     Queen (std::string color);
-    std::vector<ChessMove*> getPossibleMoves(GameState* state) const;
+    std::vector<ChessMove*> getPossibleMoves(const GameState* state) const;
 };
 
 #endif

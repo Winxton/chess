@@ -16,7 +16,7 @@ Knight::Knight(string color):Piece(color) {
     cout << "knight cons" << endl;
 }
 
-vector<ChessMove*> Knight::getPossibleMoves(GameState* state) const {
+vector<ChessMove*> Knight::getPossibleMoves(const GameState* state) const {
 	vector<ChessMove*> list;
 	int a[] = {-2,2};
 	int b[] = {-1,1};

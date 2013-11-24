@@ -16,32 +16,33 @@ Pawn::Pawn(string color):Piece(color) {
     cout << "pawn cons" << endl;
 }
 
-vector<ChessMove*> Pawn::getPossibleMoves(GameState* state) const {
-	int one = 1;
-	int two = 2;
+vector<ChessMove*> Pawn::getPossibleMoves(const GameState* state) const {
+	int forwardOne = 1;
+	int forwardTwo = 2;
+
 	if (this->color == "black"){
-		one = -1;
-		two = -2;
+		forwardOne = -1;
+		forwardTwo = -2;
 	}
 	vector<ChessMove*> list;
-	if (!state->getPieceAt(this->xCord,this->yCord+one)){
-		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+one));
+	if (!state->hasPieceAt(this->xCord,this->yCord+forwardOne)){
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+forwardOne));
 	}
-	if (!state->getPieceAt(this->xCord,this->yCord+two) && 
-		!state->getPieceAt(this->xCord,this->yCord+one) &&
+	if (!state->hasPieceAt(this->xCord,this->yCord+forwardTwo) && 
+		!state->hasPieceAt(this->xCord,this->yCord+forwardOne) &&
 		!this->moved)
 	{
-		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+two));
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+forwardTwo));
 	}
-	if (state->isInsideBoard(this->xCord+1,this->yCord+one) &&
-		state->hasPieceOfOppositeColor(this->color,this->xCord+1,this->yCord+one))
+	if (state->isInsideBoard(this->xCord+1,this->yCord+forwardOne) &&
+		state->hasPieceOfOppositeColor(this->color,this->xCord+1,this->yCord+forwardOne))
 	{
-		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+1,this->yCord+one));
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+1,this->yCord+forwardOne));
 	}
-	if (state->isInsideBoard(this->xCord-1,this->yCord+one) &&
-		state->hasPieceOfOppositeColor(this->color,this->xCord+1,this->yCord+one))
+	if (state->isInsideBoard(this->xCord-1,this->yCord+forwardOne) &&
+		state->hasPieceOfOppositeColor(this->color,this->xCord+1,this->yCord+forwardOne))
 	{
-		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+1,this->yCord+one));
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+1,this->yCord+forwardOne));
 	}
 	return list;
 }

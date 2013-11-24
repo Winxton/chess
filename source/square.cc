@@ -34,6 +34,7 @@ void Square::setCoords(int xCord, int yCord) {
 void Square::setPiece(Piece *p) {
 	delete this->p;
     this->p = p;
+    this->p->setCoords(xCord, yCord);
 }
 
 Piece *Square::getAndUnsetPiece () {

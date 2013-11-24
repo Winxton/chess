@@ -16,7 +16,7 @@ Bishop::Bishop(string color):Piece(color) {
     cout << "bishop cons" << endl;
 }
 
-vector<ChessMove*> Bishop::getPossibleMoves(GameState* state) const {
+vector<ChessMove*> Bishop::getPossibleMoves(const GameState* state) const {
 	vector<ChessMove*> list;
 	int i;
 	// top right

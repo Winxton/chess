@@ -9,9 +9,10 @@ using namespace std;
 
 GameState::GameState(): whiteChecked(false), blackChecked(false) {
     setSquareNumberings();
+    initializeDefault();
 }
 
-GameState::GameState(const GameState &state) {
+GameState::GameState(const GameState &state): whiteChecked(false), blackChecked(false) {
     setSquareNumberings();
 }
 
@@ -59,13 +60,20 @@ void GameState::initializeDefault() {
 	this->chessboard[4][7].setPiece(p->createPiece("black","king"));
 }
 
-vector<ChessMove*> GameState::getPossibleMovesForPlayer (const Player *p) const {
-    vector<ChessMove*> v;
+vector<ChessMove*> GameState::getPossibleMovesForPlayer (string color) const {
+    vector<ChessMove *> v;
+    for (int i =0; i<8; i++) {
+        for (int j=0; j<8; j++) {
+            if (getPieceColor(i,j) == color) {
+                v = getPieceAt(i,j)->getPossibleMoves(this);
+            }
+        }
+    }
     return v;
 }
 
-vector<ChessMove*> GameState::getLegalMovesForPlayer (const Player *p) const {
-    vector<ChessMove*> possibleMoves = getPossibleMovesForPlayer(p);
+vector<ChessMove*> GameState::getLegalMovesForPlayer (string color) const {
+    vector<ChessMove*> possibleMoves = getPossibleMovesForPlayer(color);
     return possibleMoves;
 }
 
@@ -74,23 +82,31 @@ bool GameState::isInsideBoard(int xCord, int yCord) const {
             && yCord >= 0 && yCord <= 7);
 }
 
-bool GameState::hasPieceAt(int xCord, int yCord) const {
-	if (this->getPieceAt(xCord,yCord) == 0)
-		return false;
-	return true;
-}
-
-bool GameState::hasPieceOfOppositeColor(string color,int xCord, int yCord) const {
-	return (this->getPieceAt(xCord,yCord)->getColor() == color);
-}
-
 const Piece *GameState::getPieceAt(int xCord, int yCord) const {
     if (!isInsideBoard(xCord, yCord)) {
         return 0; // out of bounds
     } else {
-        return chessboard[yCord][xCord].getPiece();
+        return chessboard[xCord][yCord].getPiece();
     }
 }
+
+bool GameState::hasPieceAt(int xCord, int yCord) const {
+	if (getPieceAt(xCord,yCord) == 0)
+		return false;
+	return true;
+}
+
+string GameState::getPieceColor(int xCord, int yCord) const {
+    if (hasPieceAt(xCord, yCord))
+        return getPieceAt(xCord,yCord)->getColor();
+    return "";
+}
+
+bool GameState::hasPieceOfOppositeColor(string color,int xCord, int yCord) const {
+    string oppositeColor = color == "white" ? "black" : "white"; 
+	return (getPieceColor(xCord, yCord) == oppositeColor);
+}
+
 
 string GameState::getPieceType(int xCord, int yCord) const {
 	if (this->hasPieceAt(xCord,yCord)) {

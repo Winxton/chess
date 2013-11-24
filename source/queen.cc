@@ -16,7 +16,7 @@ Queen::Queen(string color):Piece(color) {
     cout << "queen cons" << endl;
 }
 
-vector<ChessMove*> Queen::getPossibleMoves(GameState* state) const {
+vector<ChessMove*> Queen::getPossibleMoves(const GameState* state) const {
 	vector<ChessMove*> list;
 	int i;
 	// up

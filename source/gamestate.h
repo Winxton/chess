@@ -39,15 +39,17 @@ public:
     void initializeDefault ();
     
     // returns list of possible moves without checking if the king is in check after making the move
-    std::vector<ChessMove*> getPossibleMovesForPlayer (const Player *p) const;
+    std::vector<ChessMove*> getPossibleMovesForPlayer (std::string color) const;
     
     // returns vector of legal moves
-    std::vector<ChessMove*> getLegalMovesForPlayer (const Player *p) const;
+    std::vector<ChessMove*> getLegalMovesForPlayer (std::string color) const;
 
     //whether a coordinate is within the bounds of the chess board
     bool isInsideBoard(int xCord, int yCord) const;
 	
 	bool hasPieceAt(int xCord, int yCord) const;
+
+    std::string getPieceColor(int xCord, int yCord) const;
 
     bool hasPieceOfOppositeColor(std::string color,int xCord, int yCord) const;
 

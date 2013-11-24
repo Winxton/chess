@@ -2,6 +2,7 @@
 #define __CHESSMOVE_H__
 
 #include "action.h"
+#include <iostream>
 
 class ChessMove: public Action {
 protected:
@@ -9,6 +10,7 @@ protected:
 public:
 	ChessMove(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest);
 	virtual void apply (GameState *state);
+	friend std::ostream& operator<<(std::ostream &out, const ChessMove &s);
 };
 
 #endif

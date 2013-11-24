@@ -17,7 +17,7 @@ King::King(string color):Piece(color) {
     cout << "king cons" << endl;
 }
 
-vector<ChessMove*> King::getPossibleMoves(GameState* state) const {
+vector<ChessMove*> King::getPossibleMoves(const GameState* state) const {
 	vector<ChessMove*> list;
 	// normal king moves
 	for (int i = -1; i < 2; i++){

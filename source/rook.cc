@@ -16,7 +16,7 @@ Rook::Rook(string color):Piece(color) {
     cout << "rook cons" << endl;
 }
 
-vector<ChessMove*> Rook::getPossibleMoves(GameState* state) const {
+vector<ChessMove*> Rook::getPossibleMoves(const GameState* state) const {
 	vector<ChessMove*> list;
 	int i;
 	// up

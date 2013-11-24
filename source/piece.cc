@@ -1,5 +1,6 @@
 #include "piece.h"
 #include <vector>
+#include <iostream>
 using namespace std;
 
 Piece::Piece(string color): color(color), xCord(-1), yCord(-1) {};
