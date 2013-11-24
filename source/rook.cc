@@ -13,27 +13,46 @@ Rook::Rook(string color):Piece(color) {
 
 vector<ChessMove*> Rook::getPossibleMoves(GameState* state) {
 	vector<ChessMove*> list;
-	//vertical
-	for (int i = 0; i<8;i++){
-		if (state->getPieceAt(this->xCord,i) == NULL){
-			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,i));
+	int i;
+	// up
+	i = 1;
+	while(state->isInsideBoard(this->xCord,this->yCord+i)) {
+		if (state->hasPieceAt(this->xCord,this->yCord+i)){
+			if (state->hasPieceOfOppositeColor(this->xCord,this->yCord+i))
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+i));
+			break;
 		}
-		else {
-			if (state->getPieceAt(this->xCord,i)->getColor() != this->color){
-				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,i));
-			}
-		}
+		i++;
 	}
-	//horizontal
-	for (int i = 0; i<8;i++){
-		if (state->getPieceAt(i,this->yCord) == NULL){
-			list.push_back(new ChessMove(this->xCord,this->yCord,i,this->yCord));
+	// down
+	i = 1;
+	while(state->isInsideBoard(this->xCord,this->yCord-i)) {
+		if (state->hasPieceAt(this->xCord,this->yCord-i)){
+			if (state->hasPieceOfOppositeColor(this->xCord,this->yCord-i))
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord-i));
+			break;
 		}
-		else {
-			if (state->getPieceAt(i,this->yCord)->getColor() != this->color){
-				list.push_back(new ChessMove(this->xCord,this->yCord,i,this->yCord));
-			}
+		i++;
+	}
+	// right
+	i = 1;
+	while(state->isInsideBoard(this->xCord+i,this->yCord)) {
+		if (state->hasPieceAt(this->xCord+i,this->yCord)){
+			if (state->hasPieceOfOppositeColor(this->xCord+i,this->yCord))
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord));
+			break;
 		}
+		i++;
+	}
+	// left
+	i = 1;
+	while(state->isInsideBoard(this->xCord-i,this->yCord)) {
+		if (state->hasPieceAt(this->xCord-i,this->yCord)){
+			if (state->hasPieceOfOppositeColor(this->xCord-i,this->yCord))
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord));
+			break;
+		}
+		i++;
 	}
 	return list;
 }

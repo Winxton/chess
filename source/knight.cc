@@ -7,93 +7,30 @@
 #include <vector>
 using namespace std;
 
-Knight::Knight(std::string color):Piece(color) {
+Knight::Knight(string color):Piece(color) {
     cout << "cons" << endl;
 }
 
-std::vector<ChessMove*> Knight::getPossibleMoves(GameState* state) {
-	std::vector<ChessMove*> list;
-	int i;
-	int j;
-	i = -2;
-	j = -1;
-	if ((this->xCord+i > -1 && this->xCord+i < 8 && 
-			this->yCord+j > -1 && this->yCord+j < 8 &&
-			state->getPieceAt(this->xCord+i,this->yCord+j) == NULL) ||
-			(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
-			state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
-	{
-			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+j));
-	}
-	i = -2;
-	j = 1;
-	if ((this->xCord+i > -1 && this->xCord+i < 8 && 
-			this->yCord+j > -1 && this->yCord+j < 8 &&
-			state->getPieceAt(this->xCord+i,this->yCord+j) == NULL) ||
-			(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
-			state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
-	{
-			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+j));
-	}
-	i = 2;
-	j = -1;
-	if ((this->xCord+i > -1 && this->xCord+i < 8 && 
-			this->yCord+j > -1 && this->yCord+j < 8 &&
-			state->getPieceAt(this->xCord+i,this->yCord+j) == NULL) ||
-			(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
-			state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
-	{
-			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+j));
-	}
-	i = 2;
-	j = 1;
-	if ((this->xCord+i > -1 && this->xCord+i < 8 && 
-			this->yCord+j > -1 && this->yCord+j < 8 &&
-			state->getPieceAt(this->xCord+i,this->yCord+j) == NULL) ||
-			(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
-			state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
-	{
-			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+j));
-	}
-	i = -1;
-	j = -2;
-	if ((this->xCord+i > -1 && this->xCord+i < 8 && 
-			this->yCord+j > -1 && this->yCord+j < 8 &&
-			state->getPieceAt(this->xCord+i,this->yCord+j) == NULL) ||
-			(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
-			state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
-	{
-			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+j));
-	}
-	i = -1;
-	j = 2;
-	if ((this->xCord+i > -1 && this->xCord+i < 8 && 
-			this->yCord+j > -1 && this->yCord+j < 8 &&
-			state->getPieceAt(this->xCord+i,this->yCord+j) == NULL) ||
-			(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
-			state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
-	{
-			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+j));
-	}	
-	i = 1;
-	j = -2;
-	if ((this->xCord+i > -1 && this->xCord+i < 8 && 
-			this->yCord+j > -1 && this->yCord+j < 8 &&
-			state->getPieceAt(this->xCord+i,this->yCord+j) == NULL) ||
-			(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
-			state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
-	{
-			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+j));
-	}	
-	i = 1;
-	j = 2;
-	if ((this->xCord+i > -1 && this->xCord+i < 8 && 
-			this->yCord+j > -1 && this->yCord+j < 8 &&
-			state->getPieceAt(this->xCord+i,this->yCord+j) == NULL) ||
-			(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
-			state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
-	{
-			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+j));
+vector<ChessMove*> Knight::getPossibleMoves(GameState* state) {
+	vector<ChessMove*> list;
+	int a[] = {-2,2};
+	int b[] = {-1,1};
+	// L-shaped traversal
+	for(int i = 0; i<2;i++){
+		for(int j = 0; j<2;j++){
+			if (state->isInsideBoard(this->xCord+a[i],this->xCord+b[j]) &&
+					(!state->hasPieceAt(this->xCord+a[i],this->yCord+b[j]) ||
+					state->hasPieceOfOppositeColor(this->xCord+a[i],this->yCord+b[j])))
+			{
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+a[i],this->yCord+b[j]));
+			}
+			if (state->isInsideBoard(this->xCord+b[i],this->xCord+a[j]) &&
+					(!state->hasPieceAt(this->xCord+b[i],this->yCord+a[j]) ||
+					state->hasPieceOfOppositeColor(this->xCord+b[i],this->yCord+a[j])))
+			{
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+b[i],this->yCord+a[j]));
+			}
+		}
 	}
 	return list;
 }
