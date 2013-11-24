@@ -8,7 +8,11 @@
 using namespace std;
 
 Queen::Queen(string color):Piece(color) {
-    cout << "cons" << endl;
+	if (color == "white")
+		repr = 'Q';
+	else
+		repr = 'q';
+    cout << "queen cons" << endl;
 }
 
 vector<ChessMove*> Queen::getPossibleMoves(GameState* state) {
@@ -18,7 +22,7 @@ vector<ChessMove*> Queen::getPossibleMoves(GameState* state) {
 	i = 1;
 	while(state->isInsideBoard(this->xCord,this->yCord+i)) {
 		if (state->hasPieceAt(this->xCord,this->yCord+i)){
-			if (state->hasPieceOfOppositeColor(this->xCord,this->yCord+i))
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord,this->yCord+i))
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+i));
 			break;
 		}
@@ -28,7 +32,7 @@ vector<ChessMove*> Queen::getPossibleMoves(GameState* state) {
 	i = 1;
 	while(state->isInsideBoard(this->xCord,this->yCord-i)) {
 		if (state->hasPieceAt(this->xCord,this->yCord-i)){
-			if (state->hasPieceOfOppositeColor(this->xCord,this->yCord-i))
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord,this->yCord-i))
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord-i));
 			break;
 		}
@@ -38,7 +42,7 @@ vector<ChessMove*> Queen::getPossibleMoves(GameState* state) {
 	i = 1;
 	while(state->isInsideBoard(this->xCord+i,this->yCord)) {
 		if (state->hasPieceAt(this->xCord+i,this->yCord)){
-			if (state->hasPieceOfOppositeColor(this->xCord+i,this->yCord))
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord+i,this->yCord))
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord));
 			break;
 		}
@@ -48,7 +52,7 @@ vector<ChessMove*> Queen::getPossibleMoves(GameState* state) {
 	i = 1;
 	while(state->isInsideBoard(this->xCord-i,this->yCord)) {
 		if (state->hasPieceAt(this->xCord-i,this->yCord)){
-			if (state->hasPieceOfOppositeColor(this->xCord-i,this->yCord))
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord-i,this->yCord))
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord));
 			break;
 		}
@@ -58,7 +62,7 @@ vector<ChessMove*> Queen::getPossibleMoves(GameState* state) {
 	i = 1;
 	while(state->isInsideBoard(this->xCord+i,this->yCord+i)) {
 		if (state->hasPieceAt(this->xCord+i,this->yCord+i)){
-			if (state->hasPieceOfOppositeColor(this->xCord+i,this->yCord+i))
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord+i,this->yCord+i))
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+i));
 			break;
 		}
@@ -68,7 +72,7 @@ vector<ChessMove*> Queen::getPossibleMoves(GameState* state) {
 	i = 1;
 	while(state->isInsideBoard(this->xCord-i,this->yCord+i)) {
 		if (state->hasPieceAt(this->xCord-i,this->yCord+i)){
-			if (state->hasPieceOfOppositeColor(this->xCord-i,this->yCord+i))
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord-i,this->yCord+i))
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord+i));
 			break;
 		}
@@ -78,7 +82,7 @@ vector<ChessMove*> Queen::getPossibleMoves(GameState* state) {
 	i = 1;
 	while(state->isInsideBoard(this->xCord+i,this->yCord-i)) {
 		if (state->hasPieceAt(this->xCord+i,this->yCord-i)){
-			if (state->hasPieceOfOppositeColor(this->xCord+i,this->yCord-i))
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord+i,this->yCord-i))
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord-i));
 			break;
 		}
@@ -88,7 +92,7 @@ vector<ChessMove*> Queen::getPossibleMoves(GameState* state) {
 	i = 1;
 	while(state->isInsideBoard(this->xCord-i,this->yCord-i)) {
 		if (state->hasPieceAt(this->xCord-i,this->yCord-i)){
-			if (state->hasPieceOfOppositeColor(this->xCord-i,this->yCord-i))
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord-i,this->yCord-i))
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord-i));
 			break;
 		}

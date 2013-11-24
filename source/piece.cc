@@ -8,6 +8,10 @@ string Piece::getColor() {
 	return color;
 }
 
+char Piece::getCharRepr(){
+	return repr;
+}
+
 void Piece::setCoords (int xCord, int yCord) {
     this->xCord = xCord;
     this->yCord = yCord;

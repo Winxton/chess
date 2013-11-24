@@ -8,7 +8,11 @@
 using namespace std;
 
 Bishop::Bishop(string color):Piece(color) {
-    cout << "cons" << endl;
+	if (color == "white")
+		repr = 'B';
+	else
+		repr = 'b';
+    cout << "bishop cons" << endl;
 }
 
 vector<ChessMove*> Bishop::getPossibleMoves(GameState* state) {
@@ -18,7 +22,7 @@ vector<ChessMove*> Bishop::getPossibleMoves(GameState* state) {
 	i = 1;
 	while(state->isInsideBoard(this->xCord+i,this->yCord+i)) {
 		if (state->hasPieceAt(this->xCord+i,this->yCord+i)){
-			if (state->hasPieceOfOppositeColor(this->xCord+i,this->yCord+i))
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord+i,this->yCord+i))
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+i));
 			break;
 		}
@@ -28,7 +32,7 @@ vector<ChessMove*> Bishop::getPossibleMoves(GameState* state) {
 	i = 1;
 	while(state->isInsideBoard(this->xCord-i,this->yCord+i)) {
 		if (state->hasPieceAt(this->xCord-i,this->yCord+i)){
-			if (state->hasPieceOfOppositeColor(this->xCord-i,this->yCord+i))
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord-i,this->yCord+i))
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord+i));
 			break;
 		}
@@ -38,7 +42,7 @@ vector<ChessMove*> Bishop::getPossibleMoves(GameState* state) {
 	i = 1;
 	while(state->isInsideBoard(this->xCord+i,this->yCord-i)) {
 		if (state->hasPieceAt(this->xCord+i,this->yCord-i)){
-			if (state->hasPieceOfOppositeColor(this->xCord+i,this->yCord-i))
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord+i,this->yCord-i))
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord-i));
 			break;
 		}
@@ -48,7 +52,7 @@ vector<ChessMove*> Bishop::getPossibleMoves(GameState* state) {
 	i = 1;
 	while(state->isInsideBoard(this->xCord-i,this->yCord-i)) {
 		if (state->hasPieceAt(this->xCord-i,this->yCord-i)){
-			if (state->hasPieceOfOppositeColor(this->xCord-i,this->yCord-i))
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord-i,this->yCord-i))
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord-i));
 			break;
 		}

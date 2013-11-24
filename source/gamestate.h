@@ -2,6 +2,7 @@
 #define __GAMESTATE_H__
 
 #include <vector>
+#include <string>
 #include "square.h"
 
 class Player;
@@ -45,8 +46,14 @@ public:
 
     //whether a coordinate is within the bounds of the chess board
     bool isInsideBoard(int xCord, int yCord);
+	
+	bool hasPieceAt(int xCord, int yCord);
+
+    bool hasPieceOfOppositeColor(std::string color,int xCord, int yCord);
 
     Piece *getPieceAt(int xCord, int yCord);
+	
+	std::string getPieceType(int xCord, int yCord);
     
     // print the chess board
     void printBoard ();

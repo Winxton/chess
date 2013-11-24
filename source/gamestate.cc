@@ -51,12 +51,40 @@ bool GameState::isInsideBoard(int xCord, int yCord) {
             && yCord >= 0 && yCord <= 7);
 }
 
+bool GameState::hasPieceAt(int xCord, int yCord){
+	if (this->getPieceAt(xCord,yCord) == 0)
+		return false;
+	return true;
+}
+
+bool GameState::hasPieceOfOppositeColor(string color,int xCord, int yCord){
+	return (this->getPieceAt(xCord,yCord)->getColor() == color);
+}
+
 Piece *GameState::getPieceAt(int xCord, int yCord) {
     if (!isInsideBoard(xCord, yCord)) {
         return 0; // out of bounds
     } else {
         return chessboard[xCord][yCord].getPiece();
     }
+}
+
+string GameState::getPieceType(int xCord, int yCord){
+	if (this->hasPieceAt(xCord,yCord)){
+		char temp = this->getPieceAt(xCord,yCord)->getCharRepr();
+		if (temp == 'p' || temp == 'P')
+			return "pawn";
+		else if (temp == 'r' || temp == 'R')
+			return "rook";
+		else if (temp == 'n' || temp == 'N')
+			return "knight";
+		else if (temp == 'b' || temp == 'B')
+			return "bishop";
+		else if (temp == 'q' || temp == 'Q')
+			return "queen";
+		else
+			return "king";
+	}
 }
 
 void GameState::printBoard () {

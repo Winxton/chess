@@ -8,7 +8,11 @@
 using namespace std;
 
 Knight::Knight(string color):Piece(color) {
-    cout << "cons" << endl;
+	if (color == "white")
+		repr = 'N';
+	else
+		repr = 'n';
+    cout << "knight cons" << endl;
 }
 
 vector<ChessMove*> Knight::getPossibleMoves(GameState* state) {
@@ -20,13 +24,13 @@ vector<ChessMove*> Knight::getPossibleMoves(GameState* state) {
 		for(int j = 0; j<2;j++){
 			if (state->isInsideBoard(this->xCord+a[i],this->xCord+b[j]) &&
 					(!state->hasPieceAt(this->xCord+a[i],this->yCord+b[j]) ||
-					state->hasPieceOfOppositeColor(this->xCord+a[i],this->yCord+b[j])))
+					state->hasPieceOfOppositeColor(this->color,this->xCord+a[i],this->yCord+b[j])))
 			{
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+a[i],this->yCord+b[j]));
 			}
 			if (state->isInsideBoard(this->xCord+b[i],this->xCord+a[j]) &&
 					(!state->hasPieceAt(this->xCord+b[i],this->yCord+a[j]) ||
-					state->hasPieceOfOppositeColor(this->xCord+b[i],this->yCord+a[j])))
+					state->hasPieceOfOppositeColor(this->color,this->xCord+b[i],this->yCord+a[j])))
 			{
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+b[i],this->yCord+a[j]));
 			}

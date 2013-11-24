@@ -8,8 +8,12 @@
 using namespace std;
 
 Pawn::Pawn(string color):Piece(color) {
+	if (color == "white")
+		repr = 'P';
+	else
+		repr = 'p';
 	canAdvance = true;
-    cout << "cons" << endl;
+    cout << "pawn cons" << endl;
 }
 
 vector<ChessMove*> Pawn::getPossibleMoves(GameState* state) {
@@ -28,11 +32,11 @@ vector<ChessMove*> Pawn::getPossibleMoves(GameState* state) {
 		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+two));
 	}
 	if (state->isInsideBoard(this->xCord+1,this->yCord+one) &&
-	state->hasPieceOfOppositeColor(this->xCord+1,this->yCord+one)){
+	state->hasPieceOfOppositeColor(this->color,this->xCord+1,this->yCord+one)){
 		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+1,this->yCord+one));
 	}
 	if (state->isInsideBoard(this->xCord-1,this->yCord+one) &&
-	state->hasPieceOfOppositeColor(this->xCord+1,this->yCord+one)){
+	state->hasPieceOfOppositeColor(this->color,this->xCord+1,this->yCord+one)){
 		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+1,this->yCord+one));
 	}
 	return list;
