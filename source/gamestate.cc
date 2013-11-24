@@ -46,9 +46,13 @@ vector<ChessMove*> GameState::getLegalMovesForPlayer (Player *p) {
     return possibleMoves;
 }
 
+bool GameState::isInsideBoard(int xCord, int yCord) {
+    return (xCord >= 0 && xCord <= 7
+            && yCord >= 0 && yCord <= 7);
+}
+
 Piece *GameState::getPieceAt(int xCord, int yCord) {
-    if (xCord < 0 || xCord > 7
-        || yCord < 0 || yCord > 7) {
+    if (!isInsideBoard(xCord, yCord)) {
         return 0; // out of bounds
     } else {
         return chessboard[xCord][yCord].getPiece();

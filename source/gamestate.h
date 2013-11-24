@@ -43,6 +43,9 @@ public:
     // returns vector of legal moves
     std::vector<ChessMove*> getLegalMovesForPlayer (Player *p);
 
+    //whether a coordinate is within the bounds of the chess board
+    bool isInsideBoard(int xCord, int yCord);
+
     Piece *getPieceAt(int xCord, int yCord);
     
     // print the chess board
