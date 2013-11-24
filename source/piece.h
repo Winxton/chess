@@ -9,11 +9,14 @@ class GameState;
 class Piece{
 protected:
     std::string color;
+	char repr;
     int xCord, yCord;
 public:
     Piece(std::string color);
     virtual std::string getColor() const;
     virtual std::vector<ChessMove*> getPossibleMoves(GameState* state) const = 0;
+	char getCharRepr() const;
+
     virtual void setCoords (int xCord,
                             int yCord);
     virtual ~Piece();

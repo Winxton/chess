@@ -4,86 +4,99 @@
 #include "piece.h"
 #include <iostream>
 #include <string>
-#include <algorithm>
 #include <vector>
 using namespace std;
 
-Queen::Queen(std::string color):Piece(color) {
-    cout << "cons" << endl;
+Queen::Queen(string color):Piece(color) {
+	if (color == "white")
+		repr = 'Q';
+	else
+		repr = 'q';
+    cout << "queen cons" << endl;
 }
 
-std::vector<ChessMove*> Queen::getPossibleMoves(GameState* state) {
-	std::vector<ChessMove*> list;
-	//vertical
-	for (int i = 0; i<8;i++){
-		if (state->getPieceAt(this->xCord,i) == NULL){
-			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,i));
+vector<ChessMove*> Queen::getPossibleMoves(GameState* state) const {
+	vector<ChessMove*> list;
+	int i;
+	// up
+	i = 1;
+	while(state->isInsideBoard(this->xCord,this->yCord+i)) {
+		if (state->hasPieceAt(this->xCord,this->yCord+i)){
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord,this->yCord+i))
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+i));
+			break;
 		}
-		else {
-			if (state->getPieceAt(this->xCord,i)->color != this->color){
-				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,i));
-			}
-		}
+		i++;
 	}
-	//horizontal
-	for (int i = 0; i<8;i++){
-		if (state->getPieceAt(i,this->yCord) == NULL){
-			list.push_back(new ChessMove(this->xCord,this->yCord,i,this->yCord));
+	// down
+	i = 1;
+	while(state->isInsideBoard(this->xCord,this->yCord-i)) {
+		if (state->hasPieceAt(this->xCord,this->yCord-i)){
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord,this->yCord-i))
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord-i));
+			break;
 		}
-		else {
-			if (state->getPieceAt(i,this->yCord)->color != this->color){
-				list.push_back(new ChessMove(this->xCord,this->yCord,i,this->yCord));
-			}
-		}
+		i++;
 	}
-	// diagonals
-	int rightlimit = 8-xCord;
-	int toplimit = 8-yCord;
-	int leftlimit = xCord;
-	int bottomlimit = yCord
-	//bottom left
-	for (int i = 1; i<std::min(bottomlimit,leftlimit);i++){
-		if (state->getPieceAt(this->xCord-i,this->yCord-i) == NULL){
-			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord-i));
+	// right
+	i = 1;
+	while(state->isInsideBoard(this->xCord+i,this->yCord)) {
+		if (state->hasPieceAt(this->xCord+i,this->yCord)){
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord+i,this->yCord))
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord));
+			break;
 		}
-		else {
-			if (state->getPieceAt(this->xCord-i,this->yCord-i)->color != this->color){
-				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord-i));
-			}
-		}
+		i++;
 	}
-	// bottom right
-	for (int i = 1; i<std::min(bottomlimit,rightlimit);i++){
-		if (state->getPieceAt(this->xCord+i,this->yCord-i) == NULL){
-			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord-i));
+	// left
+	i = 1;
+	while(state->isInsideBoard(this->xCord-i,this->yCord)) {
+		if (state->hasPieceAt(this->xCord-i,this->yCord)){
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord-i,this->yCord))
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord));
+			break;
 		}
-		else {
-			if (state->getPieceAt(this->xCord+i,this->yCord-i)->color != this->color){
-				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord-i));
-			}
-		}
-	}
-	// top left
-	for (int i = 1; i<std::min(toplimit,leftlimit);i++){
-		if (state->getPieceAt(this->xCord-i,this->yCord+i) == NULL){
-			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord+i));
-		}
-		else {
-			if (state->getPieceAt(this->xCord-i,this->yCord+i)->color != this->color){
-				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord+i));
-			}
-		}
+		i++;
 	}
 	// top right
-	for (int i = 1; i<std::min(toplimit,rightlimit);i++){
-		if (state->getPieceAt(this->xCord+i,this->yCord+i) == NULL){
-			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+i));
-		}
-		else {
-			if (state->getPieceAt(this->xCord+i,this->yCord+i)->color != this->color){
+	i = 1;
+	while(state->isInsideBoard(this->xCord+i,this->yCord+i)) {
+		if (state->hasPieceAt(this->xCord+i,this->yCord+i)){
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord+i,this->yCord+i))
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+i));
-			}
+			break;
 		}
+		i++;
+	}
+	// top left
+	i = 1;
+	while(state->isInsideBoard(this->xCord-i,this->yCord+i)) {
+		if (state->hasPieceAt(this->xCord-i,this->yCord+i)){
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord-i,this->yCord+i))
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord+i));
+			break;
+		}
+		i++;
+	}
+	//bottom right
+	i = 1;
+	while(state->isInsideBoard(this->xCord+i,this->yCord-i)) {
+		if (state->hasPieceAt(this->xCord+i,this->yCord-i)){
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord+i,this->yCord-i))
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord-i));
+			break;
+		}
+		i++;
+	}
+	// bottom left
+	i = 1;
+	while(state->isInsideBoard(this->xCord-i,this->yCord-i)) {
+		if (state->hasPieceAt(this->xCord-i,this->yCord-i)){
+			if (state->hasPieceOfOppositeColor(this->color,this->xCord-i,this->yCord-i))
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord-i));
+			break;
+		}
+		i++;
 	}
 	return list;
 }

@@ -11,7 +11,7 @@ class Bishop : public Piece
 {
 public:
 	Bishop (std::string color);
-	std::vector<ChessMove*> getPossibleMoves (GameState* state);
+	std::vector<ChessMove*> getPossibleMoves(GameState* state) const;
 };
 
 #endif

@@ -7,36 +7,41 @@
 #include <iostream>
 using namespace std;
 
-Pawn::Pawn(std::string color):Piece(color) {
-	canAdvance=true;
-    cout << "cons" << endl;
+Pawn::Pawn(string color):Piece(color) {
+	if (color == "white")
+		repr = 'P';
+	else
+		repr = 'p';
+	canAdvance = true;
+    cout << "pawn cons" << endl;
 }
 
-std::vector<ChessMove*> Pawn::getPossibleMoves(GameState* state) {
+vector<ChessMove*> Pawn::getPossibleMoves(GameState* state) const {
 	int one = 1;
 	int two = 2;
 	if (this->color == "black"){
 		one = -1;
 		two = -2;
 	}
-	std::vector<ChessMove*> list;
-	if (state->getPieceAt(this->xCord,this->yCord+one) == NULL){
+	vector<ChessMove*> list;
+	if (!state->getPieceAt(this->xCord,this->yCord+one)){
 		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+one));
 	}
-	if (state->getPieceAt(this->xCord,this->yCord+two) == NULL && canAdvance){
+	if (!state->getPieceAt(this->xCord,this->yCord+two) && 
+		!state->getPieceAt(this->xCord,this->yCord+one) && canAdvance){
 		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+two));
 	}
-	if (xCord != 7 && state->getPieceAt(this->xCord+1,this->yCord+one) != NULL &&
-	state->getPieceAt(this->xCord+1,this->yCord+one)->color != this->color){
+	if (state->isInsideBoard(this->xCord+1,this->yCord+one) &&
+	state->hasPieceOfOppositeColor(this->color,this->xCord+1,this->yCord+one)){
 		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+1,this->yCord+one));
 	}
-	if (xCord != 0 && state->getPieceAt(this->xCord-1,this->yCord+one) != NULL &&
-	state->getPieceAt(this->xCord+1,this->yCord+one)->color != this->color){
+	if (state->isInsideBoard(this->xCord-1,this->yCord+one) &&
+	state->hasPieceOfOppositeColor(this->color,this->xCord+1,this->yCord+one)){
 		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+1,this->yCord+one));
 	}
 	return list;
 }
 
-bool Pawn::ableToAdvance(){
+bool Pawn::ableToAdvance() const {
 	return canAdvance;
 }
