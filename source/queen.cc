@@ -14,30 +14,27 @@ Queen::Queen(std::string color):Piece(color) {
 
 std::vector<ChessMove*> Queen::getPossibleMoves(GameState* state) {
 	std::vector<ChessMove*> list;
-	std::vector<ChessMove*>::iterator it;
 	//vertical
 	for (int i = 1; i<9;i++){
 		if (state->getPieceAt(this->xCord,i) == NULL){
-			list.insert(new ChessMove(this->xCord,this->yCord,this->xCord,i));
+			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,i));
 		}
 		else {
 			if (state->getPieceAt(this->xCord,i)->color != this->color){
-				list.insert(new ChessMove(this->xCord,this->yCord,this->xCord,i));
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,i));
 			}
 		}
-		it = list.end();
 	}
 	//horizontal
 	for (int i = 1; i<9;i++){
 		if (state->getPieceAt(i,this->yCord) == NULL){
-			list.insert(new ChessMove(this->xCord,this->yCord,i,this->yCord));
+			list.push_back(new ChessMove(this->xCord,this->yCord,i,this->yCord));
 		}
 		else {
 			if (state->getPieceAt(i,this->yCord)->color != this->color){
-				list.insert(new ChessMove(this->xCord,this->yCord,i,this->yCord));
+				list.push_back(new ChessMove(this->xCord,this->yCord,i,this->yCord));
 			}
 		}
-		it = list.end();
 	}
 	// diagonals
 	int rightlimit = 8-xCord;
@@ -47,50 +44,46 @@ std::vector<ChessMove*> Queen::getPossibleMoves(GameState* state) {
 	//bottom left
 	for (int i = 1; i<std::min(bottomlimit,leftlimit);i++){
 		if (state->getPieceAt(this->xCord-i,this->yCord-i) == NULL){
-			list.insert(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord-i));
+			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord-i));
 		}
 		else {
 			if (state->getPieceAt(this->xCord-i,this->yCord-i)->color != this->color){
-				list.insert(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord-i));
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord-i));
 			}
 		}
-		it = list.end();
 	}
 	// bottom right
 	for (int i = 1; i<std::min(bottomlimit,rightlimit);i++){
 		if (state->getPieceAt(this->xCord+i,this->yCord-i) == NULL){
-			list.insert(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord-i));
+			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord-i));
 		}
 		else {
 			if (state->getPieceAt(this->xCord+i,this->yCord-i)->color != this->color){
-				list.insert(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord-i));
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord-i));
 			}
 		}
-		it = list.end();
 	}
 	// top left
 	for (int i = 1; i<std::min(toplimit,leftlimit);i++){
 		if (state->getPieceAt(this->xCord-i,this->yCord+i) == NULL){
-			list.insert(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord+i));
+			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord+i));
 		}
 		else {
 			if (state->getPieceAt(this->xCord-i,this->yCord+i)->color != this->color){
-				list.insert(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord+i));
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord+i));
 			}
 		}
-		it = list.end();
 	}
 	// top right
 	for (int i = 1; i<std::min(toplimit,rightlimit);i++){
 		if (state->getPieceAt(this->xCord+i,this->yCord+i) == NULL){
-			list.insert(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+i));
+			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+i));
 		}
 		else {
 			if (state->getPieceAt(this->xCord+i,this->yCord+i)->color != this->color){
-				list.insert(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+i));
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+i));
 			}
 		}
-		it = list.end();
 	}
 	return list;
 }

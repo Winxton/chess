@@ -8,31 +8,31 @@
 using namespace std;
 
 Pawn::Pawn(std::string color):Piece(color) {
-	if (yCord == 2)
-		canAdvance=true;
+	canAdvance=true;
     cout << "cons" << endl;
 }
 
 std::vector<ChessMove*> Pawn::getPossibleMoves(GameState* state) {
+	int one = 1;
+	int two = 2;
+	if (this->color == "black"){
+		one = -1;
+		two = -2;
+	}
 	std::vector<ChessMove*> list;
-	std::vector<ChessMove*>::iterator it;
-	if (state->getPieceAt(this->xCord,this->yCord+1) == NULL){
-		list.insert(it, new ChessMove(this->xCord,this->yCord+1);
-		it = list.end();
+	if (state->getPieceAt(this->xCord,this->yCord+one) == NULL){
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+one));
 	}
-	if (state->getPieceAt(this->xCord,this->yCord+2) == NULL && canAdvance){
-		list.insert(it, new ChessMove(this->xCord,this->yCord+2);
-		it = list.end();
+	if (state->getPieceAt(this->xCord,this->yCord+two) == NULL && canAdvance){
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+two));
 	}
-	if (xCord != 8 && state->getPieceAt(this->xCord+1,this->yCord+1) != NULL &&
-	state->getPieceAt(this->xCord+1,this->yCord+1)->color != this->color){
-		list.insert(it, new ChessMove(this->xCord+1,this->yCord+1);
-		it = list.end();
+	if (xCord != 8 && state->getPieceAt(this->xCord+1,this->yCord+one) != NULL &&
+	state->getPieceAt(this->xCord+1,this->yCord+one)->color != this->color){
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+1,this->yCord+one));
 	}
-	if (xCord != 1 && state->getPieceAt(this->xCord-1,this->yCord+1) != NULL &&
-	state->getPieceAt(this->xCord+1,this->yCord+1)->color != this->color){
-		list.insert(it, new ChessMove(this->xCord+1,this->yCord++1);
-		it = list.end();
+	if (xCord != 1 && state->getPieceAt(this->xCord-1,this->yCord+one) != NULL &&
+	state->getPieceAt(this->xCord+1,this->yCord+one)->color != this->color){
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+1,this->yCord+one));
 	}
 	return list;
 }

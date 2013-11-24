@@ -14,7 +14,6 @@ King::King(std::string color):Piece(color) {
 
 std::vector<ChessMove*> King::getPossibleMoves(GameState* state) {
 	std::vector<ChessMove*> list;
-	std::vector<ChessMove*>::iterator it;
 	for (int i = -1; i < 2; i++){
 		for (int j = -1; j < 2; j++){
 			if ((this->xCord+i > 0 && this->xCord+i < 9 && 
@@ -23,8 +22,7 @@ std::vector<ChessMove*> King::getPossibleMoves(GameState* state) {
 				(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
 				state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
 			{
-				list.insert(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+j));
-				it = list.end();
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+j));
 			}
 		}
 	}
