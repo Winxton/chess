@@ -25,9 +25,9 @@ void GameState::setSquareNumberings() {
 
 void GameState::movePiece(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest) {
     //get the piece pointer from the square
-    Piece *p = chessboard[xCordSrc][yCordSrc].getAndUnsetPiece();
+    Piece *p = chessboard[yCordSrc][xCordSrc].getAndUnsetPiece();
     //sets the piece to the new square on the board
-    chessboard[xCordDest][yCordDest].setPiece(p);
+    chessboard[yCordDest][xCordDest].setPiece(p);
 }
 
 bool GameState::isUnderCheck (string color) const {
@@ -88,7 +88,7 @@ const Piece *GameState::getPieceAt(int xCord, int yCord) const {
     if (!isInsideBoard(xCord, yCord)) {
         return 0; // out of bounds
     } else {
-        return chessboard[xCord][yCord].getPiece();
+        return chessboard[yCord][xCord].getPiece();
     }
 }
 
