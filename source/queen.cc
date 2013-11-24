@@ -12,6 +12,7 @@ Queen::Queen(string color):Piece(color) {
 		repr = 'Q';
 	else
 		repr = 'q';
+	moved = false;
     cout << "queen cons" << endl;
 }
 

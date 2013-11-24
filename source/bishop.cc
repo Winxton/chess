@@ -12,6 +12,7 @@ Bishop::Bishop(string color):Piece(color) {
 		repr = 'B';
 	else
 		repr = 'b';
+	moved = false;
     cout << "bishop cons" << endl;
 }
 
