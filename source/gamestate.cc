@@ -3,6 +3,7 @@
 #include "square.h"
 #include "piece.h"
 #include "chessmove.h"
+#include "piecefactory.h"
 #include <iostream>
 using namespace std;
 
@@ -35,6 +36,27 @@ bool GameState::isUnderCheck (string color) const {
 
 void GameState::initializeDefault() {
     //initialize the original configuration of the board.
+	PieceFactory *p = PieceFactory::getInstance();
+	for (int i = 0; i<8;i++){
+		this->chessboard[1][i].setPiece(p->createPiece("white","pawn"));
+		this->chessboard[6][i].setPiece(p->createPiece("black","pawn"));
+	}
+	this->chessboard[0][0].setPiece(p->createPiece("white","rook"));
+	this->chessboard[0][7].setPiece(p->createPiece("white","rook"));
+	this->chessboard[7][0].setPiece(p->createPiece("black","rook"));
+	this->chessboard[7][7].setPiece(p->createPiece("black","rook"));
+	this->chessboard[0][1].setPiece(p->createPiece("white","knight"));
+	this->chessboard[0][6].setPiece(p->createPiece("white","knight"));
+	this->chessboard[7][1].setPiece(p->createPiece("black","knight"));
+	this->chessboard[7][6].setPiece(p->createPiece("black","knight"));
+	this->chessboard[0][2].setPiece(p->createPiece("white","bishop"));
+	this->chessboard[0][5].setPiece(p->createPiece("white","bishop"));
+	this->chessboard[7][2].setPiece(p->createPiece("black","bishop"));
+	this->chessboard[7][5].setPiece(p->createPiece("black","bishop"));
+	this->chessboard[0][3].setPiece(p->createPiece("white","queen"));
+	this->chessboard[0][4].setPiece(p->createPiece("white","king"));
+	this->chessboard[7][3].setPiece(p->createPiece("black","queen"));
+	this->chessboard[7][4].setPiece(p->createPiece("black","king"));
 }
 
 vector<ChessMove*> GameState::getPossibleMovesForPlayer (const Player *p) const {
