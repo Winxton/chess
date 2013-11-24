@@ -92,9 +92,16 @@ string GameState::getPieceType(int xCord, int yCord) const {
 
 void GameState::printBoard() const {
     for (int row = 7; row >= 0; row--) {
+        cout << row+1 << " ";
         for (int col = 0; col <=7; col ++) {
             cout << chessboard[row][col];
         }
         cout << endl;
     }
+    cout << endl;
+    cout << "  ";
+    for (int i =0; i<8; i++) {
+        cout << (char)('a'+i);
+    }
+    cout << endl;
 }
