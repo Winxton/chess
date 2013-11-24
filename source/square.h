@@ -1,6 +1,8 @@
 #ifndef __SQUARE_H__
 #define __SQUARE_H__
 
+#include <iostream>
+
 class Piece;
 
 class Square 
@@ -29,6 +31,8 @@ public:
     bool hasPiece() const;
 
     const Piece *getPiece() const;
+
+    friend std::ostream& operator<<(std::ostream &out, const Square &s);
 
     ~Square();
 };
