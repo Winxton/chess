@@ -12,6 +12,7 @@ protected:
     int xCord, yCord;
 public:
     Piece(std::string color);
+    virtual std::string getColor();
     virtual std::vector<ChessMove*> getPossibleMoves(GameState* state) = 0;
     virtual void setCoords (int xCord,
                             int yCord);

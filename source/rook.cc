@@ -7,19 +7,19 @@
 #include <vector>
 using namespace std;
 
-Rook::Rook(std::string color):Piece(color) {
+Rook::Rook(string color):Piece(color) {
     cout << "cons" << endl;
 }
 
-std::vector<ChessMove*> Rook::getPossibleMoves(GameState* state) {
-	std::vector<ChessMove*> list;
+vector<ChessMove*> Rook::getPossibleMoves(GameState* state) {
+	vector<ChessMove*> list;
 	//vertical
 	for (int i = 0; i<8;i++){
 		if (state->getPieceAt(this->xCord,i) == NULL){
 			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,i));
 		}
 		else {
-			if (state->getPieceAt(this->xCord,i)->color != this->color){
+			if (state->getPieceAt(this->xCord,i)->getColor() != this->color){
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,i));
 			}
 		}
@@ -30,7 +30,7 @@ std::vector<ChessMove*> Rook::getPossibleMoves(GameState* state) {
 			list.push_back(new ChessMove(this->xCord,this->yCord,i,this->yCord));
 		}
 		else {
-			if (state->getPieceAt(i,this->yCord)->color != this->color){
+			if (state->getPieceAt(i,this->yCord)->getColor() != this->color){
 				list.push_back(new ChessMove(this->xCord,this->yCord,i,this->yCord));
 			}
 		}

@@ -4,10 +4,13 @@
 #include "queen.h"
 #include "king.h"
 #include "bishop.h"
+#include "knight.h"
 #include "rook.h"
 #include <cstdlib>
 #include <string>
 using namespace std;
+
+PieceFactory *PieceFactory::instance = NULL;
 
 void PieceFactory::cleanup() {
 	delete instance;
