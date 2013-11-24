@@ -23,14 +23,14 @@ vector<ChessMove*> Knight::getPossibleMoves(GameState* state) const {
 	for(int i = 0; i<2;i++){
 		for(int j = 0; j<2;j++){
 			if (state->isInsideBoard(this->xCord+a[i],this->xCord+b[j]) &&
-					(!state->hasPieceAt(this->xCord+a[i],this->yCord+b[j]) ||
+				(!state->hasPieceAt(this->xCord+a[i],this->yCord+b[j]) ||
 					state->hasPieceOfOppositeColor(this->color,this->xCord+a[i],this->yCord+b[j])))
 			{
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+a[i],this->yCord+b[j]));
 			}
 			if (state->isInsideBoard(this->xCord+b[i],this->xCord+a[j]) &&
-					(!state->hasPieceAt(this->xCord+b[i],this->yCord+a[j]) ||
-					state->hasPieceOfOppositeColor(this->color,this->xCord+b[i],this->yCord+a[j])))
+				(!state->hasPieceAt(this->xCord+b[i],this->yCord+a[j]) ||
+				state->hasPieceOfOppositeColor(this->color,this->xCord+b[i],this->yCord+a[j])))
 			{
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+b[i],this->yCord+a[j]));
 			}

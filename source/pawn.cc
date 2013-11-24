@@ -28,20 +28,24 @@ vector<ChessMove*> Pawn::getPossibleMoves(GameState* state) const {
 		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+one));
 	}
 	if (!state->getPieceAt(this->xCord,this->yCord+two) && 
-		!state->getPieceAt(this->xCord,this->yCord+one) && canAdvance){
+		!state->getPieceAt(this->xCord,this->yCord+one) &&
+		this->canAdvance)
+	{
 		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+two));
 	}
 	if (state->isInsideBoard(this->xCord+1,this->yCord+one) &&
-	state->hasPieceOfOppositeColor(this->color,this->xCord+1,this->yCord+one)){
+		state->hasPieceOfOppositeColor(this->color,this->xCord+1,this->yCord+one))
+	{
 		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+1,this->yCord+one));
 	}
 	if (state->isInsideBoard(this->xCord-1,this->yCord+one) &&
-	state->hasPieceOfOppositeColor(this->color,this->xCord+1,this->yCord+one)){
+		state->hasPieceOfOppositeColor(this->color,this->xCord+1,this->yCord+one))
+	{
 		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+1,this->yCord+one));
 	}
 	return list;
 }
 
-bool Pawn::ableToAdvance() const {
-	return canAdvance;
+void Pawn::setCanAdvance(){
+	canAdvance = false;
 }

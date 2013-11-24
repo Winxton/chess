@@ -18,6 +18,7 @@ King::King(string color):Piece(color) {
 
 vector<ChessMove*> King::getPossibleMoves(GameState* state) const {
 	vector<ChessMove*> list;
+	// normal king moves
 	for (int i = -1; i < 2; i++){
 		for (int j = -1; j < 2; j++){
 			if (state->isInsideBoard(this->xCord+i,this->yCord+j) &&
@@ -28,9 +29,47 @@ vector<ChessMove*> King::getPossibleMoves(GameState* state) const {
 			}
 		}
 	}
+	// check if able to castle
+	int i;
+	i = 1;
+	while (!this->moved &&
+			!stack->isUnderCheck(this->color) &&
+			stack->isInsideBoard(this->xCord+i,this->yCord) &&
+			!state->hasPieceAt(this->xCord+i,this->yCord))
+	{
+		if (state->hasPieceAt(this->xCord+i,this->yCord)){
+			if (state->getPieceType(this->xCord+i,this->yCord) == "rook" &&
+				!state->getPieceAt(this->xCord+i,this->yCord)->hasMoved())
+			{
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord));
+			}
+			break;
+		}
+		i++
+	}
+	i = 1;
+	while (!this->moved &&
+			!stack->isUnderCheck(this->color) &&
+			stack->isInsideBoard(this->xCord-i,this->yCord) &&
+			!state->hasPieceAt(this->xCord-i,this->yCord))
+	{
+		if (state->hasPieceAt(this->xCord-i,this->yCord)){
+			if (state->getPieceType(this->xCord-i,this->yCord) == "rook" &&
+				!state->getPieceAt(this->xCord-i,this->yCord)->hasMoved())
+			{
+				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord));
+			}
+			break;
+		}
+		i++
+	}
 	return list;
 }
 
 bool King::hasMoved() const {
 	return moved;
+}
+
+void King::setMoved(){
+	moved = true;
 }

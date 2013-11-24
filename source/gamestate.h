@@ -33,7 +33,7 @@ public:
     GameState(const GameState &state);
 
     // checks whether a player's king is in check
-    bool isUnderCheck (Player *p) const;
+    bool isUnderCheck (std::string color) const;
     
     // initializes a default board
     void initializeDefault ();

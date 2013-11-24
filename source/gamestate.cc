@@ -28,7 +28,7 @@ void GameState::movePiece(int xCordSrc, int yCordSrc, int xCordDest, int yCordDe
     chessboard[xCordDest][yCordDest].setPiece(p);
 }
 
-bool GameState::isUnderCheck (Player *p) const {
+bool GameState::isUnderCheck (string color) const {
     return false;
 }
 

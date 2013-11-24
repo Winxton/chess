@@ -14,6 +14,7 @@ public:
 	King (std::string color);
 	std::vector<ChessMove*> getPossibleMoves(GameState* state) const;
 	bool hasMoved() const;
+	void setMoved();
 };
 
 #endif

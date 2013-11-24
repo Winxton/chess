@@ -13,7 +13,7 @@ bool canAdvance;
 public:
     Pawn (std::string color);
     std::vector<ChessMove*> getPossibleMoves(GameState* state) const;
-	bool ableToAdvance() const;
+	void setCanAdvance();
 };
 
 #endif

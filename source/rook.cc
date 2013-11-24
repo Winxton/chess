@@ -65,3 +65,7 @@ vector<ChessMove*> Rook::getPossibleMoves(GameState* state) const {
 bool Rook::hasMoved() {
 	return moved;
 }
+
+void Rook:setMoved(){
+	moved = true;
+}
