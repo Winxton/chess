@@ -3,6 +3,7 @@
 #include "square.h"
 #include "piece.h"
 #include "chessmove.h"
+#include <iostream>
 using namespace std;
 
 GameState::GameState(): whiteChecked(false), blackChecked(false) {
@@ -70,7 +71,7 @@ const Piece *GameState::getPieceAt(int xCord, int yCord) const {
 }
 
 string GameState::getPieceType(int xCord, int yCord) const {
-	if (this->hasPieceAt(xCord,yCord)){
+	if (this->hasPieceAt(xCord,yCord)) {
 		char temp = this->getPieceAt(xCord,yCord)->getCharRepr();
 		if (temp == 'p' || temp == 'P')
 			return "pawn";
@@ -84,9 +85,16 @@ string GameState::getPieceType(int xCord, int yCord) const {
 			return "queen";
 		else
 			return "king";
-	}
+	} else {
+        return "";
+    }
 }
 
 void GameState::printBoard() const {
-    
+    for (int row = 7; row >= 0; row--) {
+        for (int col = 0; col <=7; col ++) {
+            cout << chessboard[row][col];
+        }
+        cout << endl;
+    }
 }

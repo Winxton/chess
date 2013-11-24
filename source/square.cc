@@ -53,3 +53,15 @@ const Piece *Square::getPiece() const {
 Square::~Square() {
     delete p;
 }
+
+
+ostream& operator<<(ostream &out, const Square &s) {
+    //use the representation if there is a piece, otherwise
+    //print the blank board (either "_" or " " depending on coordinates)
+    char r = s.hasPiece() ? s.getPiece()->getCharRepr()
+        : ( (s.xCord%2 == 0 && s.yCord%2 == 0) 
+            || (s.xCord%2 == 1 && s.yCord%2 == 1) ? '_' : ' ');
+
+    out << r;
+    return out;
+}
