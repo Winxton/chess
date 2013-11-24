@@ -15,7 +15,7 @@ Queen::Queen(std::string color):Piece(color) {
 std::vector<ChessMove*> Queen::getPossibleMoves(GameState* state) {
 	std::vector<ChessMove*> list;
 	//vertical
-	for (int i = 1; i<9;i++){
+	for (int i = 0; i<8;i++){
 		if (state->getPieceAt(this->xCord,i) == NULL){
 			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,i));
 		}
@@ -26,7 +26,7 @@ std::vector<ChessMove*> Queen::getPossibleMoves(GameState* state) {
 		}
 	}
 	//horizontal
-	for (int i = 1; i<9;i++){
+	for (int i = 0; i<8;i++){
 		if (state->getPieceAt(i,this->yCord) == NULL){
 			list.push_back(new ChessMove(this->xCord,this->yCord,i,this->yCord));
 		}

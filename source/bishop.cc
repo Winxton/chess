@@ -15,12 +15,12 @@ Bishop::Bishop(std::string color):Piece(color) {
 std::vector<ChessMove*> Bishop::getPossibleMoves(GameState* state) {
 	std::vector<ChessMove*> list;
 	// diagonals
-	int rightlimit = 8-xCord;
-	int toplimit = 8-yCord;
+	int rightlimit = 7-xCord;
+	int toplimit = 7-yCord;
 	int leftlimit = xCord;
 	int bottomlimit = yCord
 	//bottom left
-	for (int i = 1; i<std::min(bottomlimit,leftlimit);i++){
+	for (int i = 1; i<std::min(bottomlimit,leftlimit)+1;i++){
 		if (state->getPieceAt(this->xCord-i,this->yCord-i) == NULL){
 			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord-i));
 		}
@@ -31,7 +31,7 @@ std::vector<ChessMove*> Bishop::getPossibleMoves(GameState* state) {
 		}
 	}
 	// bottom right
-	for (int i = 1; i<std::min(bottomlimit,rightlimit);i++){
+	for (int i = 1; i<std::min(bottomlimit,rightlimit)+1;i++){
 		if (state->getPieceAt(this->xCord+i,this->yCord-i) == NULL){
 			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord-i));
 		}
@@ -42,7 +42,7 @@ std::vector<ChessMove*> Bishop::getPossibleMoves(GameState* state) {
 		}
 	}
 	// top left
-	for (int i = 1; i<std::min(toplimit,leftlimit);i++){
+	for (int i = 1; i<std::min(toplimit,leftlimit)+1;i++){
 		if (state->getPieceAt(this->xCord-i,this->yCord+i) == NULL){
 			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord+i));
 		}
@@ -53,7 +53,7 @@ std::vector<ChessMove*> Bishop::getPossibleMoves(GameState* state) {
 		}
 	}
 	// top right
-	for (int i = 1; i<std::min(toplimit,rightlimit);i++){
+	for (int i = 1; i<std::min(toplimit,rightlimit)+1;i++){
 		if (state->getPieceAt(this->xCord+i,this->yCord+i) == NULL){
 			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+i));
 		}

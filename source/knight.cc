@@ -17,8 +17,8 @@ std::vector<ChessMove*> Knight::getPossibleMoves(GameState* state) {
 	int j;
 	i = -2;
 	j = -1;
-	if ((this->xCord+i > 0 && this->xCord+i < 9 && 
-			this->yCord+j > 0 && this->yCord+j < 9 &&
+	if ((this->xCord+i > -1 && this->xCord+i < 8 && 
+			this->yCord+j > -1 && this->yCord+j < 8 &&
 			state->getPieceAt(this->xCord+i,this->yCord+j) == NULL) ||
 			(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
 			state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
@@ -27,8 +27,8 @@ std::vector<ChessMove*> Knight::getPossibleMoves(GameState* state) {
 	}
 	i = -2;
 	j = 1;
-	if ((this->xCord+i > 0 && this->xCord+i < 9 && 
-			this->yCord+j > 0 && this->yCord+j < 9 &&
+	if ((this->xCord+i > -1 && this->xCord+i < 8 && 
+			this->yCord+j > -1 && this->yCord+j < 8 &&
 			state->getPieceAt(this->xCord+i,this->yCord+j) == NULL) ||
 			(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
 			state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
@@ -37,8 +37,8 @@ std::vector<ChessMove*> Knight::getPossibleMoves(GameState* state) {
 	}
 	i = 2;
 	j = -1;
-	if ((this->xCord+i > 0 && this->xCord+i < 9 && 
-			this->yCord+j > 0 && this->yCord+j < 9 &&
+	if ((this->xCord+i > -1 && this->xCord+i < 8 && 
+			this->yCord+j > -1 && this->yCord+j < 8 &&
 			state->getPieceAt(this->xCord+i,this->yCord+j) == NULL) ||
 			(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
 			state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
@@ -47,8 +47,8 @@ std::vector<ChessMove*> Knight::getPossibleMoves(GameState* state) {
 	}
 	i = 2;
 	j = 1;
-	if ((this->xCord+i > 0 && this->xCord+i < 9 && 
-			this->yCord+j > 0 && this->yCord+j < 9 &&
+	if ((this->xCord+i > -1 && this->xCord+i < 8 && 
+			this->yCord+j > -1 && this->yCord+j < 8 &&
 			state->getPieceAt(this->xCord+i,this->yCord+j) == NULL) ||
 			(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
 			state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
@@ -57,8 +57,8 @@ std::vector<ChessMove*> Knight::getPossibleMoves(GameState* state) {
 	}
 	i = -1;
 	j = -2;
-	if ((this->xCord+i > 0 && this->xCord+i < 9 && 
-			this->yCord+j > 0 && this->yCord+j < 9 &&
+	if ((this->xCord+i > -1 && this->xCord+i < 8 && 
+			this->yCord+j > -1 && this->yCord+j < 8 &&
 			state->getPieceAt(this->xCord+i,this->yCord+j) == NULL) ||
 			(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
 			state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
@@ -67,8 +67,8 @@ std::vector<ChessMove*> Knight::getPossibleMoves(GameState* state) {
 	}
 	i = -1;
 	j = 2;
-	if ((this->xCord+i > 0 && this->xCord+i < 9 && 
-			this->yCord+j > 0 && this->yCord+j < 9 &&
+	if ((this->xCord+i > -1 && this->xCord+i < 8 && 
+			this->yCord+j > -1 && this->yCord+j < 8 &&
 			state->getPieceAt(this->xCord+i,this->yCord+j) == NULL) ||
 			(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
 			state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
@@ -77,8 +77,8 @@ std::vector<ChessMove*> Knight::getPossibleMoves(GameState* state) {
 	}	
 	i = 1;
 	j = -2;
-	if ((this->xCord+i > 0 && this->xCord+i < 9 && 
-			this->yCord+j > 0 && this->yCord+j < 9 &&
+	if ((this->xCord+i > -1 && this->xCord+i < 8 && 
+			this->yCord+j > -1 && this->yCord+j < 8 &&
 			state->getPieceAt(this->xCord+i,this->yCord+j) == NULL) ||
 			(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
 			state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
@@ -87,8 +87,8 @@ std::vector<ChessMove*> Knight::getPossibleMoves(GameState* state) {
 	}	
 	i = 1;
 	j = 2;
-	if ((this->xCord+i > 0 && this->xCord+i < 9 && 
-			this->yCord+j > 0 && this->yCord+j < 9 &&
+	if ((this->xCord+i > -1 && this->xCord+i < 8 && 
+			this->yCord+j > -1 && this->yCord+j < 8 &&
 			state->getPieceAt(this->xCord+i,this->yCord+j) == NULL) ||
 			(state->getPieceAt(this->xCord+i,this->yCord+j) != NULL &&
 			state->getPieceAt(this->xCord+i,this->yCord+j)->color != this->color))
