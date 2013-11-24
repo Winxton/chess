@@ -12,7 +12,7 @@ Pawn::Pawn(string color):Piece(color) {
 		repr = 'P';
 	else
 		repr = 'p';
-	canAdvance = true;
+	moved = false;
     cout << "pawn cons" << endl;
 }
 
@@ -29,7 +29,7 @@ vector<ChessMove*> Pawn::getPossibleMoves(GameState* state) const {
 	}
 	if (!state->getPieceAt(this->xCord,this->yCord+two) && 
 		!state->getPieceAt(this->xCord,this->yCord+one) &&
-		this->canAdvance)
+		!this->moved)
 	{
 		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+two));
 	}
@@ -44,8 +44,4 @@ vector<ChessMove*> Pawn::getPossibleMoves(GameState* state) const {
 		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+1,this->yCord+one));
 	}
 	return list;
-}
-
-void Pawn::setCanAdvance(){
-	canAdvance = false;
 }

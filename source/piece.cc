@@ -12,6 +12,14 @@ char Piece::getCharRepr() const {
 	return repr;
 }
 
+bool Piece::hasMoved() const{
+	return moved;
+}
+
+void Piece::setMoved() {
+	moved = true;
+}
+
 void Piece::setCoords (int xCord, int yCord) {
     this->xCord = xCord;
     this->yCord = yCord;

@@ -9,12 +9,9 @@
 
 class Rook : public Piece 
 {
-bool moved;
 public:
     Rook(std::string color);
     std::vector<ChessMove*> getPossibleMoves (GameState* state) const;
-    bool hasMoved();
-	void setMoved();
 };
 
 #endif

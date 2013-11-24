@@ -12,6 +12,7 @@ Knight::Knight(string color):Piece(color) {
 		repr = 'N';
 	else
 		repr = 'n';
+	moved = false;
     cout << "knight cons" << endl;
 }
 
