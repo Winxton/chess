@@ -20,6 +20,8 @@ class GameState
     friend class Promotion;
     friend class Resign;
 
+    GameState *previousState;
+
     Square chessboard[8][8];
     bool whiteChecked;
     bool blackChecked;
@@ -57,6 +59,9 @@ public:
 	
 	std::string getPieceType(int xCord, int yCord) const;
     
+    void setPreviousState(GameState *state);
+    GameState *getPreviousState();
+
     // print the chess board
     void printBoard () const;
 };

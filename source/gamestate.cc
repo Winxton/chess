@@ -7,12 +7,12 @@
 #include <iostream>
 using namespace std;
 
-GameState::GameState(): whiteChecked(false), blackChecked(false) {
+GameState::GameState(): previousState(0), whiteChecked(false), blackChecked(false) {
     setSquareNumberings();
     initializeDefault();
 }
 
-GameState::GameState(const GameState &state): whiteChecked(false), blackChecked(false) {
+GameState::GameState(const GameState &state): previousState(0), whiteChecked(false), blackChecked(false) {
     setSquareNumberings();
 }
 
@@ -129,6 +129,14 @@ string GameState::getPieceType(int xCord, int yCord) const {
 	} else {
         return "";
     }
+}
+
+void GameState::setPreviousState(GameState *state) {
+    previousState = state;
+}
+
+GameState *GameState::getPreviousState() {
+    return previousState;
 }
 
 void GameState::printBoard() const {

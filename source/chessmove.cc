@@ -10,6 +10,8 @@ void ChessMove::apply (GameState *state) {
 	state->movePiece(xCordSrc, yCordSrc, xCordDest, yCordDest);
 }
 
+ChessMove::~ChessMove(){};
+
 std::ostream& operator<<(std::ostream &out, const ChessMove &s) {
 	out << "Move from (" << (char)('a'+s.xCordSrc) << "," << (s.yCordSrc+1) << ") to (" 
 	<< (char)('a'+s.xCordDest) << "," << (s.yCordDest+1) << ")";

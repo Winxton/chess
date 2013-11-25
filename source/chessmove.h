@@ -10,6 +10,7 @@ protected:
 public:
 	ChessMove(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest);
 	virtual void apply (GameState *state);
+	virtual ~ChessMove();
 	friend std::ostream& operator<<(std::ostream &out, const ChessMove &s);
 };
 

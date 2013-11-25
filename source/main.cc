@@ -15,6 +15,8 @@ int main() {
 	cout << endl;
     state->printBoard();
 
+    cout << "---" << endl;
+
 	vector<ChessMove*> v8 = state->getPieceAt(0,3)->getPossibleMoves(state);
 	cout << state->getPieceType(0,3) << endl;
     for (unsigned int i =0; i<v8.size(); i++) {
@@ -112,7 +114,6 @@ int main() {
 	for (unsigned int i =0; i<v9.size(); i++) {
     	delete v9[i];
     }
-
 
     delete state;
 }
