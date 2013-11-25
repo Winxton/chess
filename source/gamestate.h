@@ -28,7 +28,7 @@ class GameState
     bool whiteChecked;
     bool blackChecked;
     void setSquareNumberings();
-
+    
     //moves a piece from a source to a destination
     void movePiece(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest);
 

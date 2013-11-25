@@ -1,12 +1,18 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 
-class Action;
+#include "action.h"
+#include <string>
+
+class GameState;
 
 class Player 
 {
+protected:
+	std::string color;
 public:
-    virtual Action *getAction () = 0;
+	Player(std::string color);
+    virtual Action *getAction(const GameState& state) = 0;
     virtual ~Player();
 };
 

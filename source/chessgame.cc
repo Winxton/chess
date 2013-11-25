@@ -21,22 +21,26 @@ void ChessGame::start() {
 
 		Action *action;
 		if (currentState->isWhiteTurn()) {
-			action = whitePlayer->getAction();
+			cout << "White Player's Turn" << endl;
+			action = whitePlayer->getAction(*currentState);
 		} else {
-			action = blackPlayer->getAction();
+			cout << "Black Player's Turn" << endl;
+			action = blackPlayer->getAction(*currentState);
 		}
-		
+		cout << "Apply action: " << *action << endl;
+
 		// copy a new state and set its "previous state pointer"
 		// to the current state
 		GameState *temp = new GameState(*currentState);
 		temp->setPreviousState(currentState);
 		// update the current state pointer
 		currentState = temp;
-
 		// apply the action to the current state
-		action->apply(currentState);
+		action->apply(*currentState);
 
 		delete action;
+
+		currentState->printBoard();
 		currentState->swapTurns();
 	}
 }
