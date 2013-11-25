@@ -60,7 +60,7 @@ public:
 	std::string getPieceType(int xCord, int yCord) const;
     
     void setPreviousState(GameState *state);
-    GameState *getPreviousState();
+    GameState *getPreviousState() const;
 
     // print the chess board
     void printBoard () const;
