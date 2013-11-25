@@ -3,12 +3,12 @@ CXXFLAGS = -Wall -g -MMD
 
 #everything
 EXEC = chess
-OBJECTS = main.o gamestate.o square.o chessmove.o piecefactory.o piece.o rook.o pawn.o knight.o queen.o bishop.o king.o
+OBJECTS = main.o chessgame.o gamestate.o square.o chessmove.o piecefactory.o piece.o rook.o pawn.o knight.o queen.o bishop.o king.o player.o humanplayer.o
 DEPENDS = ${OBJECTS:.o=.d}
 
 #for testing
 TEST_EXEC = test
-TESTOBJECTS = maintest.o
+TESTOBJECTS = maintest.o gamestate.o square.o chessmove.o piecefactory.o piece.o rook.o pawn.o knight.o queen.o bishop.o king.o
 TESTDEPENDS = ${TESTOBJECTS:.o=.d}
 
 ${EXEC}: ${OBJECTS}

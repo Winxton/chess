@@ -65,3 +65,7 @@ vector<ChessMove*> Bishop::getPossibleMoves(const GameState* state) const {
 	}
 	return list;
 }
+
+Bishop *Bishop::clone() const {
+	return new Bishop(*this);
+}

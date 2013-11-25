@@ -12,6 +12,7 @@ class Rook : public Piece
 public:
     Rook(std::string color);
     std::vector<ChessMove*> getPossibleMoves (const GameState* state) const;
+    Rook *clone() const;
 };
 
 #endif

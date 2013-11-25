@@ -5,9 +5,9 @@ class Action;
 
 class Player 
 {
-std::istream *source;
 public:
-    Action *getAction () = 0;
+    virtual Action *getAction () = 0;
+    virtual ~Player();
 };
 
 #endif

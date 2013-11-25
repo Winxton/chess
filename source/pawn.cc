@@ -87,3 +87,7 @@ vector<ChessMove*> Pawn::getPossibleMoves(const GameState* state) const {
 	}
 	return list;
 }
+
+Pawn *Pawn::clone() const {
+	return new Pawn(*this);
+}

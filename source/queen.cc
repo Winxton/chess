@@ -109,3 +109,7 @@ vector<ChessMove*> Queen::getPossibleMoves(const GameState* state) const {
 	}
 	return list;
 }
+
+Queen *Queen::clone() const {
+	return new Queen(*this);
+}

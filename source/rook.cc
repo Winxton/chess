@@ -65,3 +65,7 @@ vector<ChessMove*> Rook::getPossibleMoves(const GameState* state) const {
 	}
 	return list;
 }
+
+Rook *Rook::clone() const {
+	return new Rook(*this);
+}

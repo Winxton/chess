@@ -12,6 +12,7 @@ class Knight : public Piece
 public:
 	Knight (std::string color);
 	std::vector<ChessMove*> getPossibleMoves (const GameState* state) const;
+	Knight *clone() const;
 };
 
 #endif

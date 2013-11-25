@@ -20,6 +20,7 @@ public:
 	virtual bool hasMoved() const;
 	virtual void setMoved();
     virtual void setCoords(int xCord, int yCord);
+    virtual Piece *clone() const = 0;
     virtual ~Piece();
 };
 

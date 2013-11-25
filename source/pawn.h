@@ -12,6 +12,7 @@ class Pawn : public Piece
 public:
     Pawn (std::string color);
     std::vector<ChessMove*> getPossibleMoves(const GameState* state) const;
+    Pawn *clone() const;
 };
 
 #endif

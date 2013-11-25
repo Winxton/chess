@@ -7,13 +7,9 @@
 #include <iostream>
 using namespace std;
 
-GameState::GameState(): previousState(0), whiteChecked(false), blackChecked(false) {
+GameState::GameState(): previousState(0), whiteTurn(true), gameEnded(false), whiteChecked(false), blackChecked(false) {
     setSquareNumberings();
     initializeDefault();
-}
-
-GameState::GameState(const GameState &state): previousState(0), whiteChecked(false), blackChecked(false) {
-    setSquareNumberings();
 }
 
 void GameState::setSquareNumberings() {
@@ -61,6 +57,18 @@ void GameState::initializeDefault() {
 	this->chessboard[4][7].setPiece(p->createPiece("black","king"));
 	// test
 	this->chessboard[4][4].setPiece(p->createPiece("white","queen"));
+}
+
+void GameState::swapTurns() {
+    whiteTurn = !whiteTurn;
+}
+
+bool GameState::isGameEnded() const {
+    return gameEnded;
+}
+
+bool GameState::isWhiteTurn() const {
+    return whiteTurn;
 }
 
 vector<ChessMove*> GameState::getPossibleMovesForPlayer (string color) const {
@@ -153,4 +161,9 @@ void GameState::printBoard() const {
         cout << (char)('a'+i);
     }
     cout << endl;
+}
+
+
+GameState::~GameState() {
+    delete previousState;
 }

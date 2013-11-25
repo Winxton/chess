@@ -6,19 +6,25 @@ Square::Square(): p(0) {}
 
 Square::Square(Piece *p): p(p) {}
 
-Square::Square (const Square &other) {
+Square::Square (Square &other) {
+    xCord = other.xCord;
+    yCord = other.yCord;
+
     if (other.hasPiece()) {
-        Piece *temp = &(*other.p);
+        Piece *temp = other.p->clone();
         p = temp;
     } else {
         p = 0;
     }
 }
 
-Square& Square::operator=(const Square &other) {
+Square& Square::operator=(Square &other) {
+    xCord = other.xCord;
+    yCord = other.yCord;
+
     delete p;
     if (other.hasPiece()) {
-        Piece *temp = &(*other.p);
+        Piece *temp = other.p->clone();
         p = temp;
     } else {
         p = 0;

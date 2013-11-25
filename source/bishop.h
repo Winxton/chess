@@ -12,6 +12,7 @@ class Bishop : public Piece
 public:
 	Bishop (std::string color);
 	std::vector<ChessMove*> getPossibleMoves(const GameState* state) const;
+	Bishop *clone() const;
 };
 
 #endif

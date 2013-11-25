@@ -1,8 +1,13 @@
+#ifndef __HUMANPLAYER_H__
+#define __HUMANPLAYER_H__
 
-class HumanPlayer : Player 
+#include "player.h"
+
+class HumanPlayer : public Player 
 {
 public:
 	HumanPlayer ();
-	Action* getAction ();
+	Action *getAction ();
 };
 
+#endif

@@ -66,3 +66,7 @@ vector<ChessMove*> King::getPossibleMoves(const GameState* state) const {
 	}
 	return list;
 }
+
+King *King::clone() const {
+	return new King(*this);
+}

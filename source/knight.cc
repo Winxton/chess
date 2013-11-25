@@ -39,3 +39,7 @@ vector<ChessMove*> Knight::getPossibleMoves(const GameState* state) const {
 	}
 	return list;
 }
+
+Knight *Knight::clone() const {
+	return new Knight(*this);
+}

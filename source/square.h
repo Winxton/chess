@@ -9,13 +9,15 @@ class Square
 {
     int xCord, yCord;
     Piece *p;
+    
 public:
+    
     Square();
     Square(Piece *p);
 
-    Square (const Square &other); //copy constructor
+    Square (Square &other); //copy constructor
 
-    Square& operator=(const Square &other); //assignment operator
+    Square& operator=(Square &other); //assignment operator
 
     //set the coordinates for the square
     void setCoords(int xCord, int yCord);

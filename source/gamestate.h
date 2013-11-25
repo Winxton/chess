@@ -21,8 +21,10 @@ class GameState
     friend class Resign;
 
     GameState *previousState;
-
     Square chessboard[8][8];
+
+    bool whiteTurn;
+    bool gameEnded;
     bool whiteChecked;
     bool blackChecked;
     void setSquareNumberings();
@@ -31,8 +33,8 @@ class GameState
     void movePiece(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest);
 
 public:
+    
     GameState();
-    GameState(const GameState &state);
 
     // checks whether a player's king is in check
     bool isUnderCheck (std::string color) const;
@@ -40,6 +42,13 @@ public:
     // initializes a default board
     void initializeDefault ();
     
+    //swaps the turns
+    void swapTurns();
+
+    bool isGameEnded() const;
+
+    bool isWhiteTurn() const;
+
     // returns list of possible moves without checking if the king is in check after making the move
     std::vector<ChessMove*> getPossibleMovesForPlayer (std::string color) const;
     
@@ -64,6 +73,8 @@ public:
 
     // print the chess board
     void printBoard () const;
+
+    ~GameState();
 };
 
 #endif

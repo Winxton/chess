@@ -12,6 +12,7 @@ class King : public Piece
 public:
 	King (std::string color);
 	std::vector<ChessMove*> getPossibleMoves(const GameState* state) const;
+	King *clone() const;
 };
 
 #endif
