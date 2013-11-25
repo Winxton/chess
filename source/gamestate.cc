@@ -48,17 +48,19 @@ void GameState::initializeDefault() {
 	this->chessboard[0][7].setPiece(p->createPiece("black","rook"));
 	this->chessboard[7][7].setPiece(p->createPiece("black","rook"));
 	this->chessboard[1][0].setPiece(p->createPiece("white","knight"));
-	this->chessboard[6][0].setPiece(p->createPiece("white","knight"));
+	//this->chessboard[6][0].setPiece(p->createPiece("white","knight"));
 	this->chessboard[1][7].setPiece(p->createPiece("black","knight"));
 	this->chessboard[6][7].setPiece(p->createPiece("black","knight"));
 	this->chessboard[2][0].setPiece(p->createPiece("white","bishop"));
-	this->chessboard[5][0].setPiece(p->createPiece("white","bishop"));
+	//this->chessboard[5][0].setPiece(p->createPiece("white","bishop"));
 	this->chessboard[2][7].setPiece(p->createPiece("black","bishop"));
 	this->chessboard[5][7].setPiece(p->createPiece("black","bishop"));
 	this->chessboard[3][0].setPiece(p->createPiece("white","queen"));
 	this->chessboard[4][0].setPiece(p->createPiece("white","king"));
 	this->chessboard[3][7].setPiece(p->createPiece("black","queen"));
 	this->chessboard[4][7].setPiece(p->createPiece("black","king"));
+	// test
+	this->chessboard[4][4].setPiece(p->createPiece("white","queen"));
 }
 
 vector<ChessMove*> GameState::getPossibleMovesForPlayer (string color) const {

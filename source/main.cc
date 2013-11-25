@@ -76,7 +76,14 @@ int main() {
     for (unsigned int i =0; i<v7.size(); i++) {
     	cout << *v7[i] << endl;
     }
+	
+	vector<ChessMove*> v9 = state->getPieceAt(4,4)->getPossibleMoves(state);
+    cout << state->getPieceType(4,4) << endl;
+    for (unsigned int i =0; i<v9.size(); i++) {
+    	cout << *v9[i] << endl;
+    }
 
+	state->printBoard();
     //remember to delete the dynamically allocated elements
     for (unsigned int i =0; i<v.size(); i++) {
     	delete v[i];
@@ -101,6 +108,9 @@ int main() {
     }
 	for (unsigned int i =0; i<v8.size(); i++) {
     	delete v8[i];
+    }
+	for (unsigned int i =0; i<v9.size(); i++) {
+    	delete v9[i];
     }
 
 
