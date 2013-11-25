@@ -29,6 +29,7 @@ void GameState::movePiece(int xCordSrc, int yCordSrc, int xCordDest, int yCordDe
     Piece *p = chessboard[xCordSrc][yCordSrc].getAndUnsetPiece();
     //sets the piece to the new square on the board
     chessboard[xCordDest][yCordDest].setPiece(p);
+	p->setMoved();
 }
 
 bool GameState::isUnderCheck (string color) const {

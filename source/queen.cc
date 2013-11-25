@@ -27,6 +27,7 @@ vector<ChessMove*> Queen::getPossibleMoves(const GameState* state) const {
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+i));
 			break;
 		}
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+i));
 		i++;
 	}
 	// down
@@ -37,6 +38,7 @@ vector<ChessMove*> Queen::getPossibleMoves(const GameState* state) const {
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord-i));
 			break;
 		}
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord-i));
 		i++;
 	}
 	// right
@@ -47,6 +49,7 @@ vector<ChessMove*> Queen::getPossibleMoves(const GameState* state) const {
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord));
 			break;
 		}
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord));
 		i++;
 	}
 	// left
@@ -57,6 +60,7 @@ vector<ChessMove*> Queen::getPossibleMoves(const GameState* state) const {
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord));
 			break;
 		}
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord));
 		i++;
 	}
 	// top right
@@ -67,6 +71,7 @@ vector<ChessMove*> Queen::getPossibleMoves(const GameState* state) const {
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+i));
 			break;
 		}
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord+i));
 		i++;
 	}
 	// top left
@@ -77,6 +82,7 @@ vector<ChessMove*> Queen::getPossibleMoves(const GameState* state) const {
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord+i));
 			break;
 		}
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord+i));
 		i++;
 	}
 	//bottom right
@@ -87,6 +93,7 @@ vector<ChessMove*> Queen::getPossibleMoves(const GameState* state) const {
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord-i));
 			break;
 		}
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord-i));
 		i++;
 	}
 	// bottom left
@@ -97,6 +104,7 @@ vector<ChessMove*> Queen::getPossibleMoves(const GameState* state) const {
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord-i));
 			break;
 		}
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord-i));
 		i++;
 	}
 	return list;

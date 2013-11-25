@@ -27,6 +27,7 @@ vector<ChessMove*> Rook::getPossibleMoves(const GameState* state) const {
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+i));
 			break;
 		}
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+i));
 		i++;
 	}
 	// down
@@ -37,6 +38,7 @@ vector<ChessMove*> Rook::getPossibleMoves(const GameState* state) const {
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord-i));
 			break;
 		}
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord-i));
 		i++;
 	}
 	// right
@@ -47,6 +49,7 @@ vector<ChessMove*> Rook::getPossibleMoves(const GameState* state) const {
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord));
 			break;
 		}
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+i,this->yCord));
 		i++;
 	}
 	// left
@@ -57,6 +60,7 @@ vector<ChessMove*> Rook::getPossibleMoves(const GameState* state) const {
 				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord));
 			break;
 		}
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-i,this->yCord));
 		i++;
 	}
 	return list;
