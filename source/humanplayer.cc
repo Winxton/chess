@@ -5,11 +5,20 @@
 #include "gamestate.h"
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 HumanPlayer::HumanPlayer(string color): Player(color) {}
 
 Action *HumanPlayer::getAction(const GameState &state) const {
+	
+	cout << "LEGAL MOVES" << endl;
+	vector<ChessMove*> legalmoves = state.getLegalMovesForPlayer(color);
+	cout << "SIZE: " << legalmoves.size() << endl;
+	for (unsigned int i =0; i<legalmoves.size(); i++) {
+		cout << *legalmoves[i] << endl;
+	}
+	cout << "-------------------" << endl;
 
 	bool validActionGiven = false;
 
@@ -39,10 +48,14 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 		} else if (cmd == "resign") {
 			action = new Resign(color);
 			validActionGiven = true;
-
+			
 		} else {
 			cout << "invalid command" << endl;
 		}
+	}
+
+	for (unsigned int i =0; i<legalmoves.size(); i++) {
+		delete legalmoves[i];
 	}
 
 	return action;

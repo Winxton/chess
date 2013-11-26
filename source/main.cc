@@ -13,13 +13,12 @@ int main() {
 
     Player *whitePlayer = new HumanPlayer("white");
     Player *blackPlayer = new HumanPlayer("black");
-
+	
     GameState *state = new GameState();
-    state->printBoard();
 
     ChessGame game(state, whitePlayer, blackPlayer);
-    game.start();
-    
+   	game.start();
+
     delete whitePlayer;
     delete blackPlayer;
 }

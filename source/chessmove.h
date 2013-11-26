@@ -12,6 +12,7 @@ public:
 	ChessMove(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest);
 	virtual void apply (GameState &state);
 	virtual ~ChessMove();
+	bool hasSameDestination(int xCord, int yCord) const;
 	//friend std::ostream& operator<<(std::ostream &out, const ChessMove &s);
 	bool operator==(const ChessMove &other);
 };

@@ -5,7 +5,6 @@
 #include <string>
 #include "square.h"
 
-class Player;
 class ChessMove;
 class Piece;
 
@@ -31,7 +30,6 @@ class GameState
     
     //moves a piece from a source to a destination
     void movePiece(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest);
-
 public:
     
     GameState();
@@ -71,6 +69,7 @@ public:
 	std::string getPieceType(int xCord, int yCord) const;
     
     void setPreviousState(GameState *state);
+
     GameState *getPreviousState() const;
 
     // print the chess board

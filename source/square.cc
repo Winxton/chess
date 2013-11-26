@@ -6,7 +6,7 @@ Square::Square(): p(0) {}
 
 Square::Square(Piece *p): p(p) {}
 
-Square::Square (Square &other) {
+Square::Square (const Square &other) {
     xCord = other.xCord;
     yCord = other.yCord;
 
@@ -18,7 +18,7 @@ Square::Square (Square &other) {
     }
 }
 
-Square& Square::operator=(Square &other) {
+Square& Square::operator=(const Square &other) {
     xCord = other.xCord;
     yCord = other.yCord;
 

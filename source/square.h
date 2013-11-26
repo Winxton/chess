@@ -15,9 +15,9 @@ public:
     Square();
     Square(Piece *p);
 
-    Square (Square &other); //copy constructor
+    Square (const Square &other); //copy constructor
 
-    Square& operator=(Square &other); //assignment operator
+    Square& operator=(const Square &other); //assignment operator
 
     //set the coordinates for the square
     void setCoords(int xCord, int yCord);

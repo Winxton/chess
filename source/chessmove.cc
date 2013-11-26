@@ -12,6 +12,10 @@ void ChessMove::apply (GameState &state) {
 
 ChessMove::~ChessMove(){};
 
+bool ChessMove::hasSameDestination(int xCord, int yCord) const {
+	return xCord==xCordDest && yCord==yCordDest;
+}
+
 ostream& ChessMove::doPrint(std::ostream& out) const {
 	return out << "Move from (" << (char)('a'+this->xCordSrc) << "," << (this->yCordSrc+1) << ") to (" 
 	<< (char)('a'+this->xCordDest) << "," << (this->yCordDest+1) << ")";

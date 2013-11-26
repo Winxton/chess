@@ -14,6 +14,7 @@ ChessGame::ChessGame (
            blackPlayer(blackPlayer) {}
 
 void ChessGame::doTurn(const Player &player) {
+
 	Action *action = 0;
 
 	//need to also check for stalemate
@@ -21,6 +22,7 @@ void ChessGame::doTurn(const Player &player) {
 		if (player.cannotMove(*currentState) 
 			&& !player.isUnderCheck);
 	*/
+
 	if (player.cannotMove(*currentState)) 
 	{
 		currentState->setGameEnded();
@@ -51,13 +53,14 @@ void ChessGame::doTurn(const Player &player) {
 
 		delete action;
 
-		currentState->printBoard();
 		currentState->swapTurns();
 	}
 
 }
 
 void ChessGame::start() {
+	currentState->printBoard();
+	
 	while (!currentState->isGameEnded()) {
 		if (currentState->isWhiteTurn()) {
 			cout << "White Player's Turn" << endl;
@@ -66,6 +69,7 @@ void ChessGame::start() {
 			cout << "Black Player's Turn" << endl;
 			doTurn(*blackPlayer);
 		}
+		currentState->printBoard();
 	}
 }
 
