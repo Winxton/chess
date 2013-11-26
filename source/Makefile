@@ -3,12 +3,12 @@ CXXFLAGS = -Wall -g -MMD
 
 #everything
 EXEC = chess
-OBJECTS = main.o chessgame.o scoreboard.o gamestate.o square.o action.o chessmove.o resign.o piecefactory.o piece.o rook.o pawn.o knight.o queen.o bishop.o king.o player.o humanplayer.o
+OBJECTS = main.o window.o chessgame.o scoreboard.o gamestate.o square.o action.o chessmove.o resign.o piecefactory.o piece.o rook.o pawn.o knight.o queen.o bishop.o king.o player.o humanplayer.o
 DEPENDS = ${OBJECTS:.o=.d}
 
 #for testing
 TEST_EXEC = test
-TESTOBJECTS = maintest.o gamestate.o square.o chessmove.o piecefactory.o piece.o rook.o pawn.o knight.o queen.o bishop.o king.o
+TESTOBJECTS = maintest.o window.o chessgame.o scoreboard.o gamestate.o square.o action.o chessmove.o resign.o piecefactory.o piece.o rook.o pawn.o knight.o queen.o bishop.o king.o player.o humanplayer.o
 TESTDEPENDS = ${TESTOBJECTS:.o=.d}
 
 ${EXEC}: ${OBJECTS}
@@ -17,7 +17,7 @@ ${EXEC}: ${OBJECTS}
 -include ${DEPENDS}
 
 ${TEST_EXEC}: ${TESTOBJECTS}
-	${CXX} ${CXXFLAGS} ${TESTOBJECTS} -o ${TEST_EXEC}
+	${CXX} ${CXXFLAGS} ${TESTOBJECTS} -o ${TEST_EXEC} -lX11
 
 -include ${TESTDEPENDS}
 

@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "square.h"
+#include "window.h"
 
 class ChessMove;
 class Piece;
@@ -72,6 +73,8 @@ public:
 
     GameState *getPreviousState() const;
 
+
+	
     // print the chess board
     void printBoard () const;
 

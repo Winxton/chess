@@ -5,6 +5,7 @@
 #include "chessmove.h"
 #include "piecefactory.h"
 #include <iostream>
+#include "window.h"
 using namespace std;
 
 GameState::GameState(): previousState(0), whiteTurn(true), gameEnded(false), whiteChecked(false), blackChecked(false) {
@@ -56,7 +57,7 @@ void GameState::initializeDefault() {
 	this->chessboard[3][7].setPiece(p->createPiece("black","queen"));
 	this->chessboard[4][7].setPiece(p->createPiece("black","king"));
 	// test
-	this->chessboard[4][4].setPiece(p->createPiece("white","queen"));
+	//this->chessboard[4][4].setPiece(p->createPiece("white","queen"));
 }
 
 void GameState::swapTurns() {
@@ -175,6 +176,7 @@ bool GameState::hasPieceOfOppositeColor(string color,int xCord, int yCord) const
     string oppositeColor = color == "white" ? "black" : "white"; 
 	return (getPieceColor(xCord, yCord) == oppositeColor);
 }
+
 
 
 string GameState::getPieceType(int xCord, int yCord) const {
