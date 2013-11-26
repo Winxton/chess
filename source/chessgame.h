@@ -13,7 +13,7 @@ public:
 	ChessGame(GameState* state,
 	           Player* whitePlayer,
 	           Player* blackPlayer);
-	void doTurn();
+	void doTurn(const Player &player);
 	void start();
 	~ChessGame();
 };

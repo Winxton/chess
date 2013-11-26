@@ -8,7 +8,7 @@ class HumanPlayer : public Player
 {
 public:
 	HumanPlayer (std::string color);
-	Action *getAction(const GameState &state);
+	Action *getAction(const GameState &state) const;
 };
 
 #endif

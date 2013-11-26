@@ -71,6 +71,10 @@ bool GameState::isWhiteTurn() const {
     return whiteTurn;
 }
 
+void GameState::setGameEnded() {
+    gameEnded = false;
+}
+
 vector<ChessMove*> GameState::getPossibleMovesForPlayer (string color) const {
     vector<ChessMove *> v;
     for (int i =0; i<8; i++) {

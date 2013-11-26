@@ -49,6 +49,8 @@ public:
 
     bool isWhiteTurn() const;
 
+    void setGameEnded();
+
     // returns list of possible moves without checking if the king is in check after making the move
     std::vector<ChessMove*> getPossibleMovesForPlayer (std::string color) const;
     

@@ -1,14 +1,15 @@
 #include "scoreboard.h"
-#include <iostream.h>
+#include <iostream>
 #include <string>
+using namespace std;
 
 Scoreboard* Scoreboard::_instance=0;
 
-Scoreboard* Scoreboard::Instance(){
+Scoreboard* Scoreboard::getInstance(){
 	if (_instance == 0){
-	_instance = new Scoreboard;
-	_instance->white = 0;
-	_instance->black = 0;
+		_instance = new Scoreboard;
+		_instance->white = 0;
+		_instance->black = 0;
 	}
 	return _instance;
 }

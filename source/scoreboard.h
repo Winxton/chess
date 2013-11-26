@@ -8,9 +8,11 @@ double white;
 double black;
 
 public:
-	static Scoreboard* Instance();
+	static Scoreboard* getInstance();
 	void printScoreboard ();
 	void blackWins ();
 	void whiteWins ();
 	void tie ();
 };
+
+#endif

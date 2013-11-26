@@ -9,7 +9,7 @@ using namespace std;
 
 HumanPlayer::HumanPlayer(string color): Player(color) {}
 
-Action *HumanPlayer::getAction(const GameState &state) {
+Action *HumanPlayer::getAction(const GameState &state) const {
 
 	bool validActionGiven = false;
 

@@ -12,7 +12,9 @@ protected:
 	std::string color;
 public:
 	Player(std::string color);
-    virtual Action *getAction(const GameState& state) = 0;
+	std::string getColor() const;
+    virtual Action *getAction(const GameState& state) const = 0;
+    virtual bool cannotMove(const GameState &state) const;
     virtual ~Player();
 };
 
