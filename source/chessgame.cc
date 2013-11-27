@@ -3,15 +3,18 @@
 #include "player.h"
 #include "action.h"
 #include "scoreboard.h"
+#include "window.h"
 using namespace std;
 
 ChessGame::ChessGame (
 		   GameState* state,
            Player* whitePlayer,
-           Player* blackPlayer): 
+           Player* blackPlayer,
+		   Xwindow* w): 
            currentState(state), 
            whitePlayer(whitePlayer), 
-           blackPlayer(blackPlayer) {}
+           blackPlayer(blackPlayer),
+		   w(w) {}
 
 void ChessGame::doTurn(const Player &player) {
 
@@ -69,6 +72,9 @@ void ChessGame::start() {
 			cout << "Black Player's Turn" << endl;
 			doTurn(*blackPlayer);
 		}
+		w->clearBoardBackground();
+		w->setBoardBackground();
+		currentState->printGraphics(w);
 		currentState->printBoard();
 	}
 }

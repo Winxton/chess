@@ -30,6 +30,8 @@ class Xwindow {
   void putPiece(int col, int row, std::string piece);
 
   void setBoardBackground();
+
+  void clearBoardBackground();
 };
 
 #endif

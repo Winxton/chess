@@ -9,7 +9,7 @@
 using namespace std;
 
 void setBoardBackground();
-void putPiece(int col, int row, std::string piece);
+//void putPiece(int col, int row, std::string piece);
 
 Xwindow::Xwindow(int width, int height) {
 
@@ -120,4 +120,8 @@ void Xwindow::setBoardBackground(){
     drawString(302, 415, "f", 0);
     drawString(352, 415, "g", 0);
     drawString(402, 415, "h", 0);
+}
+
+void Xwindow::clearBoardBackground(){
+    XClearWindow(d,w);
 }

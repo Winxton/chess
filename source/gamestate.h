@@ -72,11 +72,11 @@ public:
     void setPreviousState(GameState *state);
 
     GameState *getPreviousState() const;
-
-
 	
     // print the chess board
     void printBoard () const;
+	
+	void printGraphics(Xwindow* w) const;
 
     ~GameState();
 };

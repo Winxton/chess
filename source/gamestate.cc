@@ -223,6 +223,18 @@ void GameState::printBoard() const {
     cout << endl;
 }
 
+void GameState::printGraphics(Xwindow* w) const {
+	string temp;
+    for (int row = 7; row >= 0; row--) {
+        for (int col = 0; col <=7; col ++) {
+			if (chessboard[col][row].hasPiece()){
+				temp = string(1,chessboard[col][row].getPiece()->getCharRepr());
+				w->putPiece(col,row,temp);
+			}
+		}
+	}
+}
+
 
 GameState::~GameState() {
     delete previousState;
