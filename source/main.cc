@@ -51,13 +51,11 @@ int main() {
 		    Player *whitePlayer = PlayerFactory::getInstance()->createPlayer(whitePlayerType, "white");
 		    Player *blackPlayer = PlayerFactory::getInstance()->createPlayer(blackPlayerType, "black");
 			
-			Xwindow *w = new Xwindow;
+			Xwindow w;
 		    GameState *state = new GameState();
 
-		    ChessGame game(state, whitePlayer, blackPlayer, w);
+		    ChessGame game(state, whitePlayer, blackPlayer, &w);
 		   	game.start();
-
-		   	delete w;
 
 		} else if (cmd == "quit") { 
 			break;

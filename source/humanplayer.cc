@@ -14,6 +14,10 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 	
 	vector<ChessMove*> legalmoves = state.getLegalMovesForPlayer(color);
 
+	for (unsigned int i =0; i<legalmoves.size(); i++) {
+		cout << *legalmoves[i] << endl;
+	}
+
 	bool validActionGiven = false;
 
 	Action *action = 0;

@@ -34,7 +34,6 @@ vector<ChessMove*> King::getPossibleMoves(const GameState* state) const {
 	int i;
 	i = 1;
 	while (!this->moved &&
-			!state->isUnderCheck(this->color) &&
 			state->isInsideBoard(this->xCord+i,this->yCord))
 	{
 		if (state->hasPieceAt(this->xCord+i,this->yCord)){
@@ -50,7 +49,6 @@ vector<ChessMove*> King::getPossibleMoves(const GameState* state) const {
 	}
 	i = 1;
 	while (!this->moved &&
-			!state->isUnderCheck(this->color) &&
 			state->isInsideBoard(this->xCord-i,this->yCord))
 	{
 		if (state->hasPieceAt(this->xCord-i,this->yCord)){

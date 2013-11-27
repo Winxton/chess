@@ -14,7 +14,6 @@ public:
 	Player(std::string color);
 	std::string getColor() const;
     virtual Action *getAction(const GameState& state) const = 0;
-    virtual bool cannotMove(const GameState &state) const;
     virtual ~Player();
 };
 

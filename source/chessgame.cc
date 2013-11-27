@@ -20,13 +20,15 @@ void ChessGame::doTurn(const Player &player) {
 
 	Action *action = 0;
 
-	//need to also check for stalemate
-	/*
-		if (player.cannotMove(*currentState) 
-			&& !player.isUnderCheck);
-	*/
-
-	if (player.cannotMove(*currentState)) 
+	// check for stalemate
+	if ( !currentState->isUnderCheck(player.getColor())
+		&& !currentState->hasLegalMoves(player.getColor()) ) {
+		// handle stalemate!
+		cout << "stalemate" << endl;
+		currentState->setGameEnded();
+	}
+	// player cannot move -> lost
+	else if (!currentState->hasLegalMoves(player.getColor())) 
 	{
 		currentState->setGameEnded();
 		

@@ -9,7 +9,3 @@ string Player::getColor() const {
 }
 
 Player::~Player() {}
-
-bool Player::cannotMove(const GameState &state) const {
-	return false;
-}

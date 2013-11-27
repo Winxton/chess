@@ -25,8 +25,6 @@ class GameState
 
     bool whiteTurn;
     bool gameEnded;
-    bool whiteChecked;
-    bool blackChecked;
     void setSquareNumberings();
     
     //moves a piece from a source to a destination
@@ -34,9 +32,6 @@ class GameState
 public:
     
     GameState();
-
-    // checks whether a player's king is in check
-    bool isUnderCheck (std::string color) const;
     
     // initializes a default board
     void initializeDefault ();
@@ -50,13 +45,16 @@ public:
 
     void setGameEnded();
 
-    bool canMove(std::string color) const;
-
     // returns list of possible moves without checking if the king is in check after making the move
     std::vector<ChessMove*> getPossibleMovesForPlayer (std::string color) const;
     
     // returns vector of legal moves
     std::vector<ChessMove*> getLegalMovesForPlayer (std::string color) const;
+
+    bool hasLegalMoves(std::string color) const;
+
+    // checks whether a player's king is in check
+    bool isUnderCheck (std::string color) const;
 
     //whether a coordinate is within the bounds of the chess board
     bool isInsideBoard(int xCord, int yCord) const;

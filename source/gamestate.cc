@@ -8,7 +8,7 @@
 #include "window.h"
 using namespace std;
 
-GameState::GameState(): previousState(0), whiteTurn(true), gameEnded(false), whiteChecked(false), blackChecked(false) {
+GameState::GameState(): previousState(0), whiteTurn(true), gameEnded(false) {
     setSquareNumberings();
     initializeDefault();
 }
@@ -29,9 +29,6 @@ void GameState::movePiece(int xCordSrc, int yCordSrc, int xCordDest, int yCordDe
 	p->setMoved();
 }
 
-bool GameState::isUnderCheck (string color) const {
-    return false;
-}
 
 void GameState::initializeDefault() {
     //initialize the original configuration of the board.
@@ -74,15 +71,6 @@ void GameState::setGameEnded() {
     gameEnded = true;
 }
 
-
-bool GameState::canMove(string color) const {
-    vector<ChessMove*> legalMoves = getLegalMovesForPlayer(color);
-    unsigned int numMoves = legalMoves.size();
-    for (unsigned int i =0; i< numMoves; i++) {
-        delete legalMoves[i];
-    }
-    return (numMoves == 0);
-}
 
 vector<ChessMove*> GameState::getPossibleMovesForPlayer (string color) const {
     vector<ChessMove *> allMoves;
@@ -153,6 +141,48 @@ vector<ChessMove*> GameState::getLegalMovesForPlayer (string color) const {
     }
 
     return legalMoves;
+}
+
+
+bool GameState::hasLegalMoves(string color) const {
+    vector<ChessMove*> legalMoves = getLegalMovesForPlayer(color);
+    unsigned int numMoves = legalMoves.size();
+    for (unsigned int i =0; i< numMoves; i++) {
+        delete legalMoves[i];
+    }
+
+    return (numMoves > 0);
+}
+
+bool GameState::isUnderCheck (string color) const {
+    // check if the opposite colour can attack the king
+
+    // find location of king
+    // TODO create function for function the location of a piece
+    int kingx = -1;
+    int kingy = -1;
+    for (int x =0; x<8; x++) {
+        for (int y=0; y<8; y++) {
+            if (getPieceColor(x,y)==color
+                && getPieceType(x,y)=="king") {
+                kingx = x;
+                kingy = y;
+            }
+        }
+    }
+    
+    string oppositeColor = color == "white" ? "black" : "white";
+    vector<ChessMove*> possibleMoves = getPossibleMovesForPlayer(oppositeColor);
+    bool kingUnderCheck = false;
+
+    //check if king is being attacked
+    for (unsigned int idx=0; idx<possibleMoves.size(); idx++) {
+        if (possibleMoves[idx]->hasSameDestination(kingx, kingy))
+            kingUnderCheck = true;
+        delete possibleMoves[idx];
+    }
+    
+    return kingUnderCheck;
 }
 
 bool GameState::isInsideBoard(int xCord, int yCord) const {
