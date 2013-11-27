@@ -61,11 +61,11 @@ vector<ChessMove*> Pawn::getPossibleMoves(const GameState* state) const {
 	if (state->isInsideBoard(this->xCord-1,this->yCord) &&
 		state->hasPieceAt(this->xCord-1,this->yCord) &&
 		state->hasPieceOfOppositeColor(this->color,this->xCord-1,this->yCord) &&
-		state->getPieceType(this->xCord-1,this->yCord) == "pawn" &&
+		state->getPieceType(this->xCord-1,this->yCord) == Piece::PAWN &&
 		state->getPreviousState()->isInsideBoard(this->xCord-1,this->yCord+forwardTwo) &&
 		state->getPreviousState()->hasPieceAt(this->xCord-1,this->yCord+forwardTwo) &&
 		state->getPreviousState()->hasPieceOfOppositeColor(this->color,this->xCord-1,this->yCord+forwardTwo) &&
-		state->getPreviousState()->getPieceType(this->xCord-1,this->yCord+forwardTwo) == "pawn")
+		state->getPreviousState()->getPieceType(this->xCord-1,this->yCord+forwardTwo) == Piece::PAWN)
 	{
 		//list.push_back(new EnPassant(this->xCord,this->yCord,this->xCord-1,this->yCord+forwardOne));
 		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-1,this->yCord+forwardOne));
@@ -74,11 +74,11 @@ vector<ChessMove*> Pawn::getPossibleMoves(const GameState* state) const {
 	if (state->isInsideBoard(this->xCord+1,this->yCord) &&
 		state->hasPieceAt(this->xCord+1,this->yCord) &&
 		state->hasPieceOfOppositeColor(this->color,this->xCord+1,this->yCord) &&
-		state->getPieceType(this->xCord+1,this->yCord) == "pawn" &&
+		state->getPieceType(this->xCord+1,this->yCord) == Piece::PAWN &&
 		state->getPreviousState()->isInsideBoard(this->xCord+1,this->yCord+forwardTwo) &&
 		state->getPreviousState()->hasPieceAt(this->xCord+1,this->yCord+forwardTwo) &&
 		state->getPreviousState()->hasPieceOfOppositeColor(this->color,this->xCord+1,this->yCord+forwardTwo) &&
-		state->getPreviousState()->getPieceType(this->xCord+1,this->yCord+forwardTwo) == "pawn")
+		state->getPreviousState()->getPieceType(this->xCord+1,this->yCord+forwardTwo) == Piece::PAWN)
 	{
 		if (state->getPreviousState()->isInsideBoard(this->xCord,this->yCord))
 			cout << "hi" << endl;

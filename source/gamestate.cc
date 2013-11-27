@@ -108,7 +108,7 @@ vector<ChessMove*> GameState::getLegalMovesForPlayer (string color) const {
         for (int x =0; x<8; x++) {
             for (int y=0; y<8; y++) {
                 if (temp.getPieceColor(x,y)==color
-                    && temp.getPieceType(x,y)=="king") {
+                    && temp.getPieceType(x,y)==Piece::KING) {
                     kingx = x;
                     kingy = y;
                 }
@@ -164,7 +164,7 @@ bool GameState::isUnderCheck (string color) const {
     for (int x =0; x<8; x++) {
         for (int y=0; y<8; y++) {
             if (getPieceColor(x,y)==color
-                && getPieceType(x,y)=="king") {
+                && getPieceType(x,y)==Piece::KING) {
                 kingx = x;
                 kingy = y;
             }
@@ -217,23 +217,23 @@ bool GameState::hasPieceOfOppositeColor(string color,int xCord, int yCord) const
 
 
 
-string GameState::getPieceType(int xCord, int yCord) const {
+int GameState::getPieceType(int xCord, int yCord) const {
 	if (this->hasPieceAt(xCord,yCord)) {
 		char temp = this->getPieceAt(xCord,yCord)->getCharRepr();
 		if (temp == 'p' || temp == 'P')
-			return "pawn";
+			return Piece::PAWN;
 		else if (temp == 'r' || temp == 'R')
-			return "rook";
+			return Piece::ROOK;
 		else if (temp == 'n' || temp == 'N')
-			return "knight";
+			return Piece::KNIGHT;
 		else if (temp == 'b' || temp == 'B')
-			return "bishop";
+			return Piece::BISHOP;
 		else if (temp == 'q' || temp == 'Q')
-			return "queen";
+			return Piece::QUEEN;
 		else
-			return "king";
+			return Piece::KING;
 	} else {
-        return "";
+        return -1; //invalid
     }
 }
 

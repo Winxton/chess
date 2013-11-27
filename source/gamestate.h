@@ -67,7 +67,7 @@ public:
 
     const Piece *getPieceAt(int xCord, int yCord) const;
 	
-	std::string getPieceType(int xCord, int yCord) const;
+	int getPieceType(int xCord, int yCord) const;
     
     void setPreviousState(GameState *state);
 

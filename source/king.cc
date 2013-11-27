@@ -37,7 +37,7 @@ vector<ChessMove*> King::getPossibleMoves(const GameState* state) const {
 			state->isInsideBoard(this->xCord+i,this->yCord))
 	{
 		if (state->hasPieceAt(this->xCord+i,this->yCord)){
-			if (state->getPieceType(this->xCord+i,this->yCord) == "rook" &&
+			if (state->getPieceType(this->xCord+i,this->yCord) == Piece::ROOK &&
 				!state->getPieceAt(this->xCord+i,this->yCord)->hasMoved())
 			{
 				//list.push_back(new Castle(this->xCord,this->yCord,this->xCord+2,this->yCord));
@@ -52,7 +52,7 @@ vector<ChessMove*> King::getPossibleMoves(const GameState* state) const {
 			state->isInsideBoard(this->xCord-i,this->yCord))
 	{
 		if (state->hasPieceAt(this->xCord-i,this->yCord)){
-			if (state->getPieceType(this->xCord-i,this->yCord) == "rook" &&
+			if (state->getPieceType(this->xCord-i,this->yCord) == Piece::ROOK  &&
 				!state->getPieceAt(this->xCord-i,this->yCord)->hasMoved())
 			{
 				//list.push_back(new Castle(this->xCord,this->yCord,this->xCord-2,this->yCord));
