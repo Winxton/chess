@@ -2,6 +2,7 @@
 #define __SQUARE_H__
 
 #include <iostream>
+class Xwindow;
 
 class Piece;
 
@@ -9,7 +10,8 @@ class Square
 {
     int xCord, yCord;
     Piece *p;
-    
+    Xwindow *w;
+
 public:
     
     Square();
@@ -20,14 +22,18 @@ public:
     Square& operator=(const Square &other); //assignment operator
 
     //set the coordinates for the square
-    void setCoords(int xCord, int yCord);
+    void setCoords(int xCord, int yCord, Xwindow *w);
 
     // sets a piece to the square and updates
     // the piece's location to the location of the square
-    void setPiece(Piece *p);
+    // if a piece already exists in this square, delete that piece
+    void setPiece(Piece *p, bool updateGraphics = false);
     
     //retrieves the piece sets the pointer to null
-    Piece *getAndUnsetPiece();
+    Piece *getAndUnsetPiece(bool updateGraphics = false);
+
+    //removes a piece from the board
+    void removePiece(bool updateGraphics = false);
 
     //whether or not a chess piece is on the square
     bool hasPiece() const;

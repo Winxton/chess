@@ -8,27 +8,100 @@
 #include "window.h"
 using namespace std;
 
-GameState::GameState(): previousState(0), whiteTurn(true), gameEnded(false) {
+GameState::GameState(Xwindow *w, bool enterSetupMode): w(w), previousState(0), whiteTurn(true), gameEnded(false) {
     setSquareNumberings();
-    initializeDefault();
+    if (enterSetupMode) {
+        doSetupMode();
+    }
+    else 
+    {
+        initializeDefault();
+    }
+}
+
+bool GameState::isValidSetupState() const {
+    
+    /* 
+    // TODO
+    conditions:
+    - one white king, one black king
+    - no pawns on first or last row of board
+    - neither king is in check
+    */
+    return true;
+}
+
+void GameState::doSetupMode() {
+    bool getCommands = true;
+
+    while (getCommands) {
+
+        string cmd;
+        cin >> cmd;
+
+        // add a piece
+        if (cmd == "+") 
+        {
+            string piece, location;
+            cin >> piece;
+            cin >> location;
+            if (location.length() != 2) continue;
+
+            int x = location[0]-'a';
+            int y = location[1]-'1';
+            Piece *p = PieceFactory::getInstance()->createPiece(piece);
+
+            if (isInsideBoard(x,y) && p != 0) {
+                //set piece AND update graphics
+                chessboard[x][y].setPiece(p, true);
+            }
+        }
+        else if (cmd == "-") 
+        {
+            string location;
+            cin >> location;
+            if (location.length() != 2) continue;
+
+            int x = location[0]-'a';
+            int y = location[1]-'1';
+
+            if (isInsideBoard(x,y)) {
+                //remove piece AND update graphics
+                chessboard[x][y].removePiece();
+            }
+
+        } else if (cmd == "=") 
+        {
+            string color;
+            cin >> color;
+            //if the current turn is a different color, swap the turns
+            if ( (color == "white" && !isWhiteTurn())
+                || (color == "black" && isWhiteTurn()) ) {
+                swapTurns();
+            }
+        } 
+        else if (cmd == "done") 
+        {
+            if (isValidSetupState()) {
+                getCommands = false;
+            } else {
+                cerr << "Incorrect State" << endl;
+            }
+        } 
+        else 
+        {
+            cerr << "invalid command!" << endl;
+        }
+    }
 }
 
 void GameState::setSquareNumberings() {
     for (int i =0; i< 8; i++) {
         for (int j=0; j< 8; j++) {
-            chessboard[i][j].setCoords(i,j);
+            chessboard[i][j].setCoords(i,j,w);
         }
     }
 }
-
-void GameState::movePiece(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest) {
-    //get the piece pointer from the square
-    Piece *p = chessboard[xCordSrc][yCordSrc].getAndUnsetPiece();
-    //sets the piece to the new square on the board
-    chessboard[xCordDest][yCordDest].setPiece(p);
-	p->setMoved();
-}
-
 
 void GameState::initializeDefault() {
     //initialize the original configuration of the board.
@@ -98,7 +171,6 @@ vector<ChessMove*> GameState::getLegalMovesForPlayer (string color) const {
         //create a TEMPORARY state and apply the move to it
 
         GameState temp = *this;
-        temp.setPreviousState(0); //important! otherwise will delete this state
 
         possibleMoves[i]->apply(temp);
         
@@ -134,6 +206,8 @@ vector<ChessMove*> GameState::getLegalMovesForPlayer (string color) const {
         if (!kingUnderAttack) {
             legalMoves.push_back(new ChessMove(*possibleMoves[i]));
         }
+
+        temp.setPreviousState(0); //important! otherwise will delete all the previous state
     }
     //delete possible moves
     for (unsigned int idx=0; idx<possibleMoves.size(); idx++) {
@@ -245,7 +319,11 @@ GameState *GameState::getPreviousState() const{
     return previousState;
 }
 
-void GameState::printBoard() const {
+void GameState::drawBoard() const {
+    //temp
+    w->clearBoardBackground();
+    w->setBoardBackground();
+
     for (int row = 7; row >= 0; row--) {
         cout << row+1 << " ";
         for (int col = 0; col <=7; col ++) {
@@ -261,7 +339,7 @@ void GameState::printBoard() const {
     cout << endl;
 }
 
-void GameState::printGraphics(Xwindow* w) const {
+void GameState::drawGraphics() const {
 	string temp;
     for (int row = 7; row >= 0; row--) {
         for (int col = 0; col <=7; col ++) {
@@ -273,6 +351,10 @@ void GameState::printGraphics(Xwindow* w) const {
 	}
 }
 
+void GameState::drawState() const {
+    drawBoard();
+    drawGraphics();
+}
 
 GameState::~GameState() {
     delete previousState;

@@ -1,5 +1,7 @@
 #include "square.h"
 #include "piece.h"
+#include "window.h"
+#include <string>
 using namespace std;
 
 Square::Square(): p(0) {}
@@ -9,9 +11,10 @@ Square::Square(Piece *p): p(p) {}
 Square::Square (const Square &other) {
     xCord = other.xCord;
     yCord = other.yCord;
+    w = other.w; //shallow copy the window
 
     if (other.hasPiece()) {
-        Piece *temp = other.p->clone();
+        Piece *temp = other.p->clone(); //deep copy the piece
         p = temp;
     } else {
         p = 0;
@@ -21,10 +24,11 @@ Square::Square (const Square &other) {
 Square& Square::operator=(const Square &other) {
     xCord = other.xCord;
     yCord = other.yCord;
+    w = other.w; //shallow copy the window
 
     delete p;
     if (other.hasPiece()) {
-        Piece *temp = other.p->clone();
+        Piece *temp = other.p->clone(); //deep copy the piece
         p = temp;
     } else {
         p = 0;
@@ -32,21 +36,37 @@ Square& Square::operator=(const Square &other) {
     return *this;
 }
 
-void Square::setCoords(int xCord, int yCord) {
+void Square::setCoords(int xCord, int yCord, Xwindow *w) {
     this->xCord = xCord;
     this->yCord = yCord;
+    this->w = w;
 }
 
-void Square::setPiece(Piece *p) {
+void Square::setPiece(Piece *p, bool updateGraphics) {
 	delete this->p;
     this->p = p;
     this->p->setCoords(xCord, yCord);
+    if (updateGraphics) {
+        w->removePiece(xCord, yCord);
+        w->putPiece(xCord, yCord, string(1, this->p->getCharRepr()) );
+    }
 }
 
-Piece *Square::getAndUnsetPiece () {
+Piece *Square::getAndUnsetPiece (bool updateGraphics) {
 	Piece *piece = p;
     p = 0;
+    if (updateGraphics) {
+        w->removePiece(xCord, yCord);
+    }
     return piece;
+}
+
+void Square::removePiece(bool updateGraphics) {
+    delete p;
+    p = 0;
+    if (updateGraphics) {
+        w->removePiece(xCord, yCord);
+    }
 }
 
 bool Square::hasPiece() const {

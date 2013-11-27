@@ -10,12 +10,11 @@ class ChessGame
 	GameState *currentState;
 	Player *whitePlayer;
 	Player *blackPlayer;
-	Xwindow *w;
 public:
 	ChessGame(GameState* state,
 	           Player* whitePlayer,
-	           Player* blackPlayer,
-			   Xwindow* w);
+	           Player* blackPlayer);
+	
 	void doTurn(const Player &player);
 	void start();
 	~ChessGame();

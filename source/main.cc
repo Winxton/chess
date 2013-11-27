@@ -1,39 +1,15 @@
 #include "chessgame.h"
 #include "player.h"
-#include "humanplayer.h"
 #include "gamestate.h"
 #include "action.h"
 #include "chessmove.h"
 #include "piece.h"
 #include "playerfactory.h"
+#include "piecefactory.h"
 #include <vector>
 #include <iostream>
 #include "window.h"
 using namespace std;
-
-void setup(GameState &state, Xwindow &w) {
-	string cmd;
-	cin >> cmd;
-	// add a piece
-	if (cmd == "+") {
-		string piece, location;
-		cin >> piece;
-		cin >> location;
-
-	} else if (cmd == "-") {
-		string location;
-		cin >> location;
-
-	} else if (cmd == "=") {
-		string color;
-		cin >> color;
-		//if the current turn is a different color, swap the turns
-		if ( (color == "white" && !state.isWhiteTurn())
-			|| (color == "black" && state.isWhiteTurn()) ) {
-			state.swapTurns();
-		}
-	}
-}
 
 int main() {
 	
@@ -42,28 +18,51 @@ int main() {
 	Player *whitePlayer = 0;
 	Player *blackPlayer = 0;
 
-	while (cin >> cmd) {
-		if (cmd == "game") {
+	GameState *initialState = 0;
+	Xwindow w;
 
+	while (cin >> cmd) 
+	{
+		if (cmd == "game") 
+		{
 			string whitePlayerType;
 			string blackPlayerType;
 			cin >> whitePlayerType >> blackPlayerType;
 		    Player *whitePlayer = PlayerFactory::getInstance()->createPlayer(whitePlayerType, "white");
 		    Player *blackPlayer = PlayerFactory::getInstance()->createPlayer(blackPlayerType, "black");
 			
-			Xwindow w;
-		    GameState *state = new GameState();
+			if (initialState == 0) {
+		    	initialState = new GameState(&w);
+			}
 
-		    ChessGame game(state, whitePlayer, blackPlayer, &w);
-		   	game.start();
+		    ChessGame game(initialState, whitePlayer, blackPlayer);
+		   	game.start(); //will deallocate the state
 
-		} else if (cmd == "quit") { 
+		   	//game has finished, reset original parameters
+		   	w.setBoardBackground();
+		   	initialState = 0;
+		}
+		else if (cmd == "setup")
+		{
+
+			//construct a state with setup mode
+			if (initialState == 0) {
+				initialState = new GameState(&w, true);
+			}
+			else {
+				initialState->doSetupMode();
+			}
+		} 
+		else if (cmd == "quit") { 
 			break;
 
 		} else {
-			cout << "Not a valid input." << endl;
+			cerr << "Not a valid input." << endl;
 		}
 	}
+
+	//case that setupmode is entered into, but game does not start before quitting
+	delete initialState; 
 
     delete whitePlayer;
     delete blackPlayer;

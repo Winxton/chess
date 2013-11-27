@@ -10,7 +10,7 @@ protected:
 	virtual std::ostream& doPrint(std::ostream &out) const;
 public:
 	ChessMove(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest);
-	virtual void apply (GameState &state);
+	virtual void apply (GameState &state, bool updateGraphics=false);
 	virtual ~ChessMove();
 	bool hasSameDestination(int xCord, int yCord) const;
 	//friend std::ostream& operator<<(std::ostream &out, const ChessMove &s);

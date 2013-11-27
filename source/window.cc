@@ -63,7 +63,6 @@ Xwindow::Xwindow(int width, int height) {
 
   //setCoordinates();
   setBoardBackground();
-  
 }
 
 Xwindow::~Xwindow() {
@@ -96,6 +95,7 @@ void Xwindow::putPiece(int col, int row, string piece){
 }
 
 void Xwindow::setBoardBackground(){
+    usleep(10000);
     for (int row = 7; row >= 0; row--) {
         for (int col = 0; col <=7; col++) {
             if ((col%2 == 0 && row%2 == 0) || (col%2 == 1 && row%2 == 1))

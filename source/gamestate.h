@@ -20,22 +20,33 @@ class GameState
     friend class Promotion;
     friend class Resign;
 
+    Xwindow *w;
     GameState *previousState;
     Square chessboard[8][8];
 
     bool whiteTurn;
     bool gameEnded;
+
+    //sets the numberings and passes the window to each square
     void setSquareNumberings();
+
+    //used within doSetupMode() to check if a state is proper
+    bool isValidSetupState() const;
+
+    // draws the chess board
+    void drawBoard () const;
     
-    //moves a piece from a source to a destination
-    void movePiece(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest);
+    //draws the pieces on the board
+    void drawGraphics() const;
 public:
     
-    GameState();
+    GameState(Xwindow *w, bool enterSetupMode = false);
     
+    void doSetupMode();
+
     // initializes a default board
     void initializeDefault ();
-    
+
     //swaps the turns
     void swapTurns();
 
@@ -73,10 +84,8 @@ public:
 
     GameState *getPreviousState() const;
 	
-    // print the chess board
-    void printBoard () const;
-	
-	void printGraphics(Xwindow* w) const;
+    // re draws the game state
+    void drawState() const;
 
     ~GameState();
 };

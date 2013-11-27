@@ -10,6 +10,8 @@ class PieceFactory {
 	static void cleanup();
 public:
 	static PieceFactory *getInstance();
+	
+	//creates a piece given the piece type, NULL if undefined type
 	Piece *createPiece(std::string pieceType);
 };
 

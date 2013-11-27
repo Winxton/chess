@@ -53,9 +53,9 @@ vector<ChessMove*> Pawn::getPossibleMoves(const GameState* state) const {
 	}
 	// pawn capture left
 	if (state->isInsideBoard(this->xCord-1,this->yCord+forwardOne) &&
-		state->hasPieceOfOppositeColor(this->color,this->xCord+1,this->yCord+forwardOne))
+		state->hasPieceOfOppositeColor(this->color,this->xCord-1,this->yCord+forwardOne))
 	{
-		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+1,this->yCord+forwardOne));
+		list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-1,this->yCord+forwardOne));
 	}
 	// Enpassant left
 	if (state->isInsideBoard(this->xCord-1,this->yCord) &&
