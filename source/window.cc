@@ -4,12 +4,14 @@
 #include <cstdlib>
 #include <string>
 #include <unistd.h>
+#include <sstream>
 #include "window.h"
 
 using namespace std;
 
 void setBoardBackground();
 void setCoordinates();
+
 
 Xwindow::Xwindow(int width, int height) {
 
@@ -84,44 +86,39 @@ void Xwindow::drawString(int x, int y, string msg, int colour) {
 
 void Xwindow::removePiece(int col,int row){
 	if ((col%2 == 0 && row%2 == 0) || (col%2 == 1 && row%2 == 1))
-		fillRectangle(col*50+30,row*50,50,50,8);
+		fillRectangle(col*squareLength+30,row*squareLength,squareLength,squareLength,8);
        else
-		fillRectangle(col*50+30,row*50,50,50,9);
+		fillRectangle(col*squareLength+30,row*squareLength,squareLength,squareLength,9);
 }
 
 void Xwindow::putPiece(int col, int row, string piece){
-	drawString(52+col*50, 380-row*50, piece, 0);
+	drawString(52+col*squareLength, 380-row*squareLength, piece, 0);
 }
 
 void Xwindow::setBoardBackground(){
     for (int row = 7; row >= 0; row--) {
         for (int col = 0; col <=7; col++) {
             if ((col%2 == 0 && row%2 == 0) || (col%2 == 1 && row%2 == 1))
-		fillRectangle(col*50+30,row*50,50,50,8);
+		fillRectangle(col*squareLength+30,row*squareLength,squareLength,squareLength,8); //burlywood colour
 	     else
-		fillRectangle(col*50+30,row*50,50,50,9);
+		fillRectangle(col*squareLength+30,row*squareLength,squareLength,squareLength,9); //peru colour
         }
     }
 	setCoordinates();
 }
 
 void Xwindow::setCoordinates(){
-    drawString(12, 30, "8", 0);
-    drawString(12, 80, "7", 0);
-    drawString(12, 130, "6", 0);
-    drawString(12, 180, "5", 0);
-    drawString(12, 230, "4", 0);
-    drawString(12, 280, "3", 0);
-    drawString(12, 330, "2", 0);
-    drawString(12, 380, "1", 0);
-    drawString(52, 415, "a", 0);
-    drawString(102, 415, "b", 0);
-    drawString(152, 415, "c", 0);
-    drawString(202, 415, "d", 0);
-    drawString(252, 415, "e", 0);
-    drawString(302, 415, "f", 0);
-    drawString(352, 415, "g", 0);
-    drawString(402, 415, "h", 0);
+	stringstream s;
+	for (int i = 8 ; i>0;i--){
+		s << i;
+		drawString(12, 30+squareLength*(8-i), s.str(), 0);
+		s.str("");
+	}
+	for (int i = 1 ; i<9;i++){
+		s << char(i + '`');
+		drawString(2+squareLength*i, 415, s.str(), 0);
+		s.str("");
+	}
 }
 
 void Xwindow::clearBoardBackground(){

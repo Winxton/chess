@@ -9,6 +9,7 @@ class Xwindow {
   Window w;
   int s;
   GC gc;
+  static const int squareLength = 50;
   unsigned long colours[10];
 
  public:
