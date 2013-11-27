@@ -9,7 +9,7 @@
 using namespace std;
 
 void setBoardBackground();
-//void putPiece(int col, int row, std::string piece);
+void setCoordinates();
 
 Xwindow::Xwindow(int width, int height) {
 
@@ -59,10 +59,9 @@ Xwindow::Xwindow(int width, int height) {
 
   XSynchronize(d,True);
 
-  usleep(1000);
-
+  //setCoordinates();
   setBoardBackground();
-  //putPiece(3,0,"R");
+  
 }
 
 Xwindow::~Xwindow() {
@@ -103,6 +102,10 @@ void Xwindow::setBoardBackground(){
 		fillRectangle(col*50+30,row*50,50,50,9);
         }
     }
+	setCoordinates();
+}
+
+void Xwindow::setCoordinates(){
     drawString(12, 30, "8", 0);
     drawString(12, 80, "7", 0);
     drawString(12, 130, "6", 0);
@@ -111,7 +114,6 @@ void Xwindow::setBoardBackground(){
     drawString(12, 280, "3", 0);
     drawString(12, 330, "2", 0);
     drawString(12, 380, "1", 0);
-
     drawString(52, 415, "a", 0);
     drawString(102, 415, "b", 0);
     drawString(152, 415, "c", 0);

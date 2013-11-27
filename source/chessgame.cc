@@ -63,7 +63,7 @@ void ChessGame::doTurn(const Player &player) {
 
 void ChessGame::start() {
 	currentState->printBoard();
-	
+	currentState->printGraphics(w);
 	while (!currentState->isGameEnded()) {
 		if (currentState->isWhiteTurn()) {
 			cout << "White Player's Turn" << endl;

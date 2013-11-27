@@ -12,7 +12,7 @@ TESTOBJECTS = maintest.o window.o chessgame.o scoreboard.o gamestate.o square.o 
 TESTDEPENDS = ${TESTOBJECTS:.o=.d}
 
 ${EXEC}: ${OBJECTS}
-	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
+	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC} -lX11
 
 -include ${DEPENDS}
 

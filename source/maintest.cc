@@ -17,8 +17,6 @@ int main() {
     Player *blackPlayer = new HumanPlayer("black");
 
     GameState *state = new GameState();
-    state->printBoard();
-    state->printGraphics(w);
 
     ChessGame game(state, whitePlayer, blackPlayer, w);
     game.start();
