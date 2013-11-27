@@ -37,27 +37,25 @@ void GameState::initializeDefault() {
     //initialize the original configuration of the board.
 	PieceFactory *p = PieceFactory::getInstance();
 	for (int i = 0; i<8;i++){
-		this->chessboard[i][1].setPiece(p->createPiece("white","pawn"));
-		this->chessboard[i][6].setPiece(p->createPiece("black","pawn"));
+		this->chessboard[i][1].setPiece(p->createPiece("P"));
+		this->chessboard[i][6].setPiece(p->createPiece("p"));
 	}
-	this->chessboard[0][0].setPiece(p->createPiece("white","rook"));
-	this->chessboard[7][0].setPiece(p->createPiece("white","rook"));
-	this->chessboard[0][7].setPiece(p->createPiece("black","rook"));
-	this->chessboard[7][7].setPiece(p->createPiece("black","rook"));
-	this->chessboard[1][0].setPiece(p->createPiece("white","knight"));
-	this->chessboard[6][0].setPiece(p->createPiece("white","knight"));
-	this->chessboard[1][7].setPiece(p->createPiece("black","knight"));
-	this->chessboard[6][7].setPiece(p->createPiece("black","knight"));
-	this->chessboard[2][0].setPiece(p->createPiece("white","bishop"));
-	this->chessboard[5][0].setPiece(p->createPiece("white","bishop"));
-	this->chessboard[2][7].setPiece(p->createPiece("black","bishop"));
-	this->chessboard[5][7].setPiece(p->createPiece("black","bishop"));
-	this->chessboard[3][0].setPiece(p->createPiece("white","queen"));
-	this->chessboard[4][0].setPiece(p->createPiece("white","king"));
-	this->chessboard[3][7].setPiece(p->createPiece("black","queen"));
-	this->chessboard[4][7].setPiece(p->createPiece("black","king"));
-	// test
-	//this->chessboard[4][4].setPiece(p->createPiece("white","queen"));
+	this->chessboard[0][0].setPiece(p->createPiece("R"));
+	this->chessboard[7][0].setPiece(p->createPiece("R"));
+	this->chessboard[0][7].setPiece(p->createPiece("r"));
+	this->chessboard[7][7].setPiece(p->createPiece("r"));
+	this->chessboard[1][0].setPiece(p->createPiece("N"));
+	this->chessboard[6][0].setPiece(p->createPiece("N"));
+	this->chessboard[1][7].setPiece(p->createPiece("n"));
+	this->chessboard[6][7].setPiece(p->createPiece("n"));
+	this->chessboard[2][0].setPiece(p->createPiece("B"));
+	this->chessboard[5][0].setPiece(p->createPiece("B"));
+	this->chessboard[2][7].setPiece(p->createPiece("b"));
+	this->chessboard[5][7].setPiece(p->createPiece("b"));
+	this->chessboard[3][0].setPiece(p->createPiece("Q"));
+	this->chessboard[4][0].setPiece(p->createPiece("K"));
+	this->chessboard[3][7].setPiece(p->createPiece("q"));
+	this->chessboard[4][7].setPiece(p->createPiece("k"));
 }
 
 void GameState::swapTurns() {
@@ -73,7 +71,17 @@ bool GameState::isWhiteTurn() const {
 }
 
 void GameState::setGameEnded() {
-    gameEnded = false;
+    gameEnded = true;
+}
+
+
+bool GameState::canMove(string color) const {
+    vector<ChessMove*> legalMoves = getLegalMovesForPlayer(color);
+    unsigned int numMoves = legalMoves.size();
+    for (unsigned int i =0; i< numMoves; i++) {
+        delete legalMoves[i];
+    }
+    return (numMoves == 0);
 }
 
 vector<ChessMove*> GameState::getPossibleMovesForPlayer (string color) const {

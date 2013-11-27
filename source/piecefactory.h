@@ -10,7 +10,7 @@ class PieceFactory {
 	static void cleanup();
 public:
 	static PieceFactory *getInstance();
-	Piece *createPiece(std::string color, std::string pieceType);
+	Piece *createPiece(std::string pieceType);
 };
 
 #endif

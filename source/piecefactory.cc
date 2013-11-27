@@ -24,24 +24,42 @@ PieceFactory *PieceFactory::getInstance() {
 	return instance;
 }
 
-Piece *PieceFactory::createPiece(string color, string pieceType) {
-	if (pieceType == "pawn") {
-		return new Pawn(color);
+Piece *PieceFactory::createPiece(string pieceType) {
+	if (pieceType == "P") {
+		return new Pawn("white");
 
-	} else if (pieceType == "knight") {
-		return new Knight(color);
+	} else if (pieceType == "p") {
+		return new Pawn("black");
 
-	} else if (pieceType == "queen") {
-		return new Queen(color);
+	} else if (pieceType == "N") {
+		return new Knight("white");
 
-	} else if (pieceType == "king") {
-		return new King(color);
+	} else if (pieceType == "n") {
+		return new Knight("black");
 
-	} else if (pieceType == "bishop") {
-		return new Bishop(color);
+	} else if (pieceType == "Q") {
+		return new Queen("white");
 
-	} else if (pieceType == "rook") {
-		return new Rook(color);
+	} else if (pieceType == "q") {
+		return new Queen("black");
+
+	} else if (pieceType == "K") {
+		return new King("white");
+
+	} else if (pieceType == "k") {
+		return new King("black");
+
+	} else if (pieceType == "B") {
+		return new Bishop("white");
+
+	} else if (pieceType == "b") {
+		return new Bishop("black");
+
+	} else if (pieceType == "R") {
+		return new Rook("white");
+
+	} else if (pieceType == "r") {
+		return new Rook("black");
 
 	} else {
 		return 0;

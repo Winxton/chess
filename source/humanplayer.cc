@@ -12,43 +12,50 @@ HumanPlayer::HumanPlayer(string color): Player(color) {}
 
 Action *HumanPlayer::getAction(const GameState &state) const {
 	
-	cout << "LEGAL MOVES" << endl;
 	vector<ChessMove*> legalmoves = state.getLegalMovesForPlayer(color);
-	cout << "SIZE: " << legalmoves.size() << endl;
-	for (unsigned int i =0; i<legalmoves.size(); i++) {
-		cout << *legalmoves[i] << endl;
-	}
-	cout << "-------------------" << endl;
 
 	bool validActionGiven = false;
 
 	Action *action = 0;
 	string cmd;
 
-	while (!(validActionGiven)) {
+	while (!(validActionGiven)) 
+	{
 		cin >> cmd;
 
-		if (cmd == "move") {
+		if (cmd == "move") 
+		{
 			string src, dest;
 			cin >> src >> dest;
 			
-			if (src.length() == 2 && dest.length() == 2) {
+			//check validity of input
+			if (src.length() == 2 && dest.length() == 2) 
+			{
 				int srcX = (src[0]-'a');
 				int srcY = (src[1]-'1');
 				int destX = (dest[0]-'a');
 				int destY = (dest[1]-'1');
 				if (state.isInsideBoard(srcX, srcY)
-					&& state.isInsideBoard(destX, destY)) {
+					&& state.isInsideBoard(destX, destY)) 
+				{
 
-					validActionGiven = true;
 					action = new ChessMove(srcX, srcY, destX, destY);
+					
+					//check if it's a valid action
+					for (unsigned int i =0; i<legalmoves.size(); i++) {
+						if (*legalmoves[i] == *(static_cast<ChessMove*>(action))) {
+							validActionGiven = true;
+						}
+					}
 				}
 			}
+
+			if (!validActionGiven) cout << "Not a Legal Move." << endl;
 
 		} else if (cmd == "resign") {
 			action = new Resign(color);
 			validActionGiven = true;
-			
+
 		} else {
 			cout << "invalid command" << endl;
 		}
