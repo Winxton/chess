@@ -1,6 +1,8 @@
 #include "humanplayer.h"
 #include "action.h"
 #include "chessmove.h"
+#include "castle.h"
+#include "enpassant.h"
 #include "resign.h"
 #include "gamestate.h"
 #include <iostream>
@@ -42,13 +44,16 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 				if (state.isInsideBoard(srcX, srcY)
 					&& state.isInsideBoard(destX, destY)) 
 				{
-
 					action = new ChessMove(srcX, srcY, destX, destY);
-					
+						
 					//check if it's a valid action
 					for (unsigned int i =0; i<legalmoves.size(); i++) {
 						if (*legalmoves[i] == *(static_cast<ChessMove*>(action))) {
 							validActionGiven = true;
+							if (legalmoves[i]->getSpecial() == "castle")
+								action = new Castle(srcX, srcY, destX, destY);
+							if (legalmoves[i]->getSpecial() == "enpassant")
+								action = new EnPassant(srcX, srcY, destX, destY);
 						}
 					}
 				}

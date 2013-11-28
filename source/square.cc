@@ -47,7 +47,7 @@ void Square::setPiece(Piece *p, bool updateGraphics) {
     this->p = p;
     this->p->setCoords(xCord, yCord);
     if (updateGraphics) {
-        w->removePiece(xCord, yCord);
+        //w->removePiece(xCord, yCord);
         w->putPiece(xCord, yCord, string(1, this->p->getCharRepr()) );
     }
 }

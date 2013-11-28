@@ -2,6 +2,7 @@
 #define __ACTION_H__
 
 #include <iostream>
+#include <string>
 class GameState;
 
 class Action {

@@ -114,17 +114,17 @@ void GameState::initializeDefault() {
 	this->chessboard[7][0].setPiece(p->createPiece("R"));
 	this->chessboard[0][7].setPiece(p->createPiece("r"));
 	this->chessboard[7][7].setPiece(p->createPiece("r"));
-	this->chessboard[1][0].setPiece(p->createPiece("N"));
-	this->chessboard[6][0].setPiece(p->createPiece("N"));
-	this->chessboard[1][7].setPiece(p->createPiece("n"));
-	this->chessboard[6][7].setPiece(p->createPiece("n"));
-	this->chessboard[2][0].setPiece(p->createPiece("B"));
-	this->chessboard[5][0].setPiece(p->createPiece("B"));
-	this->chessboard[2][7].setPiece(p->createPiece("b"));
-	this->chessboard[5][7].setPiece(p->createPiece("b"));
-	this->chessboard[3][0].setPiece(p->createPiece("Q"));
+	//this->chessboard[1][0].setPiece(p->createPiece("N"));
+	//this->chessboard[6][0].setPiece(p->createPiece("N"));
+	//this->chessboard[1][7].setPiece(p->createPiece("n"));
+	//this->chessboard[6][7].setPiece(p->createPiece("n"));
+	//this->chessboard[2][0].setPiece(p->createPiece("B"));
+	//this->chessboard[5][0].setPiece(p->createPiece("B"));
+	//this->chessboard[2][7].setPiece(p->createPiece("b"));
+	//this->chessboard[5][7].setPiece(p->createPiece("b"));
+	//this->chessboard[3][0].setPiece(p->createPiece("Q"));
 	this->chessboard[4][0].setPiece(p->createPiece("K"));
-	this->chessboard[3][7].setPiece(p->createPiece("q"));
+	//this->chessboard[3][7].setPiece(p->createPiece("q"));
 	this->chessboard[4][7].setPiece(p->createPiece("k"));
 }
 
@@ -206,8 +206,8 @@ vector<ChessMove*> GameState::getLegalMovesForPlayer (string color) const {
         if (!kingUnderAttack) {
             legalMoves.push_back(new ChessMove(*possibleMoves[i]));
         }
-
         temp.setPreviousState(0); //important! otherwise will delete all the previous state
+
     }
     //delete possible moves
     for (unsigned int idx=0; idx<possibleMoves.size(); idx++) {

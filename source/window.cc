@@ -85,9 +85,9 @@ void Xwindow::drawString(int x, int y, string msg, int colour) {
 
 void Xwindow::removePiece(int col,int row){
 	if ((col%2 == 0 && row%2 == 0) || (col%2 == 1 && row%2 == 1))
-		fillRectangle(col*squareLength+30,row*squareLength,squareLength,squareLength,8);
+		fillRectangle(col*squareLength+30,squareLength*7-row*squareLength,squareLength,squareLength,9);
        else
-		fillRectangle(col*squareLength+30,row*squareLength,squareLength,squareLength,9);
+		fillRectangle(col*squareLength+30,squareLength*7-row*squareLength,squareLength,squareLength,8);
 }
 
 void Xwindow::putPiece(int col, int row, string piece){

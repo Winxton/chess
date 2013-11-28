@@ -16,7 +16,7 @@ class GameState
     // to the public
     friend class ChessMove;
     friend class Castle;
-    friend class EnPassent;
+    friend class EnPassant;
     friend class Promotion;
     friend class Resign;
 

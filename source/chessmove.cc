@@ -1,10 +1,13 @@
 #include "chessmove.h"
 #include "gamestate.h"
 #include "piece.h"
+#include <string>
 #include <iostream>
 using namespace std;
 
-ChessMove::ChessMove(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest): xCordSrc(xCordSrc), yCordSrc(yCordSrc), xCordDest(xCordDest), yCordDest(yCordDest) {}
+ChessMove::ChessMove(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest): xCordSrc(xCordSrc), yCordSrc(yCordSrc), xCordDest(xCordDest), yCordDest(yCordDest) {
+	special = "";
+}
 
 void ChessMove::apply (GameState &state, bool updateGraphics) {
 	//get the piece pointer from the square
@@ -36,4 +39,8 @@ bool ChessMove::operator==(const ChessMove &other) {
 		&& yCordSrc==other.yCordSrc
 		&& xCordDest==other.xCordDest
 		&& yCordDest==other.yCordDest);
+}
+
+string ChessMove::getSpecial(){
+	return special;
 }

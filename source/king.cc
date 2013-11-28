@@ -1,8 +1,8 @@
 #include "king.h"
 #include "gamestate.h"
 #include "chessmove.h"
+#include "castle.h"
 #include "piece.h"
-//#include "castle.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -40,8 +40,9 @@ vector<ChessMove*> King::getPossibleMoves(const GameState* state) const {
 			if (state->getPieceType(this->xCord+i,this->yCord) == Piece::ROOK &&
 				!state->getPieceAt(this->xCord+i,this->yCord)->hasMoved())
 			{
-				//list.push_back(new Castle(this->xCord,this->yCord,this->xCord+2,this->yCord));
-				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+2,this->yCord));
+				list.push_back(new Castle(this->xCord,this->yCord,this->xCord+2,this->yCord));
+				//cout << new ChessMove(this->xCord,this->yCord,this->xCord-2,this->yCord) << endl;
+				//list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+2,this->yCord));
 			}
 			break;
 		}
@@ -55,8 +56,9 @@ vector<ChessMove*> King::getPossibleMoves(const GameState* state) const {
 			if (state->getPieceType(this->xCord-i,this->yCord) == Piece::ROOK  &&
 				!state->getPieceAt(this->xCord-i,this->yCord)->hasMoved())
 			{
-				//list.push_back(new Castle(this->xCord,this->yCord,this->xCord-2,this->yCord));
-				list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-2,this->yCord));
+				list.push_back(new Castle(this->xCord,this->yCord,this->xCord-2,this->yCord));
+				//cout << new ChessMove(this->xCord,this->yCord,this->xCord-2,this->yCord) << endl;
+				////list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-2,this->yCord));
 			}
 			break;
 		}
