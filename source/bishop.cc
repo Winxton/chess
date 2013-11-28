@@ -13,7 +13,6 @@ Bishop::Bishop(string color):Piece(color) {
 	else
 		repr = 'b';
 	moved = false;
-    cout << "bishop cons" << endl;
 }
 
 vector<ChessMove*> Bishop::getPossibleMoves(const GameState* state) const {

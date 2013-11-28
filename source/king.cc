@@ -14,7 +14,6 @@ King::King(string color):Piece(color) {
 	else
 		repr = 'k';
 	moved = false;
-    cout << "king cons" << endl;
 }
 
 vector<ChessMove*> King::getPossibleMoves(const GameState* state) const {

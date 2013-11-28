@@ -20,7 +20,6 @@ GameState::GameState(Xwindow *w, bool enterSetupMode): w(w), previousState(0), w
 }
 
 bool GameState::isValidSetupState() const {
-    
     /* 
     // TODO
     conditions:
@@ -28,7 +27,42 @@ bool GameState::isValidSetupState() const {
     - no pawns on first or last row of board
     - neither king is in check
     */
-    return true;
+    bool whiteKing = false;
+	bool blackKing = false;
+	for (int x = 0;x<8;x++){
+		for (int y = 0;x<8;y++){
+			if (whiteKing == true &&
+				chessboard[x][y].hasPiece() &&
+				chessboard[x][y].getPiece()->getCharRepr() == 'K') {
+				return false;
+			}
+			if (blackKing == true &&
+				chessboard[x][y].hasPiece() &&
+				chessboard[x][y].getPiece()->getCharRepr() == 'k') {
+				return false;
+			}
+			if (chessboard[x][y].hasPiece() &&
+				chessboard[x][y].getPiece()->getCharRepr() == 'K') {
+				whiteKing = true;
+			}
+			if (chessboard[x][y].hasPiece() &&
+				chessboard[x][y].getPiece()->getCharRepr() == 'k') {
+				blackKing = true;
+			}
+			if ((y == 0 || y ==7) &&
+				chessboard[x][y].hasPiece() &&
+				(chessboard[x][y].getPiece()->getCharRepr() == 'p' ||
+				chessboard[x][y].getPiece()->getCharRepr() == 'P')) {
+				return false;
+			}
+		}
+	}
+	if (blackKing && whiteKing) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 void GameState::doSetupMode() {
@@ -114,17 +148,17 @@ void GameState::initializeDefault() {
 	this->chessboard[7][0].setPiece(p->createPiece("R"));
 	this->chessboard[0][7].setPiece(p->createPiece("r"));
 	this->chessboard[7][7].setPiece(p->createPiece("r"));
-	//this->chessboard[1][0].setPiece(p->createPiece("N"));
-	//this->chessboard[6][0].setPiece(p->createPiece("N"));
-	//this->chessboard[1][7].setPiece(p->createPiece("n"));
-	//this->chessboard[6][7].setPiece(p->createPiece("n"));
-	//this->chessboard[2][0].setPiece(p->createPiece("B"));
-	//this->chessboard[5][0].setPiece(p->createPiece("B"));
-	//this->chessboard[2][7].setPiece(p->createPiece("b"));
-	//this->chessboard[5][7].setPiece(p->createPiece("b"));
-	//this->chessboard[3][0].setPiece(p->createPiece("Q"));
+	this->chessboard[1][0].setPiece(p->createPiece("N"));
+	this->chessboard[6][0].setPiece(p->createPiece("N"));
+	this->chessboard[1][7].setPiece(p->createPiece("n"));
+	this->chessboard[6][7].setPiece(p->createPiece("n"));
+	this->chessboard[2][0].setPiece(p->createPiece("B"));
+	this->chessboard[5][0].setPiece(p->createPiece("B"));
+	this->chessboard[2][7].setPiece(p->createPiece("b"));
+	this->chessboard[5][7].setPiece(p->createPiece("b"));
+	this->chessboard[3][0].setPiece(p->createPiece("Q"));
 	this->chessboard[4][0].setPiece(p->createPiece("K"));
-	//this->chessboard[3][7].setPiece(p->createPiece("q"));
+	this->chessboard[3][7].setPiece(p->createPiece("q"));
 	this->chessboard[4][7].setPiece(p->createPiece("k"));
 }
 

@@ -13,7 +13,6 @@ Queen::Queen(string color):Piece(color) {
 	else
 		repr = 'q';
 	moved = false;
-    cout << "queen cons" << endl;
 }
 
 vector<ChessMove*> Queen::getPossibleMoves(const GameState* state) const {

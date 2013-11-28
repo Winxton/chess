@@ -14,7 +14,6 @@ Pawn::Pawn(string color):Piece(color) {
 	else
 		repr = 'p';
 	moved = false;
-    cout << "pawn cons" << endl;
 }
 
 vector<ChessMove*> Pawn::getPossibleMoves(const GameState* state) const {

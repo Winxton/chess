@@ -13,7 +13,6 @@ Knight::Knight(string color):Piece(color) {
 	else
 		repr = 'n';
 	moved = false;
-    cout << "knight cons" << endl;
 }
 
 vector<ChessMove*> Knight::getPossibleMoves(const GameState* state) const {
