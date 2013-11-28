@@ -10,7 +10,8 @@ Castle::Castle(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest): ChessM
 	special = "castle";
 }
 
-void Castle::apply (GameState &state, bool updateGraphics) {
+void Castle::apply (GameState &state, bool updateGraphics, bool saveState) {
+	if (saveState) saveCurrentStateAsPrevious(state);
 	Piece *p = state.chessboard[xCordSrc][yCordSrc].getAndUnsetPiece(updateGraphics);
 
     //sets the piece to the new square on the board

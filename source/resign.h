@@ -11,7 +11,7 @@ class Resign : public Action
 	virtual std::ostream& doPrint(std::ostream &out) const;
  public:
  	Resign(std::string color);
-    void apply(GameState &state, bool updateGraphics=false);
+    void apply(GameState &state, bool updateGraphics=false, bool saveState=false);
 };
 
 #endif

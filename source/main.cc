@@ -1,23 +1,27 @@
+#include <vector>
+#include <iostream>
+#include <cstdlib>
 #include "chessgame.h"
 #include "player.h"
 #include "gamestate.h"
-#include "action.h"
-#include "chessmove.h"
 #include "piece.h"
 #include "playerfactory.h"
-#include "piecefactory.h"
-#include <vector>
-#include <iostream>
 #include "window.h"
 using namespace std;
 
+void doExit() {
+	cout << "exiting ..." << endl;
+}
+
 int main() {
-	
+	atexit(doExit);
+
 	string cmd;
 
 	Player *whitePlayer = 0;
 	Player *blackPlayer = 0;
 
+	
 	GameState *initialState = 0;
 	Xwindow w;
 

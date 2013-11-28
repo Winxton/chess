@@ -44,15 +44,9 @@ void ChessGame::doTurn(const Player &player) {
 
 		cout << "Apply action: " << *action << endl;
 
-		// copy a new state and set its
-		// "previous state pointer" to the current state
-		GameState *temp = new GameState(*currentState);
-		temp->setPreviousState(currentState);
-		// update the current state pointer
-		currentState = temp;
 		// apply the action to the current state
 		// AND update the graphics
-		action->apply(*currentState, true);
+		action->apply(*currentState, true, true);
 
 		delete action;
 

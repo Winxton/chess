@@ -9,6 +9,6 @@ ostream& Resign::doPrint(std::ostream& out) const {
 	return out << color << " Resigns." << endl;
 }
 
-void Resign::apply(GameState &state, bool updateGraphics) {
+void Resign::apply(GameState &state, bool updateGraphics, bool saveState) {
 	state.gameEnded = true;
 }

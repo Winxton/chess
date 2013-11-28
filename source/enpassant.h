@@ -10,7 +10,7 @@ class EnPassant : public ChessMove
 	std::ostream& doPrint(std::ostream &out) const;
 public:
 	EnPassant(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest);
-	void apply (GameState &state,bool updateGraphics=false);
+	void apply (GameState &state,bool updateGraphics=false, bool saveState=false);
 	std::string getSpecial();
 };
 

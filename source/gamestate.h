@@ -15,6 +15,7 @@ class GameState
     // since modifying the state should not be available
     // to the public
     friend class ChessMove;
+    friend class Undo;
     friend class Castle;
     friend class EnPassant;
     friend class Promotion;
@@ -79,7 +80,7 @@ public:
     void setPreviousState(GameState *state);
 
     GameState *getPreviousState() const;
-	
+
     // re draws the game state
     void drawState() const;
 

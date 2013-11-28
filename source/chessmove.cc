@@ -9,7 +9,8 @@ ChessMove::ChessMove(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest): 
 	special = "";
 }
 
-void ChessMove::apply (GameState &state, bool updateGraphics) {
+void ChessMove::apply (GameState &state, bool updateGraphics, bool saveState) {
+	if (saveState) saveCurrentStateAsPrevious(state);
 	//get the piece pointer from the square
     Piece *p = state.chessboard[xCordSrc][yCordSrc].getAndUnsetPiece(updateGraphics);
 

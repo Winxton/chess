@@ -1,5 +1,6 @@
 #include "humanplayer.h"
 #include "action.h"
+#include "undo.h"
 #include "chessmove.h"
 #include "castle.h"
 #include "enpassant.h"
@@ -59,14 +60,25 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 				}
 			}
 
-			if (!validActionGiven) cout << "Not a Legal Move." << endl;
+			if (!validActionGiven) cerr << "Not a Legal Move." << endl;
 
-		} else if (cmd == "resign") {
+		} 
+		else if (cmd == "resign") 
+		{
 			action = new Resign(color);
 			validActionGiven = true;
 
-		} else {
-			cout << "invalid command" << endl;
+		}
+		else if (cmd == "undo") 
+		{
+			if (! state.getPreviousState() == 0) {
+				action = new Undo();
+				validActionGiven = true;
+			}
+		}
+		else 
+		{
+			cerr << "invalid command" << endl;
 		}
 	}
 

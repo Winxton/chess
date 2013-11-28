@@ -21,35 +21,40 @@ GameState::GameState(Xwindow *w, bool enterSetupMode): w(w), previousState(0), w
 
 bool GameState::isValidSetupState() const {
     /* 
-    // TODO
     conditions:
     - one white king, one black king
     - no pawns on first or last row of board
     - neither king is in check
     */
-    bool whiteKing = false;
-	bool blackKing = false;
-	for (int x = 0;x<8;x++){
-		for (int y = 0;x<8;y++){
-			if (whiteKing == true &&
+    
+    //kings exist
+    bool whiteKingExists = false;
+	bool blackKingExists = false;
+	for (int x = 0; x<8; x++)
+    {
+		for (int y = 0; y<8; y++){
+
+			if (whiteKingExists == true &&
 				chessboard[x][y].hasPiece() &&
 				chessboard[x][y].getPiece()->getCharRepr() == 'K') {
 				return false;
 			}
-			if (blackKing == true &&
+			if (blackKingExists == true &&
 				chessboard[x][y].hasPiece() &&
 				chessboard[x][y].getPiece()->getCharRepr() == 'k') {
 				return false;
 			}
 			if (chessboard[x][y].hasPiece() &&
 				chessboard[x][y].getPiece()->getCharRepr() == 'K') {
-				whiteKing = true;
+				whiteKingExists = true;
 			}
 			if (chessboard[x][y].hasPiece() &&
 				chessboard[x][y].getPiece()->getCharRepr() == 'k') {
-				blackKing = true;
+				blackKingExists = true;
 			}
-			if ((y == 0 || y ==7) &&
+            
+            //pawns on first or last row
+			if ((y == 0 || y == 7) &&
 				chessboard[x][y].hasPiece() &&
 				(chessboard[x][y].getPiece()->getCharRepr() == 'p' ||
 				chessboard[x][y].getPiece()->getCharRepr() == 'P')) {
@@ -57,15 +62,19 @@ bool GameState::isValidSetupState() const {
 			}
 		}
 	}
-	if (blackKing && whiteKing) {
-		return true;
-	}
-	else {
+    
+	if (! (blackKingExists && whiteKingExists))
 		return false;
-	}
+    
+    //neither king is in check
+    if (isUnderCheck("white") || isUnderCheck("black"))
+        return false;
+
+    return true;
 }
 
 void GameState::doSetupMode() {
+    cerr << "entered setup mode" << endl;
     bool getCommands = true;
 
     while (getCommands) {
@@ -101,7 +110,7 @@ void GameState::doSetupMode() {
 
             if (isInsideBoard(x,y)) {
                 //remove piece AND update graphics
-                chessboard[x][y].removePiece();
+                chessboard[x][y].removePiece(true);
             }
 
         } else if (cmd == "=") 
@@ -117,9 +126,10 @@ void GameState::doSetupMode() {
         else if (cmd == "done") 
         {
             if (isValidSetupState()) {
+                cerr << "GOOD SETUP." << endl;
                 getCommands = false;
             } else {
-                cerr << "Incorrect State" << endl;
+                cerr << "BAD SETUP." << endl;
             }
         } 
         else 
@@ -344,11 +354,21 @@ void GameState::drawState() const {
     w->setBoardBackground();
     
     string temp;
+    /*
     for (int row = 7; row >= 0; row--) {
         for (int col = 0; col <=7; col ++) {
             if (chessboard[col][row].hasPiece()){
                 temp = string(1,chessboard[col][row].getPiece()->getCharRepr());
                 w->putPiece(col,row,temp);
+            }
+        }
+    }
+    */
+    for (int row = 0; row <= 7; row++) {
+        for (int col = 0; col <=7; col ++) {
+            if (chessboard[row][col].hasPiece()){
+                temp = string(1,chessboard[row][col].getPiece()->getCharRepr());
+                w->putPiece(row,col,temp);
             }
         }
     }

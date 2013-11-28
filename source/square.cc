@@ -45,10 +45,11 @@ void Square::setCoords(int xCord, int yCord, Xwindow *w) {
 void Square::setPiece(Piece *p, bool updateGraphics) {
 	delete this->p;
     this->p = p;
-    this->p->setCoords(xCord, yCord);
+    
+    if (!p==0) this->p->setCoords(xCord, yCord);
     if (updateGraphics) {
         w->removePiece(xCord, yCord);
-        w->putPiece(xCord, yCord, string(1, this->p->getCharRepr()) );
+        if (hasPiece()) w->putPiece(xCord, yCord, string(1, this->p->getCharRepr()) );
     }
 }
 

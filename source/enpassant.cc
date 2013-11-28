@@ -10,7 +10,8 @@ EnPassant::EnPassant(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest): 
 	special = "enpassant";
 }
 
-void EnPassant::apply (GameState &state, bool updateGraphics) {
+void EnPassant::apply (GameState &state, bool updateGraphics, bool saveState) {
+	if (saveState) saveCurrentStateAsPrevious(state);
 	Piece *p = state.chessboard[xCordSrc][yCordSrc].getAndUnsetPiece(updateGraphics);
 
     //sets the piece to the new square on the board
@@ -19,10 +20,10 @@ void EnPassant::apply (GameState &state, bool updateGraphics) {
 	p->setMoved();
 	
 	if (yCordDest > yCordSrc){
-		state.chessboard[xCordDest][yCordDest-1].getAndUnsetPiece(updateGraphics);
+		state.chessboard[xCordDest][yCordDest-1].removePiece(updateGraphics);
 	}
 	else {
-		state.chessboard[xCordDest][yCordDest+1].getAndUnsetPiece(updateGraphics);
+		state.chessboard[xCordDest][yCordDest+1].removePiece(updateGraphics);
 	}
 }
 
