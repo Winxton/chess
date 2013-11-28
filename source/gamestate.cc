@@ -169,41 +169,10 @@ vector<ChessMove*> GameState::getLegalMovesForPlayer (string color) const {
 
     for (unsigned int i=0; i<possibleMoves.size(); i++) {
         //create a TEMPORARY state and apply the move to it
-
         GameState temp = *this;
-
         possibleMoves[i]->apply(temp);
-        
-        //find location of king
-        int kingx = -1;
-        int kingy = -1;
-        for (int x =0; x<8; x++) {
-            for (int y=0; y<8; y++) {
-                if (temp.getPieceColor(x,y)==color
-                    && temp.getPieceType(x,y)==Piece::KING) {
-                    kingx = x;
-                    kingy = y;
-                }
-            }
-        }
-
-        //possible moves for the opposite player
-        string oppositeColor = color == "white" ? "black" : "white";
-        vector<ChessMove*> tempPossibleMoves = temp.getPossibleMovesForPlayer(oppositeColor);
-        
-        bool kingUnderAttack = false;
-
-        for (unsigned int idx=0; idx<tempPossibleMoves.size(); idx++) {
-            if (tempPossibleMoves[idx]->hasSameDestination(kingx, kingy)) {
-                kingUnderAttack = true;
-            }
-        }
-        //delete temp moves
-        for (unsigned int idx=0; idx<tempPossibleMoves.size(); idx++) {
-            delete tempPossibleMoves[idx];
-        }
-
-        if (!kingUnderAttack) {
+        //filter moves that do not put the king under check
+        if (!temp.isUnderCheck(color)) {
             legalMoves.push_back(new ChessMove(*possibleMoves[i]));
         }
         temp.setPreviousState(0); //important! otherwise will delete all the previous state
