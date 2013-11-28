@@ -72,7 +72,8 @@ public:
     bool hasPieceOfOppositeColor(std::string color,int xCord, int yCord) const;
 
     const Piece *getPieceAt(int xCord, int yCord) const;
-	
+
+    // returns the type of the piece (Piece::TYPE) given the coordinates	
 	int getPieceType(int xCord, int yCord) const;
     
     void setPreviousState(GameState *state);
