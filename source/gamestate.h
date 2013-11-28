@@ -33,11 +33,6 @@ class GameState
     //used within doSetupMode() to check if a state is proper
     bool isValidSetupState() const;
 
-    // draws the chess board
-    void drawBoard () const;
-    
-    //draws the pieces on the board
-    void drawGraphics() const;
 public:
     
     GameState(Xwindow *w, bool enterSetupMode = false);
@@ -86,6 +81,9 @@ public:
 	
     // re draws the game state
     void drawState() const;
+
+    // prints the board to stdout
+    void printBoard() const;
 
     ~GameState();
 };

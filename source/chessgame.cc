@@ -53,7 +53,7 @@ void ChessGame::doTurn(const Player &player) {
 		// apply the action to the current state
 		// AND update the graphics
 		action->apply(*currentState, true);
-		
+
 		delete action;
 
 		currentState->swapTurns();
@@ -70,6 +70,7 @@ void ChessGame::start() {
 			cout << "Black Player's Turn" << endl;
 			doTurn(*blackPlayer);
 		}
+		currentState->printBoard();
 	}
 }
 

@@ -319,11 +319,7 @@ GameState *GameState::getPreviousState() const{
     return previousState;
 }
 
-void GameState::drawBoard() const {
-    //temp
-    w->clearBoardBackground();
-    w->setBoardBackground();
-
+void GameState::printBoard() const {
     for (int row = 7; row >= 0; row--) {
         cout << row+1 << " ";
         for (int col = 0; col <=7; col ++) {
@@ -339,21 +335,20 @@ void GameState::drawBoard() const {
     cout << endl;
 }
 
-void GameState::drawGraphics() const {
-	string temp;
+void GameState::drawState() const {
+    //temp
+    w->clearBoardBackground();
+    w->setBoardBackground();
+    
+    string temp;
     for (int row = 7; row >= 0; row--) {
         for (int col = 0; col <=7; col ++) {
-			if (chessboard[col][row].hasPiece()){
-				temp = string(1,chessboard[col][row].getPiece()->getCharRepr());
-				w->putPiece(col,row,temp);
-			}
-		}
-	}
-}
-
-void GameState::drawState() const {
-    drawBoard();
-    drawGraphics();
+            if (chessboard[col][row].hasPiece()){
+                temp = string(1,chessboard[col][row].getPiece()->getCharRepr());
+                w->putPiece(col,row,temp);
+            }
+        }
+    }
 }
 
 GameState::~GameState() {
