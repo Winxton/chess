@@ -31,7 +31,7 @@ void Undo::apply (GameState &state, bool updateGraphics, bool saveState) const {
 		
 		state.previousState = previousState->previousState;
 		
-		state.whiteTurn = previousState->whiteTurn;
+		//state.whiteTurn = previousState->whiteTurn;
 		previousState->setPreviousState(0);
 		delete previousState;
 	}

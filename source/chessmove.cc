@@ -18,12 +18,12 @@ bool ChessMove::checksOpponent(const GameState &state) const {
 	string myColor = state.getPieceColor(xCordSrc, yCordSrc); 
 	GameState temp = state;
 	apply(temp);
-	temp.setPreviousState(0);
-
 	//returns true if the opponent is under check
-	return (temp.isUnderCheck(
+	bool underCheck =  (temp.isUnderCheck(
 		myColor == "white" ? "black" : "white"
 		));
+	temp.setPreviousState(0);
+	return underCheck;
 }
 
 bool ChessMove::avoidsCaptureAfterMove(const GameState &state) const {

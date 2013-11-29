@@ -46,14 +46,18 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 					&& state.isInsideBoard(destX, destY)) 
 				{
 					action = new ChessMove(srcX, srcY, destX, destY);
-						
+					
 					//check if it's a valid action
 					for (unsigned int i =0; i<possibleMoves.size(); i++) {
 						if (*possibleMoves[i] == *(static_cast<ChessMove*>(action))) {
-							if (possibleMoves[i]->getSpecial() == "castle")
+							if (possibleMoves[i]->getSpecial() == "castle") {
+								delete action;
 								action = new Castle(srcX, srcY, destX, destY);
-							if (possibleMoves[i]->getSpecial() == "enpassant")
+							}
+							if (possibleMoves[i]->getSpecial() == "enpassant") {
+								delete action;
 								action = new EnPassant(srcX, srcY, destX, destY);
+							}
 							GameState temp(state);
 							action->apply(temp);
 							if (!temp.isUnderCheck(color))

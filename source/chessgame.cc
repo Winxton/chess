@@ -27,6 +27,7 @@ void ChessGame::doTurn(const Player &player) {
 	// player cannot move -> lost
 	else if (!currentState->hasLegalMoves(player.getColor())) 
 	{
+		cout << "NO MORE MOVES" << endl;
 		currentState->setGameEnded();
 		
 		if (player.getColor() == "white") {
