@@ -1,6 +1,7 @@
 #include "playerfactory.h"
 #include "player.h"
 #include "humanplayer.h"
+#include "computerplayer.h"
 #include <iostream>
 #include <cstdlib>
 #include <string>
@@ -20,10 +21,10 @@ PlayerFactory *PlayerFactory::getInstance() {
 	return instance;
 }
 
-Player *PlayerFactory::createPlayer(string type, string color) {
+Player *PlayerFactory::createPlayer(string type, int level, string color) {
 	if (type == "human") {
 		return new HumanPlayer(color);
-	} else {
-		return 0;
+	} else { //computer player
+		return new ComputerPlayer(color, level);
 	}
 }

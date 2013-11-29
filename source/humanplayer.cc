@@ -15,10 +15,10 @@ HumanPlayer::HumanPlayer(string color): Player(color) {}
 
 Action *HumanPlayer::getAction(const GameState &state) const {
 	
-	vector<ChessMove*> legalmoves = state.getLegalMovesForPlayer(color);
+	vector<ChessMove*> possibleMoves = state.getPossibleMovesForPlayer(color);
 
-	for (unsigned int i =0; i<legalmoves.size(); i++) {
-		cout << *legalmoves[i] << endl;
+	for (unsigned int i =0; i<possibleMoves.size(); i++) {
+		cout << *possibleMoves[i] << endl;
 	}
 
 	bool validActionGiven = false;
@@ -48,13 +48,17 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 					action = new ChessMove(srcX, srcY, destX, destY);
 						
 					//check if it's a valid action
-					for (unsigned int i =0; i<legalmoves.size(); i++) {
-						if (*legalmoves[i] == *(static_cast<ChessMove*>(action))) {
-							validActionGiven = true;
-							if (legalmoves[i]->getSpecial() == "castle")
+					for (unsigned int i =0; i<possibleMoves.size(); i++) {
+						if (*possibleMoves[i] == *(static_cast<ChessMove*>(action))) {
+							if (possibleMoves[i]->getSpecial() == "castle")
 								action = new Castle(srcX, srcY, destX, destY);
-							if (legalmoves[i]->getSpecial() == "enpassant")
+							if (possibleMoves[i]->getSpecial() == "enpassant")
 								action = new EnPassant(srcX, srcY, destX, destY);
+							GameState temp(state);
+							action->apply(temp);
+							if (!temp.isUnderCheck(color))
+							    validActionGiven = true;
+							temp.setPreviousState(0);
 						}
 					}
 				}
@@ -82,8 +86,8 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 		}
 	}
 
-	for (unsigned int i =0; i<legalmoves.size(); i++) {
-		delete legalmoves[i];
+	for (unsigned int i =0; i<possibleMoves.size(); i++) {
+		delete possibleMoves[i];
 	}
 
 	return action;

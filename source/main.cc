@@ -30,17 +30,30 @@ int main() {
 		if (cmd == "game") 
 		{
 			string whitePlayerType;
+			int whitePlayerLevel = 0;
+
 			string blackPlayerType;
-			cin >> whitePlayerType >> blackPlayerType;
-		    Player *whitePlayer = PlayerFactory::getInstance()->createPlayer(whitePlayerType, "white");
-		    Player *blackPlayer = PlayerFactory::getInstance()->createPlayer(blackPlayerType, "black");
+			int blackPlayerLevel = 0;
+
+			cin >> whitePlayerType;
+			cin >> blackPlayerType;
+
+			if (whitePlayerType == "computer") {
+				cin >> whitePlayerLevel;
+			}
+			if (blackPlayerType == "computer") {
+				cin >> blackPlayerLevel;
+			}
+
+		    Player *whitePlayer = PlayerFactory::getInstance()->createPlayer(whitePlayerType, whitePlayerLevel, "white");
+		    Player *blackPlayer = PlayerFactory::getInstance()->createPlayer(blackPlayerType, blackPlayerLevel, "black");
 			
 			if (initialState == 0) {
 		    	initialState = new GameState(&w);
 			}
 
 		    ChessGame game(initialState, whitePlayer, blackPlayer);
-		   	game.start(); //will deallocate the state
+		   	game.start(); //will deallocate the state after use
 
 		   	//game has finished, reset original parameters
 		   	w.setBoardBackground();

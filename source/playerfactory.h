@@ -9,7 +9,7 @@ class PlayerFactory {
 	static void cleanup();
 public:
 	static PlayerFactory *getInstance();
-	Player *createPlayer(std::string type, std::string color);
+	Player *createPlayer(std::string type, int level, std::string color);
 };
 
 #endif
