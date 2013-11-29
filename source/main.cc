@@ -31,20 +31,20 @@ int main() {
 		{
 			string whitePlayerType;
 			int whitePlayerLevel = 0;
-
-			string blackPlayerType;
-			int blackPlayerLevel = 0;
-
 			cin >> whitePlayerType;
-			cin >> blackPlayerType;
-
+			
 			if (whitePlayerType == "computer") {
 				cin >> whitePlayerLevel;
 			}
+
+			string blackPlayerType;
+			int blackPlayerLevel = 0;
+			cin >> blackPlayerType;
+			
 			if (blackPlayerType == "computer") {
 				cin >> blackPlayerLevel;
 			}
-
+			cout << whitePlayerType << " " << blackPlayerType << endl;
 		    Player *whitePlayer = PlayerFactory::getInstance()->createPlayer(whitePlayerType, whitePlayerLevel, "white");
 		    Player *blackPlayer = PlayerFactory::getInstance()->createPlayer(blackPlayerType, blackPlayerLevel, "black");
 			

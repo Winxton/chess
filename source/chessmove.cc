@@ -9,7 +9,28 @@ ChessMove::ChessMove(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest): 
 	special = "";
 }
 
-void ChessMove::apply (GameState &state, bool updateGraphics, bool saveState) {
+bool ChessMove::capturesPiece(const GameState &state) const {
+	return state.hasPieceAt(xCordDest, yCordDest);
+}
+
+bool ChessMove::checksOpponent(const GameState &state) const {
+	//color of the moving piece
+	string myColor = state.getPieceColor(xCordSrc, yCordSrc); 
+	GameState temp = state;
+	apply(temp);
+	temp.setPreviousState(0);
+
+	//returns true if the opponent is under check
+	return (temp.isUnderCheck(
+		myColor == "white" ? "black" : "white"
+		));
+}
+
+bool ChessMove::avoidsCaptureAfterMove(const GameState &state) const {
+	return false;
+}
+
+void ChessMove::apply (GameState &state, bool updateGraphics, bool saveState) const {
 	if (saveState) saveCurrentStateAsPrevious(state);
 	//get the piece pointer from the square
     Piece *p = state.chessboard[xCordSrc][yCordSrc].getAndUnsetPiece(updateGraphics);

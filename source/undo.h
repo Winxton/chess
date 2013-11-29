@@ -9,7 +9,7 @@ class Undo: public Action {
 protected:
 	virtual std::ostream& doPrint(std::ostream &out) const;
 public:
-	virtual void apply (GameState &state, bool updateGraphics=false, bool saveState=false);
+	virtual void apply (GameState &state, bool updateGraphics=false, bool saveState=false) const;
 };
 
 #endif

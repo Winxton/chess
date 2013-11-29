@@ -10,13 +10,13 @@ EnPassant::EnPassant(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest): 
 	special = "enpassant";
 }
 
-void EnPassant::apply (GameState &state, bool updateGraphics, bool saveState) {
+void EnPassant::apply (GameState &state, bool updateGraphics, bool saveState) const {
 	if (saveState) saveCurrentStateAsPrevious(state);
 	Piece *p = state.chessboard[xCordSrc][yCordSrc].getAndUnsetPiece(updateGraphics);
 
     //sets the piece to the new square on the board
     state.chessboard[xCordDest][yCordDest].setPiece(p, updateGraphics);
-
+    
 	p->setMoved();
 	
 	if (yCordDest > yCordSrc){

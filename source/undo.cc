@@ -9,7 +9,7 @@ std::ostream& Undo::doPrint(std::ostream &out) const {
 	return out << "Undo move" ;
 }
 
-void Undo::apply (GameState &state, bool updateGraphics, bool saveState) {
+void Undo::apply (GameState &state, bool updateGraphics, bool saveState) const {
 	GameState *previousState = state.previousState;
 
 	if (previousState == 0) {

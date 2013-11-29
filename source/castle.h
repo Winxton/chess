@@ -10,7 +10,7 @@ class Castle : public ChessMove
 	std::ostream& doPrint(std::ostream &out) const;
 public:
 	Castle(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest);
-	void apply (GameState &state, bool updateGraphics=false, bool saveState=false);
+	void apply (GameState &state, bool updateGraphics=false, bool saveState=false) const;
 	std::string getSpecial();
 };
 

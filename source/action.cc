@@ -5,7 +5,7 @@ using namespace std;
 
 Action::~Action() {}
 
-void Action::saveCurrentStateAsPrevious(GameState &state) {
+void Action::saveCurrentStateAsPrevious(GameState &state) const {
 	// copy a new state
 	GameState *temp = new GameState(state);
 	// "previous state pointer" to the current state
