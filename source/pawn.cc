@@ -1,6 +1,7 @@
 #include "pawn.h"
 #include "gamestate.h"
 #include "enpassant.h"
+#include "promotion.h"
 #include "chessmove.h"
 #include "piece.h"
 #include <vector>
@@ -34,8 +35,8 @@ vector<ChessMove*> Pawn::getPossibleMoves(const GameState* state) const {
 			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+forwardOne));
 		else{
 			// promotion
-			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+forwardOne));
-			//list.push_back(new Promotion(this->xCord,this->yCord,this->xCord,this->yCord+forwardOne));
+			//list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+forwardOne));
+			list.push_back(new Promotion(this->xCord,this->yCord,this->xCord,this->yCord+forwardOne));
 		}
 	}
 	// pawn advancement

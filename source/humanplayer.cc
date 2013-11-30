@@ -4,6 +4,7 @@
 #include "chessmove.h"
 #include "castle.h"
 #include "enpassant.h"
+#include "promotion.h"
 #include "resign.h"
 #include "gamestate.h"
 #include <iostream>
@@ -32,7 +33,7 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 
 		if (cmd == "move") 
 		{
-			string src, dest;
+			string src, dest, promoteTo;
 			cin >> src >> dest;
 			
 			//check validity of input
@@ -54,6 +55,17 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 								action = new Castle(srcX, srcY, destX, destY);
 							if (possibleMoves[i]->getSpecial() == "enpassant")
 								action = new EnPassant(srcX, srcY, destX, destY);
+							if (possibleMoves[i]->getSpecial() == "promotion"){
+								cin >> promoteTo;
+								if (!(promoteTo == "Q" || promoteTo == "q" ||
+										promoteTo == "R" || promoteTo == "r" ||
+										promoteTo == "N" || promoteTo == "n" ||
+										promoteTo == "B" || promoteTo == "b")){
+									validActionGiven = false;
+									break;
+								}
+								action = new Promotion(srcX, srcY, destX, destY, promoteTo);
+							}
 							GameState temp(state);
 							action->apply(temp);
 							if (!temp.isUnderCheck(color))
