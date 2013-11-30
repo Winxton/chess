@@ -184,10 +184,14 @@ bool GameState::isWhiteTurn() const {
     return whiteTurn;
 }
 
-void GameState::setGameEnded() {
+void GameState::setGameEnded(int result) {
+    gameResult = result;
     gameEnded = true;
 }
 
+int GameState::getGameResult() const {
+    return gameResult;
+}
 
 vector<ChessMove*> GameState::getPossibleMovesForPlayer (string color) const {
     vector<ChessMove *> allMoves;
@@ -346,6 +350,12 @@ void GameState::printBoard() const {
         cout << (char)('a'+i);
     }
     cout << endl;
+    if (isUnderCheck("white")) {
+        cout << "White is in check." << endl;
+    }
+    if (isUnderCheck("black")) {
+        cout << "Black is in check." << endl;
+    }
 }
 
 void GameState::drawState() const {

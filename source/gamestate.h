@@ -27,6 +27,7 @@ class GameState
 
     bool whiteTurn;
     bool gameEnded;
+    int gameResult;
 
     //sets the numberings and passes the window to each square
     void setSquareNumberings();
@@ -35,7 +36,13 @@ class GameState
     bool isValidSetupState() const;
 
 public:
-    
+    //possible results of the game
+    static const int BLACK_WINS_BY_CHECKMATE = 1;
+    static const int WHITE_WINS_BY_CHECKMATE = 2;
+    static const int BLACK_RESIGNS = 3;
+    static const int WHITE_RESIGNS = 4;
+    static const int STALEMATE = 5;
+
     GameState(Xwindow *w, bool enterSetupMode = false);
     
     void doSetupMode();
@@ -50,7 +57,9 @@ public:
 
     bool isWhiteTurn() const;
 
-    void setGameEnded();
+    void setGameEnded(int result);
+
+    int getGameResult() const;
 
     // returns list of possible moves without checking if the king is in check after making the move
     std::vector<ChessMove*> getPossibleMovesForPlayer (std::string color) const;

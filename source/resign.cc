@@ -10,5 +10,9 @@ ostream& Resign::doPrint(std::ostream& out) const {
 }
 
 void Resign::apply(GameState &state, bool updateGraphics, bool saveState) const {
-	state.gameEnded = true;
+	if (color == "white") {
+		state.setGameEnded(GameState::WHITE_RESIGNS);
+	} else {
+		state.setGameEnded(GameState::BLACK_RESIGNS);
+	}
 }

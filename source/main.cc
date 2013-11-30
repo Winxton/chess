@@ -7,10 +7,11 @@
 #include "piece.h"
 #include "playerfactory.h"
 #include "window.h"
+#include "scoreboard.h"
 using namespace std;
 
 void doExit() {
-	cout << "exiting ..." << endl;
+	Scoreboard::getInstance()->printScoreboard();
 }
 
 int main() {
@@ -21,7 +22,6 @@ int main() {
 	Player *whitePlayer = 0;
 	Player *blackPlayer = 0;
 
-	
 	GameState *initialState = 0;
 	Xwindow w;
 
@@ -32,7 +32,7 @@ int main() {
 			string whitePlayerType;
 			int whitePlayerLevel = 0;
 			cin >> whitePlayerType;
-			
+
 			if (whitePlayerType == "computer") {
 				cin >> whitePlayerLevel;
 			}
@@ -40,7 +40,7 @@ int main() {
 			string blackPlayerType;
 			int blackPlayerLevel = 0;
 			cin >> blackPlayerType;
-			
+
 			if (blackPlayerType == "computer") {
 				cin >> blackPlayerLevel;
 			}

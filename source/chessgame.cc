@@ -15,44 +15,55 @@ ChessGame::ChessGame (
 
 void ChessGame::doTurn(const Player &player) {
 
-	Action *action = 0;
+	Action *action = player.getAction(*currentState);
+
+	cout << "Apply action: " << *action << endl;
+
+	// apply the action to the current state
+	// AND update the graphics
+	action->apply(*currentState, true, true);
+
+	delete action;
+
+	string oppositeColor = player.getColor() == "white" ? "black" : "white";
 
 	// check for stalemate
-	if ( !currentState->isUnderCheck(player.getColor())
-		&& !currentState->hasLegalMoves(player.getColor()) ) {
-		// handle stalemate!
-		cout << "stalemate" << endl;
-		currentState->setGameEnded();
-	}
-	// player cannot move -> lost
-	else if (!currentState->hasLegalMoves(player.getColor())) 
+	if ( !currentState->isUnderCheck(oppositeColor)
+		&& !currentState->hasLegalMoves(oppositeColor) ) 
 	{
-		cout << "NO MORE MOVES" << endl;
-		currentState->setGameEnded();
-		
+		currentState->setGameEnded(GameState::STALEMATE);
+	}
+	// other player cannot move -> lost
+	if (!currentState->hasLegalMoves(oppositeColor)) 
+	{
 		if (player.getColor() == "white") {
-			Scoreboard::getInstance()->blackWins();
+			currentState->setGameEnded(GameState::WHITE_WINS_BY_CHECKMATE);
 		} else {
-			Scoreboard::getInstance()->whiteWins();
+			currentState->setGameEnded(GameState::BLACK_WINS_BY_CHECKMATE);
 		}
 	}
-	else 
-	{
-		action = player.getAction(*currentState);
+
+	currentState->swapTurns();
+	currentState->printBoard();
+
+	if (currentState->isGameEnded()) {
+		if (currentState->getGameResult() == GameState::WHITE_WINS_BY_CHECKMATE) {
+			Scoreboard::getInstance()->whiteWinsByCheckmate();
+		} 
+		else if (currentState->getGameResult() == GameState::BLACK_WINS_BY_CHECKMATE) {
+			Scoreboard::getInstance()->blackWinsByCheckmate();
+		}
+		else if (currentState->getGameResult() == GameState::BLACK_RESIGNS) {
+			Scoreboard::getInstance()->blackResigns();
+		}
+		else if (currentState->getGameResult() == GameState::WHITE_RESIGNS) {
+			Scoreboard::getInstance()->whiteResigns();
+		}
+		else if (currentState->getGameResult() == GameState::STALEMATE) { //stalemate
+			Scoreboard::getInstance()->stalemate();
+		}
 	}
 
-	if (!currentState->isGameEnded()) {
-
-		cout << "Apply action: " << *action << endl;
-
-		// apply the action to the current state
-		// AND update the graphics
-		action->apply(*currentState, true, true);
-
-		delete action;
-
-		currentState->swapTurns();
-	}
 }
 
 void ChessGame::start() {
@@ -65,7 +76,6 @@ void ChessGame::start() {
 			cout << "Black Player's Turn" << endl;
 			doTurn(*blackPlayer);
 		}
-		currentState->printBoard();
 	}
 }
 

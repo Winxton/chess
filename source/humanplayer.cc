@@ -4,6 +4,7 @@
 #include "chessmove.h"
 #include "castle.h"
 #include "enpassant.h"
+#include "promotion.h"
 #include "resign.h"
 #include "gamestate.h"
 #include <iostream>
@@ -48,20 +49,39 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 					action = new ChessMove(srcX, srcY, destX, destY);
 					
 					//check if it's a valid action
-					for (unsigned int i =0; i<possibleMoves.size(); i++) {
-						if (*possibleMoves[i] == *(static_cast<ChessMove*>(action))) {
-							if (possibleMoves[i]->getSpecial() == "castle") {
+					for (unsigned int i =0; i<possibleMoves.size(); i++) 
+					{
+						if (*possibleMoves[i] == *(static_cast<ChessMove*>(action))) 
+						{
+							if (possibleMoves[i]->getSpecial() == "castle") 
+							{
 								delete action;
 								action = new Castle(srcX, srcY, destX, destY);
 							}
-							if (possibleMoves[i]->getSpecial() == "enpassant") {
+							if (possibleMoves[i]->getSpecial() == "enpassant") 
+							{
 								delete action;
 								action = new EnPassant(srcX, srcY, destX, destY);
 							}
+							if (possibleMoves[i]->getSpecial() == "promotion") 
+							{
+								string promoteTo = "";
+								cin >> promoteTo;
+
+								while (!(promoteTo == "Q" || promoteTo == "q" ||
+										promoteTo == "R" || promoteTo == "r" ||
+										promoteTo == "N" || promoteTo == "n" ||
+										promoteTo == "B" || promoteTo == "b")) 
+								{
+										cerr << "Incorrect Promotion Piece. Please re-enter piece.";
+										cin >> promoteTo;
+								}
+								action = new Promotion(srcX, srcY, destX, destY, promoteTo);
+							}
+
 							GameState temp(state);
 							action->apply(temp);
-							if (!temp.isUnderCheck(color))
-							    validActionGiven = true;
+							if (!temp.isUnderCheck(color)) validActionGiven = true;
 							temp.setPreviousState(0);
 						}
 					}
@@ -70,7 +90,7 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 
 			if (!validActionGiven) cerr << "Not a Legal Move." << endl;
 
-		} 
+		}
 		else if (cmd == "resign") 
 		{
 			action = new Resign(color);

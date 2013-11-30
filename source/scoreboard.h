@@ -10,9 +10,13 @@ double black;
 public:
 	static Scoreboard* getInstance();
 	void printScoreboard ();
-	void blackWins ();
-	void whiteWins ();
-	void tie ();
+	void blackWinsByCheckmate ();
+	void whiteWinsByCheckmate ();
+
+	void blackResigns();
+	void whiteResigns();
+	
+	void stalemate ();
 };
 
 #endif
