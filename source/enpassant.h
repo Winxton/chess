@@ -11,7 +11,6 @@ class EnPassant : public ChessMove
 public:
 	EnPassant(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest);
 	void apply (GameState &state,bool updateGraphics=false, bool saveState=false) const ;
-	std::string getSpecial();
 };
 
 #endif

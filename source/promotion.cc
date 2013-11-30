@@ -47,7 +47,3 @@ ostream& Promotion::doPrint(std::ostream& out) const {
 	<< (char)('a'+this->xCordDest) << "," << (this->yCordDest+1) << ")";
 }
 
-string Promotion::getSpecial(){
-	return special;
-}
-
