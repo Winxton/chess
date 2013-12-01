@@ -17,7 +17,7 @@ void ChessGame::doTurn(const Player &player) {
 
 	Action *action = player.getAction(*currentState);
 
-	cout << "Apply action: " << *action << endl;
+	cout << "INFO: Apply action: " << *action << endl;
 
 	// apply the action to the current state
 	// AND update the graphics
@@ -34,7 +34,7 @@ void ChessGame::doTurn(const Player &player) {
 		currentState->setGameEnded(GameState::STALEMATE);
 	}
 	// other player cannot move -> lost
-	if (!currentState->hasLegalMoves(oppositeColor)) 
+	else if (!currentState->hasLegalMoves(oppositeColor)) 
 	{
 		if (player.getColor() == "white") {
 			currentState->setGameEnded(GameState::WHITE_WINS_BY_CHECKMATE);

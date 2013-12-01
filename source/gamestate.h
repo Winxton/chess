@@ -69,6 +69,11 @@ public:
 
     bool hasLegalMoves(std::string color) const;
 
+    bool playerUnderAttack(std::string color) const;
+
+    // checks if a board's square is attacked by a given player 
+    bool isAttackedBy (std::string color, int xCord, int yCord) const;
+
     // checks whether a player's king is in check
     bool isUnderCheck (std::string color) const;
 
@@ -96,6 +101,10 @@ public:
     // prints the board to stdout
     void printBoard() const;
 
+    // returns a "value" based on the configuration
+    // used for the AI for making smart moves
+    int getValueForPlayer(std::string color) const;
+    
     ~GameState();
 };
 

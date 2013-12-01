@@ -8,6 +8,10 @@
 #include "window.h"
 using namespace std;
 
+string getOppositeColor(string color) {
+    return color == "white" ? "black" : "white";
+}
+
 GameState::GameState(Xwindow *w, bool enterSetupMode): w(w), previousState(0), whiteTurn(true), gameEnded(false) {
     setSquareNumberings();
     if (enterSetupMode) {
@@ -222,7 +226,8 @@ vector<ChessMove*> GameState::getLegalMovesForPlayer (string color) const {
         possibleMoves[i]->apply(temp);
         //filter moves that do not put the king under check
         if (!temp.isUnderCheck(color)) {
-            legalMoves.push_back(new ChessMove(*possibleMoves[i]));
+            legalMoves.push_back( possibleMoves[i] );
+            possibleMoves[i] = 0; //don't delete!
         }
         temp.setPreviousState(0); //important! otherwise will delete all the previous state
 
@@ -246,6 +251,48 @@ bool GameState::hasLegalMoves(string color) const {
     return (numMoves > 0);
 }
 
+bool GameState::isAttackedBy (string color, int xCord, int yCord) const {
+    vector<ChessMove*> possibleMoves = getPossibleMovesForPlayer(color);
+    bool underAttack = false;
+
+    //check if square is being attacked
+    for (unsigned int idx=0; idx<possibleMoves.size(); idx++) {
+        if (possibleMoves[idx]->hasSameDestination(xCord, yCord))
+            underAttack = true;
+        delete possibleMoves[idx];
+    }
+    return underAttack;
+}
+
+bool GameState::playerUnderAttack(string color) const {
+    vector<ChessMove*> possibleMoves = getLegalMovesForPlayer(getOppositeColor(color));
+
+    //create a 2d array of pieces under attack
+    bool piecesUnderAttack[8][8];
+    //set a mark if a square is being attacked
+    for (unsigned int idx=0; idx<possibleMoves.size(); idx++) {
+        int x = possibleMoves[idx]->getXCordDest();
+        int y = possibleMoves[idx]->getYCordDest();
+        piecesUnderAttack[x][y] = true;
+    }
+
+    //through all the pieces
+    for (int x =0; x<8; x++) {
+        for (int y = 0; y<8; y++) {
+            if (getPieceColor(x, y)==color && piecesUnderAttack[x][y]) {
+                return true;
+            }
+        }
+    }
+
+    for (unsigned int i =0; i<possibleMoves.size(); i++) {
+        delete possibleMoves[i];
+    }
+
+    return false;
+}
+
+
 bool GameState::isUnderCheck (string color) const {
     // check if the opposite colour can attack the king
 
@@ -263,18 +310,7 @@ bool GameState::isUnderCheck (string color) const {
         }
     }
     
-    string oppositeColor = color == "white" ? "black" : "white";
-    vector<ChessMove*> possibleMoves = getPossibleMovesForPlayer(oppositeColor);
-    bool kingUnderCheck = false;
-
-    //check if king is being attacked
-    for (unsigned int idx=0; idx<possibleMoves.size(); idx++) {
-        if (possibleMoves[idx]->hasSameDestination(kingx, kingy))
-            kingUnderCheck = true;
-        delete possibleMoves[idx];
-    }
-    
-    return kingUnderCheck;
+    return isAttackedBy(getOppositeColor(color), kingx, kingy);
 }
 
 bool GameState::isInsideBoard(int xCord, int yCord) const {
@@ -303,11 +339,8 @@ string GameState::getPieceColor(int xCord, int yCord) const {
 }
 
 bool GameState::hasPieceOfOppositeColor(string color,int xCord, int yCord) const {
-    string oppositeColor = color == "white" ? "black" : "white"; 
-	return (getPieceColor(xCord, yCord) == oppositeColor);
+	return (getPieceColor(xCord, yCord) == getOppositeColor(color));
 }
-
-
 
 int GameState::getPieceType(int xCord, int yCord) const {
 	if (this->hasPieceAt(xCord,yCord)) {
@@ -365,16 +398,7 @@ void GameState::drawState() const {
     w->setBoardBackground();
     
     string temp;
-    /*
-    for (int row = 7; row >= 0; row--) {
-        for (int col = 0; col <=7; col ++) {
-            if (chessboard[col][row].hasPiece()){
-                temp = string(1,chessboard[col][row].getPiece()->getCharRepr());
-                w->putPiece(col,row,temp);
-            }
-        }
-    }
-    */
+
     for (int row = 0; row <= 7; row++) {
         for (int col = 0; col <=7; col ++) {
             if (chessboard[row][col].hasPiece()){
@@ -383,6 +407,10 @@ void GameState::drawState() const {
             }
         }
     }
+}
+
+int GameState::getValueForPlayer(string color) const {
+    return 0;
 }
 
 GameState::~GameState() {

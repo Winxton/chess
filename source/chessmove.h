@@ -27,6 +27,11 @@ public:
 	bool avoidsCaptureAfterMove(const GameState &state) const;
 
 	bool hasSameDestination(int xCord, int yCord) const;
+
+	int getXCordDest() const;
+
+	int getYCordDest() const;
+
 	//friend std::ostream& operator<<(std::ostream &out, const ChessMove &s);
 	bool operator==(const ChessMove &other);
 

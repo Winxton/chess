@@ -33,7 +33,7 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 
 		if (cmd == "move") 
 		{
-			string src, dest, promoteTo;
+			string src, dest;
 			cin >> src >> dest;
 			
 			//check validity of input
@@ -46,6 +46,7 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 				if (state.isInsideBoard(srcX, srcY)
 					&& state.isInsideBoard(destX, destY)) 
 				{
+					//create a temporary chessmove object for comparison
 					action = new ChessMove(srcX, srcY, destX, destY);
 					
 					//check if it's a valid action
@@ -53,17 +54,9 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 					{
 						if (*possibleMoves[i] == *(static_cast<ChessMove*>(action))) 
 						{
-							if (possibleMoves[i]->getSpecial() == "castle") 
-							{
-								delete action;
-								action = new Castle(srcX, srcY, destX, destY);
-							}
-							if (possibleMoves[i]->getSpecial() == "enpassant") 
-							{
-								delete action;
-								action = new EnPassant(srcX, srcY, destX, destY);
+							//found a legal action:
+							delete action;
 
-							}
 							if (possibleMoves[i]->getSpecial() == "promotion") 
 							{
 								string promoteTo = "";
@@ -77,12 +70,22 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 										cerr << "ERROR: Incorrect Promotion Piece. Please re-enter promotion piece type:" << endl; 
 										cin >> promoteTo;
 								}
+
 								action = new Promotion(srcX, srcY, destX, destY, promoteTo);
+							} 
+							else 
+							{
+								action = possibleMoves[i];
 							}
 
 							GameState temp(state);
 							action->apply(temp);
-							if (!temp.isUnderCheck(color)) validActionGiven = true;
+
+							if (!temp.isUnderCheck(color)) {
+								validActionGiven = true;
+								possibleMoves[i] = 0;
+							}
+
 							temp.setPreviousState(0);
 						}
 					}

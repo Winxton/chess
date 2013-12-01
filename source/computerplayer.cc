@@ -12,8 +12,12 @@ ComputerPlayer::ComputerPlayer(std::string color, int level): Player(color), lev
 // Level 1 - random moves
 Action *ComputerPlayer::getLevel1Action(const GameState& state) const {
     vector<ChessMove*> legalMoves = state.getLegalMovesForPlayer(color);
+    
+    for (unsigned int i =0; i<legalMoves.size(); i++) {
+        cout << *legalMoves[i] << endl;
+    }
 
-    unsigned int moveIdx =  rand() % legalMoves.size();
+    unsigned int moveIdx = rand() % legalMoves.size();
 
     // stores the result of the move
     ChessMove *theMove = legalMoves[moveIdx];

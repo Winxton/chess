@@ -16,6 +16,7 @@ bool ChessMove::capturesPiece(const GameState &state) const {
 bool ChessMove::checksOpponent(const GameState &state) const {
 	//color of the moving piece
 	string myColor = state.getPieceColor(xCordSrc, yCordSrc); 
+	//create a temporary state and apply the action to it
 	GameState temp = state;
 	apply(temp);
 	//returns true if the opponent is under check
@@ -27,7 +28,17 @@ bool ChessMove::checksOpponent(const GameState &state) const {
 }
 
 bool ChessMove::avoidsCaptureAfterMove(const GameState &state) const {
-	return false;
+	//color of the moving piece
+	string myColor = state.getPieceColor(xCordSrc, yCordSrc); 
+	//create a temporary state and apply the action to it
+	GameState temp = state;
+	apply(temp);
+
+	bool underAttack = false;
+	underAttack = state.playerUnderAttack(myColor); 
+
+	temp.setPreviousState(0);
+	return !underAttack;
 }
 
 void ChessMove::apply (GameState &state, bool updateGraphics, bool saveState) const {
@@ -61,6 +72,14 @@ bool ChessMove::operator==(const ChessMove &other) {
 		&& yCordSrc==other.yCordSrc
 		&& xCordDest==other.xCordDest
 		&& yCordDest==other.yCordDest);
+}
+
+int ChessMove::getXCordDest() const {
+	return xCordDest;
+}
+
+int ChessMove::getYCordDest() const {
+	return yCordDest;
 }
 
 string ChessMove::getSpecial(){
