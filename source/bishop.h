@@ -10,6 +10,9 @@
 class Bishop : public Piece 
 {
 public:
+	static const int VALUE = 3;
+
+	int getValue() const;
 	Bishop (std::string color);
 	std::vector<ChessMove*> getPossibleMoves(const GameState* state) const;
 	Bishop *clone() const;

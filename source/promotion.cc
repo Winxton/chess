@@ -27,6 +27,7 @@ string toLower(string s)
 
 void Promotion::apply (GameState &state, bool updateGraphics, bool saveState) const {
 	if (saveState) saveCurrentStateAsPrevious(state);
+	
 	PieceFactory *factory = PieceFactory::getInstance();
 	if (state.getPieceColor(xCordSrc,yCordSrc) == "black"){
 		state.chessboard[xCordDest][yCordDest].setPiece(factory->createPiece(toLower(this->promoteTo)),updateGraphics);

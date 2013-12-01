@@ -20,6 +20,8 @@ public:
     const static int KING = 4;
     const static int QUEEN = 5;
 
+    virtual int getValue() const =0;
+
     Piece(std::string color);
     virtual std::string getColor() const;
     virtual std::vector<ChessMove*> getPossibleMoves(const GameState* state) const = 0;

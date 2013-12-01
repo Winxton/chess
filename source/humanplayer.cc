@@ -62,6 +62,7 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 							{
 								delete action;
 								action = new EnPassant(srcX, srcY, destX, destY);
+
 							}
 							if (possibleMoves[i]->getSpecial() == "promotion") 
 							{
@@ -73,7 +74,7 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 										promoteTo == "N" || promoteTo == "n" ||
 										promoteTo == "B" || promoteTo == "b")) 
 								{
-										cerr << "Incorrect Promotion Piece. Please re-enter piece.";
+										cerr << "ERROR: Incorrect Promotion Piece. Please re-enter promotion piece type:" << endl; 
 										cin >> promoteTo;
 								}
 								action = new Promotion(srcX, srcY, destX, destY, promoteTo);
@@ -88,7 +89,7 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 				}
 			}
 
-			if (!validActionGiven) cerr << "Not a Legal Move." << endl;
+			if (!validActionGiven) cerr << "ERROR: Not a Legal Move." << endl;
 
 		}
 		else if (cmd == "resign") 

@@ -74,7 +74,7 @@ bool GameState::isValidSetupState() const {
 }
 
 void GameState::doSetupMode() {
-    cerr << "entered setup mode" << endl;
+    cerr << "INFO: entered setup mode" << endl;
     bool getCommands = true;
 
     while (getCommands) {
@@ -120,21 +120,22 @@ void GameState::doSetupMode() {
             //if the current turn is a different color, swap the turns
             if ( (color == "white" && !isWhiteTurn())
                 || (color == "black" && isWhiteTurn()) ) {
+                cerr << "INFO: Turns swapped." << endl;
                 swapTurns();
             }
         } 
         else if (cmd == "done") 
         {
             if (isValidSetupState()) {
-                cerr << "GOOD SETUP." << endl;
+                cerr << "INFO: GOOD SETUP." << endl;
                 getCommands = false;
             } else {
-                cerr << "BAD SETUP." << endl;
+                cerr << "INFO: BAD SETUP." << endl;
             }
         } 
         else 
         {
-            cerr << "invalid command!" << endl;
+            cerr << "ERROR: Invalid Command!" << endl;
         }
     }
 }

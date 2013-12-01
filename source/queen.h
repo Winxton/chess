@@ -10,6 +10,9 @@
 class Queen : public Piece 
 {
 public:
+	static const int VALUE = 9;
+	
+	int getValue() const;
     Queen (std::string color);
     std::vector<ChessMove*> getPossibleMoves(const GameState* state) const;
     Queen *clone() const;

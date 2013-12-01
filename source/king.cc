@@ -69,3 +69,7 @@ vector<ChessMove*> King::getPossibleMoves(const GameState* state) const {
 King *King::clone() const {
 	return new King(*this);
 }
+
+int King::getValue() const {
+	return 0;
+}
