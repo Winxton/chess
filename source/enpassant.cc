@@ -32,7 +32,3 @@ ostream& EnPassant::doPrint(std::ostream& out) const {
 	<< (char)('a'+this->xCordDest) << "," << (this->yCordDest+1) << ")";
 }
 
-string EnPassant::getSpecial(){
-	return special;
-}
-

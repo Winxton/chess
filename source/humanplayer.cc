@@ -33,7 +33,7 @@ Action *HumanPlayer::getAction(const GameState &state) const {
 
 		if (cmd == "move") 
 		{
-			string src, dest;
+			string src, dest, promoteTo;
 			cin >> src >> dest;
 			
 			//check validity of input

@@ -12,7 +12,6 @@ class Promotion : public ChessMove
 public:
 	Promotion(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest, std::string promoteTo = "Q");
 	void apply (GameState &state, bool updateGraphics=false, bool saveState=false) const;
-	std::string getSpecial();
 };
 
 #endif
