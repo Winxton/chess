@@ -92,58 +92,50 @@ Action *ComputerPlayer::getLevel3Action(const GameState& state) const {
     return theMove;
 }
 
-
+/*
+bool ComputerPlayer::stateCompare (const ChessMove *a, const ChessMove *b) 
+{
+    return a->getValueForPlayer(color) > b->getValueForPlayer(color);
+}
+*/
 // Level 4
 int MAX_DEPTH = 3;
 int leaves = 0;
-
-struct ActionState {
-    ChessMove *move;
-    GameState *state;
-    ActionState(ChessMove *move, GameState *state) {
-        this->move = move;
-        this->state = state;
-    }
-};
-
-bool actionStateComparator(ActionState left, ActionState right) {
-    string color = left.state->isWhiteTurn() ? "white" : "black";
-    return left.state->getValueForPlayer(color) > right.state->getValueForPlayer(color);
-}
 
 int ComputerPlayer::getValue(GameState *state, int depth, string color, ChessMove *&bestMove, int alpha, int beta) const {
     if (depth == 0) {
         leaves ++;
         return state->getValueForPlayer(color);
     }
-    else
+    else 
     {
         vector<ChessMove*> legalMoves = state->getLegalMovesForPlayer(color);
-        
-        vector< ActionState > actionStatePairs;
 
+        //int maxValue = -1000;
         for (unsigned int i =0; i<legalMoves.size(); i++) 
         {
+            
             GameState *newState = new GameState(*state);
+            //apply move to state
+            
             legalMoves[i]->apply(*newState);
-            actionStatePairs.push_back( ActionState(legalMoves[i], newState) );
-        }
 
-        // Best potential states first
-        sort(actionStatePairs.begin(), actionStatePairs.end(), actionStateComparator);
-
-        for (unsigned int i =0; i<actionStatePairs.size(); i++) 
-        {
             string oppositeColor = color == "white" ? "black" : "white";
-            int result = -getValue(actionStatePairs[i].state, depth-1, oppositeColor, bestMove, -beta, -alpha);
+            int result = -getValue(newState, depth-1, oppositeColor, bestMove, -beta, -alpha);
 
             if (result >= beta)
             {
                 // Beta cut-off
                 //return beta;
-                //return beta;
-                alpha = beta;
-                break;
+                
+                for (unsigned int i =0; i<legalMoves.size(); i++) {
+                    delete legalMoves[i];
+                }
+
+                newState->setPreviousState(0);
+                delete newState;
+
+                return beta;
             }
             
             if (result > alpha)
@@ -153,20 +145,19 @@ int ComputerPlayer::getValue(GameState *state, int depth, string color, ChessMov
                 if (depth == MAX_DEPTH) 
                 {
                     delete bestMove;
-                    bestMove = actionStatePairs[i].move; 
+                    bestMove = legalMoves[i]; 
                     cout << *bestMove << endl;
-                    actionStatePairs[i].move = 0;
+                    legalMoves[i] = 0;
                 }
 
             }
-        }
 
-        for (unsigned int i =0; i<actionStatePairs.size(); i++) {
-            delete actionStatePairs[i].move;
-            actionStatePairs[i].state->setPreviousState(0);
-            delete actionStatePairs[i].state;
+            newState->setPreviousState(0);
+            delete newState;
         }
-        
+        for (unsigned int i =0; i<legalMoves.size(); i++) {
+            delete legalMoves[i];
+        }
         //return maxValue;
         return alpha;
     }
