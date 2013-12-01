@@ -268,7 +268,7 @@ bool GameState::playerUnderAttack(string color) const {
     vector<ChessMove*> possibleMoves = getLegalMovesForPlayer(getOppositeColor(color));
 
     //create a 2d array of pieces under attack
-    bool piecesUnderAttack[8][8];
+    bool piecesUnderAttack[8][8] = { {false} };
     //set a mark if a square is being attacked
     for (unsigned int idx=0; idx<possibleMoves.size(); idx++) {
         int x = possibleMoves[idx]->getXCordDest();
@@ -276,11 +276,13 @@ bool GameState::playerUnderAttack(string color) const {
         piecesUnderAttack[x][y] = true;
     }
 
+    bool playerUnderAttack = false;
     //through all the pieces
     for (int x =0; x<8; x++) {
-        for (int y = 0; y<8; y++) {
+        for (int y=0; y<8; y++) {
             if (getPieceColor(x, y)==color && piecesUnderAttack[x][y]) {
-                return true;
+                playerUnderAttack = true;
+                break;
             }
         }
     }
@@ -289,7 +291,7 @@ bool GameState::playerUnderAttack(string color) const {
         delete possibleMoves[i];
     }
 
-    return false;
+    return playerUnderAttack;
 }
 
 

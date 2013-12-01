@@ -33,9 +33,9 @@ bool ChessMove::avoidsCaptureAfterMove(const GameState &state) const {
 	//create a temporary state and apply the action to it
 	GameState temp = state;
 	apply(temp);
-
+	
 	bool underAttack = false;
-	underAttack = state.playerUnderAttack(myColor); 
+	underAttack = temp.playerUnderAttack(myColor); 
 
 	temp.setPreviousState(0);
 	return !underAttack;
