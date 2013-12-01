@@ -31,7 +31,7 @@ vector<ChessMove*> Pawn::getPossibleMoves(const GameState* state) const {
 	// normal move
 	if (state->isInsideBoard(this->xCord,this->yCord+forwardOne) &&
 		!state->hasPieceAt(this->xCord,this->yCord+forwardOne)){
-		if (this->yCord+forwardOne != 7)
+		if (this->yCord+forwardOne != 7 && this->yCord+forwardOne != 0)
 			list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord,this->yCord+forwardOne));
 		else{
 			// promotion

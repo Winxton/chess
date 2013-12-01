@@ -91,7 +91,11 @@ void Xwindow::removePiece(int col,int row){
 }
 
 void Xwindow::putPiece(int col, int row, string piece){
-	drawString(52+col*squareLength, 380-row*squareLength, piece, 0);
+	if (piece == "p" || piece == "r" || piece == "n" || piece == "b" || piece == "q" || piece == "k")
+		drawString(52+col*squareLength, 380-row*squareLength, piece, 0);
+	else
+		drawString(52+col*squareLength, 380-row*squareLength, piece, 1);
+	
 }
 
 void Xwindow::setBoardBackground(){
