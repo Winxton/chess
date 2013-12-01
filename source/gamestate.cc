@@ -412,8 +412,26 @@ void GameState::drawState() const {
 }
 
 int GameState::getValueForPlayer(string color) const {
-    return 0;
+    int value = 0;
+
+    for (int x =0; x<8; x++) {
+    	for (int y=0; y<8; y++) {
+    	    if (getPieceColor(x,y) == color) 
+            {
+                if (color == "white")
+                    value += y;
+                else 
+                    value += (7-y);
+    	       value += getPieceAt(x,y)->getValue()*100;
+    	    }
+    	    else if (hasPieceOfOppositeColor(color, x, y)) {
+    		  value -= getPieceAt(x,y)->getValue()*100;
+    	    }
+    	}
+    }
+    return value;
 }
+
 
 GameState::~GameState() {
     delete previousState;

@@ -15,7 +15,8 @@ using namespace std;
 HumanPlayer::HumanPlayer(string color): Player(color) {}
 
 Action *HumanPlayer::getAction(const GameState &state) const {
-	
+	cout << "VALUE: " << state.getValueForPlayer(color) << endl;
+
 	vector<ChessMove*> possibleMoves = state.getPossibleMovesForPlayer(color);
 
 	for (unsigned int i =0; i<possibleMoves.size(); i++) {

@@ -9,12 +9,13 @@ class ChessMove: public Action {
 protected:
 	std::string special;
 	int xCordSrc, yCordSrc, xCordDest, yCordDest;
+
 	virtual std::ostream& doPrint(std::ostream &out) const;
 public:
 	ChessMove(int xCordSrc, int yCordSrc, int xCordDest, int yCordDest);
 	
 	virtual void apply (GameState &state, bool updateGraphics=false, bool saveState=false) const;
-	
+
 	virtual ~ChessMove();
 
 	// returns true if this moves captures another piece

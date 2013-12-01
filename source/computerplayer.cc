@@ -4,6 +4,7 @@
 #include <ctime>
 #include <vector>
 #include <string>
+#include <algorithm>
 #include <cstdlib>
 using namespace std;
 
@@ -11,6 +12,7 @@ ComputerPlayer::ComputerPlayer(std::string color, int level): Player(color), lev
 
 // Level 1 - random moves
 Action *ComputerPlayer::getLevel1Action(const GameState& state) const {
+    srand( time(0) );
     vector<ChessMove*> legalMoves = state.getLegalMovesForPlayer(color);
     
     for (unsigned int i =0; i<legalMoves.size(); i++) {
@@ -34,6 +36,7 @@ Action *ComputerPlayer::getLevel1Action(const GameState& state) const {
 // Level 2
 // Prefer capturing moves and checks!
 Action *ComputerPlayer::getLevel2Action(const GameState& state) const {
+    srand( time(0) );
     vector<ChessMove*> legalMoves = state.getLegalMovesForPlayer(color);
     
     unsigned int moveIdx = rand() % legalMoves.size();
@@ -60,6 +63,7 @@ Action *ComputerPlayer::getLevel2Action(const GameState& state) const {
 // Level 3
 // Prefer Attacking moves, and avoiding capture, and checks!
 Action *ComputerPlayer::getLevel3Action(const GameState& state) const {
+    srand( time(0) );
     vector<ChessMove*> legalMoves = state.getLegalMovesForPlayer(color);
     
     cout << "MOVES: " << legalMoves.size() << endl;
@@ -88,9 +92,107 @@ Action *ComputerPlayer::getLevel3Action(const GameState& state) const {
     return theMove;
 }
 
+
 // Level 4
+int MAX_DEPTH = 3;
+int leaves = 0;
+
+struct ActionState {
+    ChessMove *move;
+    GameState *state;
+    ActionState(ChessMove *move, GameState *state) {
+        this->move = move;
+        this->state = state;
+    }
+};
+
+bool actionStateComparator(ActionState left, ActionState right) {
+    string color = left.state->isWhiteTurn() ? "white" : "black";
+    return left.state->getValueForPlayer(color) > right.state->getValueForPlayer(color);
+}
+
+int ComputerPlayer::getValue(GameState *state, int depth, string color, ChessMove *&bestMove, int alpha, int beta) const {
+    if (depth == 0) {
+        leaves ++;
+        return state->getValueForPlayer(color);
+    }
+    else
+    {
+        vector<ChessMove*> legalMoves = state->getLegalMovesForPlayer(color);
+        
+        vector< ActionState > actionStatePairs;
+
+        for (unsigned int i =0; i<legalMoves.size(); i++) 
+        {
+            GameState *newState = new GameState(*state);
+            legalMoves[i]->apply(*newState);
+            actionStatePairs.push_back( ActionState(legalMoves[i], newState) );
+        }
+
+        // Best potential states first
+        sort(actionStatePairs.begin(), actionStatePairs.end(), actionStateComparator);
+
+        for (unsigned int i =0; i<actionStatePairs.size(); i++) 
+        {
+            string oppositeColor = color == "white" ? "black" : "white";
+            int result = -getValue(actionStatePairs[i].state, depth-1, oppositeColor, bestMove, -beta, -alpha);
+
+            if (result >= beta)
+            {
+                // Beta cut-off
+                //return beta;
+                //return beta;
+                alpha = beta;
+                break;
+            }
+            
+            if (result > alpha)
+            {
+                alpha = result;
+
+                if (depth == MAX_DEPTH) 
+                {
+                    delete bestMove;
+                    bestMove = actionStatePairs[i].move; 
+                    cout << *bestMove << endl;
+                    actionStatePairs[i].move = 0;
+                }
+
+            }
+        }
+
+        for (unsigned int i =0; i<actionStatePairs.size(); i++) {
+            delete actionStatePairs[i].move;
+            actionStatePairs[i].state->setPreviousState(0);
+            delete actionStatePairs[i].state;
+        }
+        
+        //return maxValue;
+        return alpha;
+    }
+}
+
 Action *ComputerPlayer::getLevel4Action(const GameState& state) const {
-    return getLevel3Action(state); //temporary
+    
+    //vector<ChessMove*> legalMoves = state.getLegalMovesForPlayer(color);
+    GameState *temp = new GameState(state);
+
+    leaves = 0;
+    cout << "NUM LEAVES: " << leaves << endl;
+    ChessMove *bestMove = new ChessMove(-1,-1,-1,-1); //dummy
+
+    getValue(temp, MAX_DEPTH, color, bestMove, -100000, 100000);
+    cout << "NUM LEAVES ATFER: " << leaves << endl;
+
+    cout << bestMove << endl;
+
+    temp->setPreviousState(0);
+    delete temp;
+
+    return bestMove;
+
+    //get a limited number of potentially good actions
+
 }
 
 Action *ComputerPlayer::getAction(const GameState& state) const {
