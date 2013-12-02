@@ -17,7 +17,7 @@ void ChessGame::doTurn(const Player &player) {
 
 	Action *action = player.getAction(*currentState);
 
-	cout << "INFO: Apply action: " << *action << endl;
+	cerr << "INFO: Apply action: " << *action << endl;
 
 	// apply the action to the current state
 	// AND update the graphics

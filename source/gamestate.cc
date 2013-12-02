@@ -414,14 +414,23 @@ void GameState::drawState() const {
 int GameState::getValueForPlayer(string color) const {
     int value = 0;
 
+    // CHEKMATE!
+    if (isUnderCheck(color)) {
+        if (!hasLegalMoves(color)) {
+            return -100000;
+        }
+    }
+
     for (int x =0; x<8; x++) {
     	for (int y=0; y<8; y++) {
     	    if (getPieceColor(x,y) == color) 
             {
+                /*
                 if (color == "white")
                     value += y;
                 else 
                     value += (7-y);
+                */
     	       value += getPieceAt(x,y)->getValue()*100;
     	    }
     	    else if (hasPieceOfOppositeColor(color, x, y)) {

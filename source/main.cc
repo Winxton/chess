@@ -44,7 +44,7 @@ int main() {
 			if (blackPlayerType == "computer") {
 				cin >> blackPlayerLevel;
 			}
-			cout << whitePlayerType << " " << blackPlayerType << endl;
+
 		    Player *whitePlayer = PlayerFactory::getInstance()->createPlayer(whitePlayerType, whitePlayerLevel, "white");
 		    Player *blackPlayer = PlayerFactory::getInstance()->createPlayer(blackPlayerType, blackPlayerLevel, "black");
 			

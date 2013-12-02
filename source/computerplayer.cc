@@ -94,16 +94,19 @@ Action *ComputerPlayer::getLevel3Action(const GameState& state) const {
 
 // Level 4
 int MAX_DEPTH = 3;
-int leaves = 0;
 
 int ComputerPlayer::getValue(GameState *state, int depth, string color, ChessMove *&bestMove, int alpha, int beta) const {
     if (depth == 0) {
-        leaves ++;
         return state->getValueForPlayer(color);
     }
     else 
     {
         vector<ChessMove*> legalMoves = state->getLegalMovesForPlayer(color);
+
+        // CHEKMATE!
+        if (legalMoves.size() == 0) {
+            if (state->isUnderCheck(color)) return -100000;
+        }
 
         for (unsigned int i =0; i<legalMoves.size(); i++) 
         {
@@ -139,7 +142,7 @@ int ComputerPlayer::getValue(GameState *state, int depth, string color, ChessMov
                 {
                     delete bestMove;
                     bestMove = legalMoves[i]; 
-                    cout << *bestMove << endl;
+                    //cerr << *bestMove << endl;
                     legalMoves[i] = 0;
                 }
 
@@ -158,26 +161,18 @@ int ComputerPlayer::getValue(GameState *state, int depth, string color, ChessMov
 }
 
 Action *ComputerPlayer::getLevel4Action(const GameState& state) const {
-    
+    cerr << "INFO: Thinking.." << endl;
     //vector<ChessMove*> legalMoves = state.getLegalMovesForPlayer(color);
     GameState *temp = new GameState(state);
 
-    leaves = 0;
-    cout << "NUM LEAVES: " << leaves << endl;
-    ChessMove *bestMove = new ChessMove(-1,-1,-1,-1); //dummy
+    ChessMove *bestMove = new ChessMove(0,0,0,0); //dummy
 
-    getValue(temp, MAX_DEPTH, color, bestMove, -100000, 100000);
-    cout << "NUM LEAVES ATFER: " << leaves << endl;
-
-    cout << bestMove << endl;
+    getValue(temp, MAX_DEPTH, color, bestMove, -1000000, 1000000);
 
     temp->setPreviousState(0);
     delete temp;
 
     return bestMove;
-
-    //get a limited number of potentially good actions
-
 }
 
 Action *ComputerPlayer::getAction(const GameState& state) const {
