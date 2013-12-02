@@ -21,7 +21,6 @@ Action *ComputerPlayer::getLevel1Action(const GameState& state) const {
     ChessMove *theMove = legalMoves[moveIdx];
     // delete the other generated moves
     for (unsigned int i =0; i<legalMoves.size(); i++) {
-        cout << *legalMoves[i] << endl;
         if (i != moveIdx)
             delete legalMoves[i];
     }
@@ -78,7 +77,6 @@ Action *ComputerPlayer::getLevel3Action(const GameState& state) const {
     ChessMove *theMove = legalMoves[moveIdx];
     // delete the other generated moves
     for (unsigned int i =0; i<legalMoves.size(); i++) {
-        cout << *legalMoves[i] << endl;
         if (i != moveIdx)
             delete legalMoves[i];
     }
@@ -122,7 +120,7 @@ int ComputerPlayer::getValue(GameState *state, int depth, string color, ChessMov
                 return beta;
             }
             
-            if (result >= alpha)
+            if (result > alpha)
             {
                 alpha = result;
 
