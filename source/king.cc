@@ -36,38 +36,21 @@ vector<ChessMove*> King::getPossibleMoves(const GameState* state) const {
 		}
 	}
 	// check if able to castle
-	int i;
-	i = 1;
-	while (!this->moved && xCord == 4 && originalY == yCord &&
-			state->isInsideBoard(this->xCord+i,this->yCord))
-	{
-		if (state->hasPieceAt(this->xCord+i,this->yCord)){
-			if (state->getPieceType(this->xCord+i,this->yCord) == Piece::ROOK &&
-				!state->getPieceAt(this->xCord+i,this->yCord)->hasMoved())
-			{
-				list.push_back(new Castle(this->xCord,this->yCord,this->xCord+2,this->yCord));
-				//cout << new ChessMove(this->xCord,this->yCord,this->xCord-2,this->yCord) << endl;
-				//list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord+2,this->yCord));
-			}
-			break;
-		}
-		i++;
+	// right
+	if (!this->moved && xCord == 4 && originalY == yCord &&
+			state->isInsideBoard(this->xCord+3,this->yCord) &&
+			state->hasPieceAt(this->xCord+3,this->yCord) &&
+			state->getPieceType(this->xCord+3,this->yCord) == Piece::ROOK &&
+			!state->getPieceAt(this->xCord+3,this->yCord)->hasMoved()) {
+		list.push_back(new Castle(this->xCord,this->yCord,this->xCord+2,this->yCord));
 	}
-	i = 1;
-	while (!this->moved && xCord == 4 && originalY == yCord &&
-			state->isInsideBoard(this->xCord-i,this->yCord))
-	{
-		if (state->hasPieceAt(this->xCord-i,this->yCord)){
-			if (state->getPieceType(this->xCord-i,this->yCord) == Piece::ROOK  &&
-				!state->getPieceAt(this->xCord-i,this->yCord)->hasMoved())
-			{
-				list.push_back(new Castle(this->xCord,this->yCord,this->xCord-2,this->yCord));
-				//cout << new ChessMove(this->xCord,this->yCord,this->xCord-2,this->yCord) << endl;
-				////list.push_back(new ChessMove(this->xCord,this->yCord,this->xCord-2,this->yCord));
-			}
-			break;
-		}
-		i++;
+	// left
+	if (!this->moved && xCord == 4 && originalY == yCord &&
+			state->isInsideBoard(this->xCord-4,this->yCord) &&
+			state->hasPieceAt(this->xCord-4,this->yCord) &&
+			state->getPieceType(this->xCord-4,this->yCord) == Piece::ROOK &&
+			!state->getPieceAt(this->xCord-4,this->yCord)->hasMoved()) {
+		list.push_back(new Castle(this->xCord,this->yCord,this->xCord-2,this->yCord));
 	}
 	return list;
 }
