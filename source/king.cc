@@ -17,6 +17,12 @@ King::King(string color):Piece(color) {
 }
 
 vector<ChessMove*> King::getPossibleMoves(const GameState* state) const {
+	int originalY = 0;
+	if (this->color == "black"){
+		originalY = 7;
+	}
+
+
 	vector<ChessMove*> list;
 	// normal king moves
 	for (int i = -1; i < 2; i++){
@@ -32,7 +38,7 @@ vector<ChessMove*> King::getPossibleMoves(const GameState* state) const {
 	// check if able to castle
 	int i;
 	i = 1;
-	while (!this->moved &&
+	while (!this->moved && xCord == 4 && originalY == yCord &&
 			state->isInsideBoard(this->xCord+i,this->yCord))
 	{
 		if (state->hasPieceAt(this->xCord+i,this->yCord)){
@@ -48,7 +54,7 @@ vector<ChessMove*> King::getPossibleMoves(const GameState* state) const {
 		i++;
 	}
 	i = 1;
-	while (!this->moved &&
+	while (!this->moved && xCord == 4 && originalY == yCord &&
 			state->isInsideBoard(this->xCord-i,this->yCord))
 	{
 		if (state->hasPieceAt(this->xCord-i,this->yCord)){
