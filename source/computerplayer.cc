@@ -94,11 +94,9 @@ Action *ComputerPlayer::getLevel3Action(const GameState& state) const {
 
 // Level 4
 int MAX_DEPTH = 3;
-int leaves = 0;
 
 int ComputerPlayer::getValue(GameState *state, int depth, string color, ChessMove *&bestMove, int alpha, int beta) const {
     if (depth == 0) {
-        leaves ++;
         return state->getValueForPlayer(color);
     }
     else 
@@ -167,8 +165,6 @@ Action *ComputerPlayer::getLevel4Action(const GameState& state) const {
     //vector<ChessMove*> legalMoves = state.getLegalMovesForPlayer(color);
     GameState *temp = new GameState(state);
 
-    leaves = 0;
-    
     ChessMove *bestMove = new ChessMove(0,0,0,0); //dummy
 
     getValue(temp, MAX_DEPTH, color, bestMove, -1000000, 1000000);
