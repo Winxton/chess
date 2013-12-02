@@ -92,12 +92,6 @@ Action *ComputerPlayer::getLevel3Action(const GameState& state) const {
     return theMove;
 }
 
-/*
-bool ComputerPlayer::stateCompare (const ChessMove *a, const ChessMove *b) 
-{
-    return a->getValueForPlayer(color) > b->getValueForPlayer(color);
-}
-*/
 // Level 4
 int MAX_DEPTH = 3;
 int leaves = 0;
@@ -111,7 +105,6 @@ int ComputerPlayer::getValue(GameState *state, int depth, string color, ChessMov
     {
         vector<ChessMove*> legalMoves = state->getLegalMovesForPlayer(color);
 
-        //int maxValue = -1000;
         for (unsigned int i =0; i<legalMoves.size(); i++) 
         {
             
@@ -119,7 +112,7 @@ int ComputerPlayer::getValue(GameState *state, int depth, string color, ChessMov
             //apply move to state
             
             legalMoves[i]->apply(*newState);
-
+            newState->setPreviousState(state); //used for pawn movements
             string oppositeColor = color == "white" ? "black" : "white";
             int result = -getValue(newState, depth-1, oppositeColor, bestMove, -beta, -alpha);
 
@@ -155,6 +148,7 @@ int ComputerPlayer::getValue(GameState *state, int depth, string color, ChessMov
             newState->setPreviousState(0);
             delete newState;
         }
+
         for (unsigned int i =0; i<legalMoves.size(); i++) {
             delete legalMoves[i];
         }
