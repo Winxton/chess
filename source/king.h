@@ -10,6 +10,8 @@
 class King : public Piece 
 {
 public:
+	static const int VALUE = 100;
+	
 	int getValue() const;
 	King (std::string color);
 	std::vector<ChessMove*> getPossibleMoves(const GameState* state) const;

@@ -71,5 +71,5 @@ King *King::clone() const {
 }
 
 int King::getValue() const {
-	return 0;
+	return VALUE;
 }
