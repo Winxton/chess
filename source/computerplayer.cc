@@ -15,10 +15,6 @@ Action *ComputerPlayer::getLevel1Action(const GameState& state) const {
     srand( time(0) );
     vector<ChessMove*> legalMoves = state.getLegalMovesForPlayer(color);
     
-    for (unsigned int i =0; i<legalMoves.size(); i++) {
-        cout << *legalMoves[i] << endl;
-    }
-
     unsigned int moveIdx = rand() % legalMoves.size();
 
     // stores the result of the move
@@ -65,8 +61,6 @@ Action *ComputerPlayer::getLevel2Action(const GameState& state) const {
 Action *ComputerPlayer::getLevel3Action(const GameState& state) const {
     srand( time(0) );
     vector<ChessMove*> legalMoves = state.getLegalMovesForPlayer(color);
-    
-    cout << "MOVES: " << legalMoves.size() << endl;
 
     unsigned int moveIdx = rand() % legalMoves.size();
 
@@ -103,11 +97,6 @@ int ComputerPlayer::getValue(GameState *state, int depth, string color, ChessMov
     {
         vector<ChessMove*> legalMoves = state->getLegalMovesForPlayer(color);
 
-        // CHEKMATE!
-        if (legalMoves.size() == 0) {
-            if (state->isUnderCheck(color)) return -100000;
-        }
-
         for (unsigned int i =0; i<legalMoves.size(); i++) 
         {
             
@@ -123,7 +112,6 @@ int ComputerPlayer::getValue(GameState *state, int depth, string color, ChessMov
             {
                 // Beta cut-off
                 //return beta;
-                
                 for (unsigned int i =0; i<legalMoves.size(); i++) {
                     delete legalMoves[i];
                 }
@@ -134,7 +122,7 @@ int ComputerPlayer::getValue(GameState *state, int depth, string color, ChessMov
                 return beta;
             }
             
-            if (result > alpha)
+            if (result >= alpha)
             {
                 alpha = result;
 
@@ -161,18 +149,29 @@ int ComputerPlayer::getValue(GameState *state, int depth, string color, ChessMov
 }
 
 Action *ComputerPlayer::getLevel4Action(const GameState& state) const {
+    srand( time(0) );
     cerr << "INFO: Thinking.." << endl;
     //vector<ChessMove*> legalMoves = state.getLegalMovesForPlayer(color);
     GameState *temp = new GameState(state);
 
-    ChessMove *bestMove = new ChessMove(0,0,0,0); //dummy
+    vector<ChessMove*> legalMoves = state.getLegalMovesForPlayer(color);
+    unsigned int moveIdx = rand() % legalMoves.size();
 
-    getValue(temp, MAX_DEPTH, color, bestMove, -1000000, 1000000);
+    ChessMove *theMove = legalMoves[moveIdx]; //dummy first move
+
+    // delete the other generated moves
+    for (unsigned int i =0; i<legalMoves.size(); i++) {
+        if (i != moveIdx)
+            delete legalMoves[i];
+    }
+
+    // get the best possible move within MAX_DEPTH
+    getValue(temp, MAX_DEPTH, color, theMove, -1000000, 1000000);
 
     temp->setPreviousState(0);
     delete temp;
 
-    return bestMove;
+    return theMove;
 }
 
 Action *ComputerPlayer::getAction(const GameState& state) const {
